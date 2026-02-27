@@ -171,99 +171,95 @@ export default function Page() {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-black/50 backdrop-blur">
-        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
-          {/* Brand */}
+      {/* Header (estilo referencia: logo centrado, grande, sin círculo extra) */}
+      <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
+        <div className="relative mx-auto h-20 max-w-6xl px-5">
+          {/* Línea inferior (queda POR DEBAJO del logo) */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+
+          {/* Logo centrado, grande, flotando (sin contenedor/círculo extra) */}
           <a
             href="/"
-            className="flex items-center gap-2"
             onClick={() => setMenuOpen(false)}
+            className="absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
+            aria-label="Ir al inicio"
+            title="Inicio"
           >
-            {/* Contenedor fijo: NO engorda header. Logo grande: absolute. */}
-            <div className="relative flex h-16 w-16 items-center justify-center overflow-visible">
-              <img
-                src={SITE.logoSrc}
-                alt="Alex Estética"
-                className="absolute h-36 w-36 object-contain drop-shadow-[0_0_30px_rgba(255,215,128,0.35)]"
-              />
-            </div>
+            {/* “Máscara” oscura para que la línea NO atraviese el logo (como tu referencia) */}
+            <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
 
-            <div className="leading-tight">
-              <div className="font-semibold tracking-wide text-amber-100">
-                {SITE.brand}
-              </div>
-              <div className="text-xs text-amber-100/60">{SITE.city}</div>
-            </div>
+            <img
+              src={SITE.logoSrc}
+              alt="Alex Estética"
+              className="
+          h-24 w-24 sm:h-50 sm:w-50
+          object-contain
+          drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]
+        "
+            />
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-7 sm:flex">
-            {/* ✅ Tratamientos = Servicios */}
-            <NavLink href="/servicios">Tratamientos</NavLink>
-            <NavLink href="#resultados">Resultados</NavLink>
-            <NavLink href="/curso">Curso</NavLink>
-            <NavLink href="#contacto">Contacto</NavLink>
-          </nav>
+          {/* Separador " | " */}
+          {(() => {
+            const Sep = () => (
+              <span className="select-none text-amber-100/35">|</span>
+            );
+            return (
+              <div className="flex h-full items-center justify-between">
+                {/* Izquierda (desktop) */}
+                <nav className="hidden items-center gap-4 sm:flex">
+                  <NavLink href="/#sobre">Sobre Nosotros</NavLink>
+                  <Sep />
+                  <NavLink href="/#contacto">Contacto</NavLink>
+                </nav>
 
-          {/* Right side */}
-          <div className="flex items-center gap-2">
-            <a
-              href={whatsappGeneral}
-              className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-semibold text-black hover:brightness-110"
-              target="_blank"
-              rel="noreferrer"
-            >
-              WhatsApp
-            </a>
+                {/* Espacio reservado para el centro (desktop) */}
+                <div className="hidden sm:block w-[180px]" />
 
-            {/* Instagram icon (desktop) */}
-            {SITE.instagramUrl ? (
-              <a
-                href={SITE.instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
-                aria-label="Instagram"
-                title="Instagram"
-              >
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-                  <path
-                    d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                  />
-                  <path
-                    d="M12 16a4 4 0 100-8 4 4 0 000 8z"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                  />
-                  <path
-                    d="M17.5 6.5h.01"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </a>
-            ) : null}
+                {/* Derecha */}
+                <div className="flex items-center gap-2">
+                  <nav className="hidden items-center gap-4 sm:flex">
+                    <NavLink href="/servicios">Tratamientos</NavLink>
+                    <Sep />
+                    <NavLink href="/curso">Curso</NavLink>
+                  </nav>
 
-            {/* Mobile menu button */}
-            <button
-              type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:hidden"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Abrir menú"
-              aria-expanded={menuOpen}
-            >
-              <span className="sr-only">Menú</span>
-              <span className="flex flex-col gap-1">
-                <span className="h-0.5 w-5 rounded bg-amber-200" />
-                <span className="h-0.5 w-5 rounded bg-amber-200" />
-                <span className="h-0.5 w-5 rounded bg-amber-200" />
-              </span>
-            </button>
-          </div>
+                  <a
+                    href={whatsappGeneral}
+                    className="
+                ml-2
+                rounded-full
+                border border-amber-300/25
+                bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200
+                px-5 py-2
+                text-sm font-semibold text-black
+                hover:brightness-110
+              "
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Agende una consulta
+                  </a>
+
+                  {/* Mobile menu button */}
+                  <button
+                    type="button"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:hidden"
+                    onClick={() => setMenuOpen((v) => !v)}
+                    aria-label="Abrir menú"
+                    aria-expanded={menuOpen}
+                  >
+                    <span className="sr-only">Menú</span>
+                    <span className="flex flex-col gap-1">
+                      <span className="h-0.5 w-5 rounded bg-amber-200" />
+                      <span className="h-0.5 w-5 rounded bg-amber-200" />
+                      <span className="h-0.5 w-5 rounded bg-amber-200" />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Mobile dropdown */}
@@ -271,7 +267,22 @@ export default function Page() {
           <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
             <div className="mx-auto max-w-6xl px-5 py-3">
               <div className="flex flex-col gap-1">
-                {/* ✅ Tratamientos = Servicios */}
+                <a
+                  href="/"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Inicio
+                </a>
+
+                <a
+                  href="/#sobre"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Sobre Nosotros
+                </a>
+
                 <a
                   href="/servicios"
                   className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
@@ -279,13 +290,7 @@ export default function Page() {
                 >
                   Tratamientos
                 </a>
-                <a
-                  href="#resultados"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Resultados
-                </a>
+
                 <a
                   href="/curso"
                   className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
@@ -293,8 +298,9 @@ export default function Page() {
                 >
                   Curso
                 </a>
+
                 <a
-                  href="#contacto"
+                  href="/#contacto"
                   className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -317,7 +323,6 @@ export default function Page() {
           </div>
         ) : null}
       </header>
-
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
         <div className="grid gap-10 sm:grid-cols-2 sm:items-center">
