@@ -171,275 +171,6 @@ export default function Page() {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
       </div>
 
-      {/* Header (estilo referencia: logo centrado, grande, sin círculo extra) */}
-      <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
-        <div className="relative mx-auto h-20 max-w-6xl px-5">
-          {/* Línea inferior (queda POR DEBAJO del logo) */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
-
-          {/* Logo centrado, grande, flotando (sin contenedor/círculo extra) */}
-          <a
-            href="/"
-            onClick={() => setMenuOpen(false)}
-            className="absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
-            aria-label="Ir al inicio"
-            title="Inicio"
-          >
-            {/* “Máscara” oscura para que la línea NO atraviese el logo (como tu referencia) */}
-            <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
-
-            <img
-              src={SITE.logoSrc}
-              alt="Alex Estética"
-              className="
-          h-24 w-24 sm:h-50 sm:w-50
-          object-contain
-          drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]
-        "
-            />
-          </a>
-
-          {/* Separador " | " */}
-          {(() => {
-            const Sep = () => (
-              <span className="select-none text-amber-100/35">|</span>
-            );
-            return (
-              <div className="flex h-full items-center justify-between">
-                {/* Izquierda (desktop) */}
-                <nav className="hidden items-center gap-4 sm:flex">
-                  <NavLink href="/#sobre">Sobre Nosotros</NavLink>
-                  <Sep />
-                  <NavLink href="/#contacto">Contacto</NavLink>
-                </nav>
-
-                {/* Espacio reservado para el centro (desktop) */}
-                <div className="hidden sm:block w-[180px]" />
-
-                {/* Derecha */}
-                <div className="flex items-center gap-2">
-                  <nav className="hidden items-center gap-4 sm:flex">
-                    <NavLink href="/servicios">Tratamientos</NavLink>
-                    <Sep />
-                    <NavLink href="/curso">Curso</NavLink>
-                  </nav>
-
-                  <a
-                    href={whatsappGeneral}
-                    className="
-                ml-2
-                rounded-full
-                border border-amber-300/25
-                bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200
-                px-5 py-2
-                text-sm font-semibold text-black
-                hover:brightness-110
-              "
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Agende una consulta
-                  </a>
-
-                  {/* Mobile menu button */}
-                  <button
-                    type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:hidden"
-                    onClick={() => setMenuOpen((v) => !v)}
-                    aria-label="Abrir menú"
-                    aria-expanded={menuOpen}
-                  >
-                    <span className="sr-only">Menú</span>
-                    <span className="flex flex-col gap-1">
-                      <span className="h-0.5 w-5 rounded bg-amber-200" />
-                      <span className="h-0.5 w-5 rounded bg-amber-200" />
-                      <span className="h-0.5 w-5 rounded bg-amber-200" />
-                    </span>
-                  </button>
-                </div>
-              </div>
-            );
-          })()}
-        </div>
-
-        {/* Mobile dropdown */}
-        {menuOpen ? (
-          <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
-            <div className="mx-auto max-w-6xl px-5 py-3">
-              <div className="flex flex-col gap-1">
-                <a
-                  href="/"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Inicio
-                </a>
-
-                <a
-                  href="/#sobre"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Sobre Nosotros
-                </a>
-
-                <a
-                  href="/servicios"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Tratamientos
-                </a>
-
-                <a
-                  href="/curso"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Curso
-                </a>
-
-                <a
-                  href="/#contacto"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Contacto
-                </a>
-
-                {SITE.instagramUrl ? (
-                  <a
-                    href={SITE.instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Instagram
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        ) : null}
-      </header>
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <div className="grid gap-10 sm:grid-cols-2 sm:items-center">
-          <div>
-            <Pill>Clínica estética en {SITE.city}</Pill>
-
-            <h1 className="mt-5 text-4xl font-semibold leading-tight text-amber-100 sm:text-5xl">
-              Realza tu belleza
-              <span className="block text-amber-200/90">con resultados reales</span>
-            </h1>
-
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-amber-100/70 sm:text-lg">
-              En <strong className="text-amber-100">{SITE.brand}</strong> cuidamos tu piel con
-              protocolos seguros y atención personalizada. También ofrecemos un{" "}
-              <strong className="text-amber-100">curso</strong> para formación profesional.
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button href={whatsappGeneral} variant="gold">
-                Agendar cita por WhatsApp
-              </Button>
-
-              {/* ✅ Ver tratamientos => /servicios */}
-              <a
-                href="/servicios"
-                className="inline-flex items-center justify-center rounded-full border border-amber-300/30 bg-white/5 px-6 py-3 text-sm font-semibold text-amber-100 hover:bg-white/10"
-              >
-                Ver tratamientos
-              </a>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <Stat t="Atención" d="Premium" />
-              <Stat t="Protocolos" d="Seguros" />
-              <Stat t="Tecnología" d="Avanzada" />
-            </div>
-          </div>
-
-          {/* Visual (tarjeta luxury) */}
-          <div className="relative overflow-hidden rounded-[2rem] border border-amber-300/15 bg-white/5 p-6 backdrop-blur">
-            <div className="absolute inset-0 bg-[radial-gradient(700px_500px_at_80%_20%,rgba(255,215,128,0.16),transparent_55%)]" />
-            <div className="relative rounded-3xl border border-white/10 bg-black/40 p-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs text-amber-100/60">Hoy</div>
-                  <div className="text-lg font-semibold text-amber-100">
-                    Valoración y agenda
-                  </div>
-                </div>
-                <div className="rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100">
-                  Disponible
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-3">
-                {[
-                  { a: "Depilación láser", b: "Consulta por sesiones" },
-                  { a: "Faciales", b: "Opciones por objetivo" },
-                  { a: "Asesoría estética", b: "Plan recomendado" },
-                ].map((x) => (
-                  <div
-                    key={x.a}
-                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-4"
-                  >
-                    <div>
-                      <div className="text-sm font-semibold text-amber-100">{x.a}</div>
-                      <div className="text-xs text-amber-100/60">{x.b}</div>
-                    </div>
-                    <a
-                      href={whatsappServicios}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-full border border-amber-300/25 bg-black/30 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-300/10"
-                    >
-                      Consultar
-                    </a>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="text-xs text-amber-100/60">Horario</div>
-                <div className="text-sm font-semibold text-amber-100">{SITE.hours}</div>
-                <div className="mt-2 text-xs text-amber-100/60">{SITE.addressLine}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Por qué elegirnos */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle
-          title="Por qué elegirnos"
-          desc="Una experiencia premium: seguridad, técnica y acompañamiento."
-        />
-        <div className="grid gap-4 sm:grid-cols-4">
-          {[
-            { icon: "shield" as const, t: "Seguridad", d: "Protocolos y evaluación" },
-            { icon: "spark" as const, t: "Calidad", d: "Productos y técnica" },
-            { icon: "star" as const, t: "Resultados", d: "Naturales y elegantes" },
-            { icon: "clock" as const, t: "Atención", d: "Puntual y personalizada" },
-          ].map((x) => (
-            <div
-              key={x.t}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
-            >
-              <div className="flex items-center gap-2">
-                <Icon name={x.icon} />
-                <div className="text-sm font-semibold text-amber-100">{x.t}</div>
-              </div>
-              <div className="mt-2 text-sm text-amber-100/70">{x.d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Header responsive (desktop referencia / mobile limpio) */}
       <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
@@ -621,6 +352,123 @@ export default function Page() {
           </div>
         ) : null}
       </header>
+      {/* Hero */}
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
+        <div className="grid gap-10 sm:grid-cols-2 sm:items-center">
+          <div>
+            <Pill>Clínica estética en {SITE.city}</Pill>
+
+            <h1 className="mt-5 text-4xl font-semibold leading-tight text-amber-100 sm:text-5xl">
+              Realza tu belleza
+              <span className="block text-amber-200/90">con resultados reales</span>
+            </h1>
+
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-amber-100/70 sm:text-lg">
+              En <strong className="text-amber-100">{SITE.brand}</strong> cuidamos tu piel con
+              protocolos seguros y atención personalizada. También ofrecemos un{" "}
+              <strong className="text-amber-100">curso</strong> para formación profesional.
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Button href={whatsappGeneral} variant="gold">
+                Agendar cita por WhatsApp
+              </Button>
+
+              {/* ✅ Ver tratamientos => /servicios */}
+              <a
+                href="/servicios"
+                className="inline-flex items-center justify-center rounded-full border border-amber-300/30 bg-white/5 px-6 py-3 text-sm font-semibold text-amber-100 hover:bg-white/10"
+              >
+                Ver tratamientos
+              </a>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              <Stat t="Atención" d="Premium" />
+              <Stat t="Protocolos" d="Seguros" />
+              <Stat t="Tecnología" d="Avanzada" />
+            </div>
+          </div>
+
+          {/* Visual (tarjeta luxury) */}
+          <div className="relative overflow-hidden rounded-[2rem] border border-amber-300/15 bg-white/5 p-6 backdrop-blur">
+            <div className="absolute inset-0 bg-[radial-gradient(700px_500px_at_80%_20%,rgba(255,215,128,0.16),transparent_55%)]" />
+            <div className="relative rounded-3xl border border-white/10 bg-black/40 p-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-amber-100/60">Hoy</div>
+                  <div className="text-lg font-semibold text-amber-100">
+                    Valoración y agenda
+                  </div>
+                </div>
+                <div className="rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100">
+                  Disponible
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-3">
+                {[
+                  { a: "Depilación láser", b: "Consulta por sesiones" },
+                  { a: "Faciales", b: "Opciones por objetivo" },
+                  { a: "Asesoría estética", b: "Plan recomendado" },
+                ].map((x) => (
+                  <div
+                    key={x.a}
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-4"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-amber-100">{x.a}</div>
+                      <div className="text-xs text-amber-100/60">{x.b}</div>
+                    </div>
+                    <a
+                      href={whatsappServicios}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full border border-amber-300/25 bg-black/30 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-300/10"
+                    >
+                      Consultar
+                    </a>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="text-xs text-amber-100/60">Horario</div>
+                <div className="text-sm font-semibold text-amber-100">{SITE.hours}</div>
+                <div className="mt-2 text-xs text-amber-100/60">{SITE.addressLine}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Por qué elegirnos */}
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+        <SectionTitle
+          title="Por qué elegirnos"
+          desc="Una experiencia premium: seguridad, técnica y acompañamiento."
+        />
+        <div className="grid gap-4 sm:grid-cols-4">
+          {[
+            { icon: "shield" as const, t: "Seguridad", d: "Protocolos y evaluación" },
+            { icon: "spark" as const, t: "Calidad", d: "Productos y técnica" },
+            { icon: "star" as const, t: "Resultados", d: "Naturales y elegantes" },
+            { icon: "clock" as const, t: "Atención", d: "Puntual y personalizada" },
+          ].map((x) => (
+            <div
+              key={x.t}
+              className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
+            >
+              <div className="flex items-center gap-2">
+                <Icon name={x.icon} />
+                <div className="text-sm font-semibold text-amber-100">{x.t}</div>
+              </div>
+              <div className="mt-2 text-sm text-amber-100/70">{x.d}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
 
       {/* Resultados / Galería */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
