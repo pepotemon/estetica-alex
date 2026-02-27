@@ -1,3 +1,7 @@
+"use client";
+
+import React from "react";
+
 const SITE = {
   brand: "Alex Estética",
   city: "Gran Canaria",
@@ -33,15 +37,29 @@ function Button({
   );
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({
+  href,
+  children,
+  onClick,
+}: {
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
   return (
-    <a href={href} className="text-sm text-neutral-700 hover:text-neutral-900">
+    <a
+      href={href}
+      onClick={onClick}
+      className="text-sm text-neutral-700 hover:text-neutral-900"
+    >
       {children}
     </a>
   );
 }
 
 export default function Page() {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   const whatsappGeneral = waLink(
     `Hola! Estoy interesado/a en ${SITE.brand}. ¿Me puedes dar información y disponibilidad?`
   );
@@ -51,7 +69,12 @@ export default function Page() {
       {/* Header */}
       <header className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
+          {/* Brand */}
+          <a
+            href="/"
+            className="flex items-center gap-3"
+            onClick={() => setMenuOpen(false)}
+          >
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-neutral-900 text-white">
               A
             </div>
@@ -59,23 +82,69 @@ export default function Page() {
               <div className="font-semibold">{SITE.brand}</div>
               <div className="text-xs text-neutral-600">{SITE.city}</div>
             </div>
-          </div>
+          </a>
 
+          {/* Desktop nav */}
           <nav className="hidden items-center gap-6 sm:flex">
             <NavLink href="/servicios">Servicios</NavLink>
             <NavLink href="/curso">Curso</NavLink>
             <NavLink href="#contacto">Contacto</NavLink>
           </nav>
 
-          <a
-            href={whatsappGeneral}
-            className="rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp
-          </a>
+          {/* Right side */}
+          <div className="flex items-center gap-2">
+            <a
+              href={whatsappGeneral}
+              className="rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp
+            </a>
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm font-medium hover:bg-neutral-50 sm:hidden"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Abrir menú"
+              aria-expanded={menuOpen}
+            >
+              ☰
+            </button>
+          </div>
         </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen ? (
+          <div className="border-t bg-white sm:hidden">
+            <div className="mx-auto max-w-6xl px-5 py-3">
+              <div className="flex flex-col gap-2">
+                <a
+                  href="/servicios"
+                  className="rounded-xl px-3 py-2 text-sm font-medium hover:bg-neutral-50"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Servicios
+                </a>
+                <a
+                  href="/curso"
+                  className="rounded-xl px-3 py-2 text-sm font-medium hover:bg-neutral-50"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Curso
+                </a>
+                <a
+                  href="#contacto"
+                  className="rounded-xl px-3 py-2 text-sm font-medium hover:bg-neutral-50"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Contacto
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </header>
 
       {/* Hero */}
@@ -147,7 +216,10 @@ export default function Page() {
                   { a: "Faciales", b: "Opciones por objetivo" },
                   { a: "Asesoría estética", b: "Plan recomendado" },
                 ].map((x) => (
-                  <div key={x.a} className="flex items-center justify-between rounded-2xl border p-4">
+                  <div
+                    key={x.a}
+                    className="flex items-center justify-between rounded-2xl border p-4"
+                  >
                     <div>
                       <div className="font-medium">{x.a}</div>
                       <div className="text-sm text-neutral-600">{x.b}</div>
@@ -199,7 +271,9 @@ export default function Page() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Button href={waLink("Hola Alex! Quiero agendar una valoración. ¿Disponibilidad?")}>
+              <Button
+                href={waLink("Hola Alex! Quiero agendar una valoración. ¿Disponibilidad?")}
+              >
                 Hablar con Alex por WhatsApp
               </Button>
               <a
@@ -219,14 +293,18 @@ export default function Page() {
                 className="block rounded-2xl border bg-white p-4 hover:bg-neutral-50"
               >
                 <div className="font-semibold">Ver servicios</div>
-                <div className="mt-1 text-sm text-neutral-600">Depilación, faciales y más</div>
+                <div className="mt-1 text-sm text-neutral-600">
+                  Depilación, faciales y más
+                </div>
               </a>
               <a
                 href="/curso"
                 className="block rounded-2xl border bg-white p-4 hover:bg-neutral-50"
               >
                 <div className="font-semibold">Ver curso</div>
-                <div className="mt-1 text-sm text-neutral-600">Temario + info por WhatsApp</div>
+                <div className="mt-1 text-sm text-neutral-600">
+                  Temario + info por WhatsApp
+                </div>
               </a>
               <a
                 href={whatsappGeneral}
@@ -235,7 +313,9 @@ export default function Page() {
                 className="block rounded-2xl border bg-white p-4 hover:bg-neutral-50"
               >
                 <div className="font-semibold">WhatsApp</div>
-                <div className="mt-1 text-sm text-neutral-600">Preguntar disponibilidad</div>
+                <div className="mt-1 text-sm text-neutral-600">
+                  Preguntar disponibilidad
+                </div>
               </a>
             </div>
           </div>
