@@ -1,7 +1,12 @@
+"use client";
+
+import React from "react";
+
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
     phone: "34600111222",
+    logoSrc: "/alex-logo.png",
 };
 
 function waLink(text: string) {
@@ -11,18 +16,20 @@ function waLink(text: string) {
 function Button({
     href,
     children,
-    variant = "primary",
+    variant = "gold",
 }: {
     href: string;
     children: React.ReactNode;
-    variant?: "primary" | "outline";
+    variant?: "gold" | "outline";
 }) {
     const base =
-        "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition";
+        "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+
     const styles =
-        variant === "primary"
-            ? "bg-neutral-900 text-white hover:bg-neutral-800"
-            : "border border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-50";
+        variant === "gold"
+            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
+            : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
+
     return (
         <a href={href} className={`${base} ${styles}`} target="_blank" rel="noreferrer">
             {children}
@@ -50,101 +57,142 @@ export default function CursoPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-white text-neutral-900">
-            <header className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur">
-                <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-                    <a href="/" className="font-semibold">{SITE.brand}</a>
+        <main className="min-h-screen bg-black text-white">
+            {/* Fondo luxury */}
+            <div className="pointer-events-none fixed inset-0 -z-10">
+                <div className="absolute inset-0 bg-[radial-gradient(900px_600px_at_20%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(800px_500px_at_80%_20%,rgba(255,215,128,0.12),transparent_55%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.4),rgba(0,0,0,0.95))]" />
+            </div>
 
-                    <nav className="hidden items-center gap-6 sm:flex">
-                        <a href="/servicios" className="text-sm text-neutral-700 hover:text-neutral-900">Servicios</a>
-                        <a href="/curso" className="text-sm text-neutral-900 font-medium">Curso</a>
-                        <a href="/" className="text-sm text-neutral-700 hover:text-neutral-900">Inicio</a>
+            {/* Header */}
+            <header className="sticky top-0 z-20 border-b border-white/10 bg-black/50 backdrop-blur">
+                <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
+                    <a href="/" className="flex items-center gap-2">
+                        <div className="relative h-14 w-14 flex items-center justify-center">
+                            <img
+                                src={SITE.logoSrc}
+                                alt="Alex Estética"
+                                className="absolute h-28 w-28 object-contain drop-shadow-[0_0_25px_rgba(255,215,128,0.35)]"
+                            />
+                        </div>
+                        <div>
+                            <div className="font-semibold tracking-wide text-amber-100">
+                                {SITE.brand}
+                            </div>
+                            <div className="text-xs text-amber-100/60">{SITE.city}</div>
+                        </div>
+                    </a>
+
+                    <nav className="hidden items-center gap-7 sm:flex">
+                        <a href="/" className="text-sm text-amber-100/80 hover:text-amber-100">
+                            Inicio
+                        </a>
+                        <a href="/servicios" className="text-sm text-amber-100/80 hover:text-amber-100">
+                            Tratamientos
+                        </a>
+                        <a href="/curso" className="text-sm text-amber-100 font-semibold">
+                            Curso
+                        </a>
                     </nav>
 
-                    <a
-                        href={whatsappCurso}
-                        className="rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <Button href={whatsappCurso} variant="gold">
                         WhatsApp
-                    </a>
+                    </Button>
                 </div>
             </header>
 
-            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-                <p className="mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm text-neutral-700">
-                    <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-                    Curso · {SITE.city}
-                </p>
-
-                <h1 className="text-4xl font-semibold sm:text-5xl">
+            {/* Hero */}
+            <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+                <h1 className="text-4xl font-semibold text-amber-100 sm:text-5xl">
                     Curso Profesional de Estética
                 </h1>
 
-                <p className="mt-4 max-w-3xl text-lg text-neutral-700">
+                <p className="mt-4 max-w-3xl text-lg text-amber-100/70">
                     Aprende el método paso a paso para trabajar con seguridad, mejorar resultados y ofrecer
                     un servicio profesional.
                 </p>
 
-                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                    <Button href={whatsappCurso}>Preguntar por WhatsApp</Button>
-                    <Button href={waLink("Hola! ¿Me pasas el temario completo y requisitos?")} variant="outline">
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                    <Button href={whatsappCurso} variant="gold">
+                        Preguntar por WhatsApp
+                    </Button>
+                    <Button
+                        href={waLink("Hola! ¿Me pasas el temario completo y requisitos?")}
+                        variant="outline"
+                    >
                         Pedir temario completo
                     </Button>
                 </div>
+            </section>
 
-                <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {/* Información rápida */}
+            <section className="mx-auto max-w-6xl px-5">
+                <div className="grid gap-4 sm:grid-cols-3">
                     {[
                         { t: "Modalidad", d: "Presencial / Online (edita)" },
                         { t: "Duración", d: "X horas (edita)" },
                         { t: "Cupos", d: "Limitados (recomendado)" },
                     ].map((x) => (
-                        <div key={x.t} className="rounded-2xl border p-5">
-                            <div className="text-sm text-neutral-600">{x.t}</div>
-                            <div className="mt-1 font-semibold">{x.d}</div>
+                        <div
+                            key={x.t}
+                            className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
+                        >
+                            <div className="text-xs text-amber-100/60">{x.t}</div>
+                            <div className="mt-2 text-sm font-semibold text-amber-100">{x.d}</div>
                         </div>
                     ))}
                 </div>
+            </section>
 
-                <div className="mt-10 rounded-3xl border p-6">
-                    <div className="text-2xl font-semibold">Qué aprenderás</div>
-                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {/* Qué aprenderás */}
+            <section className="mx-auto max-w-6xl px-5 py-16">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+                    <div className="text-2xl font-semibold text-amber-100">
+                        Qué aprenderás
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
                         {bullets.map((b) => (
-                            <div key={b} className="rounded-2xl border bg-neutral-50 p-4">
-                                <div className="font-medium">{b}</div>
+                            <div
+                                key={b}
+                                className="rounded-2xl border border-white/10 bg-black/30 p-5 text-sm text-amber-100"
+                            >
+                                {b}
                             </div>
                         ))}
                     </div>
                 </div>
+            </section>
 
-                <div className="mt-10 rounded-3xl border p-6">
-                    <div className="text-2xl font-semibold">Preguntas frecuentes</div>
-                    <div className="mt-6 space-y-3">
+            {/* FAQs */}
+            <section className="mx-auto max-w-6xl px-5 pb-20">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+                    <div className="text-2xl font-semibold text-amber-100">
+                        Preguntas frecuentes
+                    </div>
+
+                    <div className="mt-8 space-y-4">
                         {faqs.map((f) => (
-                            <details key={f.q} className="rounded-2xl border p-5">
-                                <summary className="cursor-pointer font-medium">{f.q}</summary>
-                                <p className="mt-3 text-neutral-700">{f.a}</p>
+                            <details
+                                key={f.q}
+                                className="rounded-2xl border border-white/10 bg-black/30 p-6"
+                            >
+                                <summary className="cursor-pointer font-semibold text-amber-100">
+                                    {f.q}
+                                </summary>
+                                <p className="mt-4 text-sm text-amber-100/70">{f.a}</p>
                             </details>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <footer className="border-t">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-neutral-600">
+            {/* Footer */}
+            <footer className="border-t border-white/10">
+                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
                 </div>
             </footer>
-
-            <a
-                href={whatsappCurso}
-                target="_blank"
-                rel="noreferrer"
-                className="fixed bottom-5 right-5 z-30 rounded-full bg-neutral-900 px-5 py-3 text-sm font-medium text-white shadow-lg hover:bg-neutral-800"
-            >
-                WhatsApp
-            </a>
         </main>
     );
 }

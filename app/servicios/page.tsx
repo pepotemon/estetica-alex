@@ -1,7 +1,13 @@
+"use client";
+
+import React from "react";
+
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
     phone: "34600111222",
+    logoSrc: "/alex-logo.png",
+    tratamientosHeroImg: "/tratamientos-hero.jpg",
 };
 
 function waLink(text: string) {
@@ -11,18 +17,20 @@ function waLink(text: string) {
 function Button({
     href,
     children,
-    variant = "primary",
+    variant = "gold",
 }: {
     href: string;
     children: React.ReactNode;
-    variant?: "primary" | "outline";
+    variant?: "gold" | "outline";
 }) {
     const base =
-        "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition";
+        "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+
     const styles =
-        variant === "primary"
-            ? "bg-neutral-900 text-white hover:bg-neutral-800"
-            : "border border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-50";
+        variant === "gold"
+            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
+            : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
+
     return (
         <a href={href} className={`${base} ${styles}`} target="_blank" rel="noreferrer">
             {children}
@@ -30,9 +38,17 @@ function Button({
     );
 }
 
+function NavA({ href, children }: { href: string; children: React.ReactNode }) {
+    return (
+        <a href={href} className="text-sm text-amber-100/80 hover:text-amber-100 transition">
+            {children}
+        </a>
+    );
+}
+
 export default function ServiciosPage() {
     const whatsappGeneral = waLink(
-        `Hola! Quiero información de servicios en ${SITE.brand} (precios y disponibilidad).`
+        `Hola! Quiero información de tratamientos en ${SITE.brand} (precios y disponibilidad).`
     );
 
     const services = [
@@ -63,45 +79,112 @@ export default function ServiciosPage() {
     ];
 
     return (
-        <main className="min-h-screen bg-white text-neutral-900">
-            <header className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur">
-                <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-                    <a href="/" className="font-semibold">{SITE.brand}</a>
+        <main className="min-h-screen bg-black text-white">
+            {/* Header */}
+            <header className="sticky top-0 z-30 border-b border-white/10 bg-black/45 backdrop-blur">
+                <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
+                    <a href="/" className="flex items-center gap-2">
+                        <div className="relative h-14 w-14 flex items-center justify-center overflow-visible">
+                            <img
+                                src={SITE.logoSrc}
+                                alt="Alex Estética"
+                                className="absolute h-28 w-28 object-contain drop-shadow-[0_0_25px_rgba(255,215,128,0.35)]"
+                            />
+                        </div>
+                        <div className="leading-tight">
+                            <div className="font-semibold tracking-wide text-amber-100">
+                                {SITE.brand}
+                            </div>
+                            <div className="text-xs text-amber-100/60">{SITE.city}</div>
+                        </div>
+                    </a>
 
-                    <nav className="hidden items-center gap-6 sm:flex">
-                        <a href="/servicios" className="text-sm text-neutral-900 font-medium">Servicios</a>
-                        <a href="/curso" className="text-sm text-neutral-700 hover:text-neutral-900">Curso</a>
-                        <a href="/" className="text-sm text-neutral-700 hover:text-neutral-900">Inicio</a>
+                    <nav className="hidden items-center gap-7 sm:flex">
+                        <NavA href="/">Inicio</NavA>
+                        <NavA href="/servicios">
+                            <span className="text-amber-100 font-semibold">Tratamientos</span>
+                        </NavA>
+                        <NavA href="/curso">Curso</NavA>
+                        <NavA href="/#contacto">Contacto</NavA>
                     </nav>
 
-                    <a
-                        href={whatsappGeneral}
-                        className="rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        WhatsApp
-                    </a>
+                    <Button href={whatsappGeneral} variant="gold">
+                        Agendar por WhatsApp
+                    </Button>
                 </div>
             </header>
 
-            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-                <p className="mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm text-neutral-700">
-                    <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-                    Servicios · {SITE.city}
-                </p>
+            {/* HERO limpio */}
+            <section className="relative isolate overflow-hidden border-b border-white/10 min-h-[520px] sm:min-h-[600px]">
+                {/* Imagen fondo */}
+                <div className="absolute inset-0 -z-20 bg-black">
+                    <img
+                        src={SITE.tratamientosHeroImg}
+                        alt="Sala de tratamientos - Alex Estética"
+                        className="h-full w-full object-cover opacity-80"
+                        loading="eager"
+                    />
 
-                <h1 className="text-4xl font-semibold sm:text-5xl">Servicios</h1>
-                <p className="mt-4 max-w-3xl text-lg text-neutral-700">
-                    Selecciona un servicio y te respondemos por WhatsApp con precios, sesiones y disponibilidad.
-                </p>
+                    {/* Overlay elegante */}
+                    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.60)_45%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.65)_100%)]" />
+                </div>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {/* Contenido */}
+                <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+                    <div className="max-w-xl">
+                        <p className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs text-amber-100/80 backdrop-blur">
+                            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
+                            Tratamientos premium · {SITE.city}
+                        </p>
+
+                        <h1 className="mt-6 text-4xl font-semibold leading-tight text-amber-100 sm:text-5xl">
+                            Realza tu belleza
+                            <span className="block text-amber-200/90">
+                                con una estética sofisticada
+                            </span>
+                        </h1>
+
+                        <p className="mt-5 text-base leading-relaxed text-amber-100/70 sm:text-lg">
+                            Tratamientos avanzados para una belleza natural y elegante.
+                            Atención personalizada y resultados visibles.
+                        </p>
+
+                        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                            <Button href={whatsappGeneral} variant="gold">
+                                Agendar una consulta
+                            </Button>
+
+                            <Button
+                                href={waLink("Hola! Quiero ver el catálogo completo de tratamientos y precios.")}
+                                variant="outline"
+                            >
+                                Pedir catálogo
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Servicios */}
+            <section className="mx-auto max-w-6xl px-5 py-16">
+                <div className="mb-8">
+                    <div className="text-2xl font-semibold text-amber-100">Tratamientos</div>
+                    <p className="mt-2 text-amber-100/70">
+                        Selecciona un tratamiento y te respondemos por WhatsApp con precios,
+                        sesiones y disponibilidad.
+                    </p>
+                </div>
+
+                <div className="grid gap-6 sm:grid-cols-2">
                     {services.map((s) => (
-                        <div key={s.title} className="rounded-3xl border p-6">
-                            <div className="text-xl font-semibold">{s.title}</div>
-                            <p className="mt-2 text-neutral-700">{s.desc}</p>
-                            <div className="mt-5">
+                        <div
+                            key={s.title}
+                            className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur"
+                        >
+                            <div className="text-xl font-semibold text-amber-100">{s.title}</div>
+                            <p className="mt-3 text-amber-100/70">{s.desc}</p>
+
+                            <div className="mt-6">
                                 <Button href={waLink(s.msg)} variant="outline">
                                     Consultar por WhatsApp
                                 </Button>
@@ -109,34 +192,14 @@ export default function ServiciosPage() {
                         </div>
                     ))}
                 </div>
-
-                <div className="mt-10 rounded-3xl border bg-neutral-50 p-6">
-                    <div className="text-lg font-semibold">¿No sabes cuál elegir?</div>
-                    <p className="mt-2 text-neutral-700">
-                        Escríbenos y te recomendamos el tratamiento ideal según tu caso.
-                    </p>
-                    <div className="mt-5">
-                        <Button href={waLink("Hola! No sé qué tratamiento elegir. ¿Me recomiendas uno?")}>
-                            Pedir recomendación
-                        </Button>
-                    </div>
-                </div>
             </section>
 
-            <footer className="border-t">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-neutral-600">
+            {/* Footer */}
+            <footer className="border-t border-white/10">
+                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
                 </div>
             </footer>
-
-            <a
-                href={whatsappGeneral}
-                target="_blank"
-                rel="noreferrer"
-                className="fixed bottom-5 right-5 z-30 rounded-full bg-neutral-900 px-5 py-3 text-sm font-medium text-white shadow-lg hover:bg-neutral-800"
-            >
-                WhatsApp
-            </a>
         </main>
     );
 }
