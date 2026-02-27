@@ -10,6 +10,10 @@ const SITE = {
   addressLine: "Tu dirección aquí, Gran Canaria",
   hours: "Lun–Sáb · 10:00–20:00",
   logoSrc: "/alex-logo.png", // /public/alex-logo.png
+
+  // ✅ HERO (pon la imagen en /public/hero.jpg)
+  hero: "/hero.jpg",
+
   // Google Maps embed (cambia el src por el tuyo cuando lo tengas)
   mapsEmbedSrc: "https://www.google.com/maps?q=Gran%20Canaria&output=embed",
 };
@@ -148,6 +152,95 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
   );
 }
 
+/* ===== Iconos para el HERO (estilo “banner”) ===== */
+function HeroIcon({
+  children,
+  title,
+  subtitle,
+}: {
+  children: React.ReactNode;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="rounded-[1.6rem] border border-amber-300/15 bg-black/35 p-5 backdrop-blur">
+      <div className="flex items-center gap-3">
+        <div className="grid h-12 w-12 place-items-center rounded-2xl border border-amber-300/20 bg-black/40">
+          {children}
+        </div>
+        <div className="min-w-0">
+          <div className="text-sm font-semibold text-amber-100">{title}</div>
+          <div className="mt-1 text-xs text-amber-100/60">{subtitle}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IconShieldBig() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
+      <path
+        d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M9 12l2 2 4-5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function IconSparkBig() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
+      <path
+        d="M12 2l1.6 6.2L20 10l-6.4 1.8L12 18l-1.6-6.2L4 10l6.4-1.8L12 2z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function IconStarBig() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
+      <path
+        d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function IconClockBig() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
+      <path
+        d="M12 7v5l3 2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+    </svg>
+  );
+}
+
 export default function Page() {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -200,8 +293,6 @@ export default function Page() {
 
           {/* Contenido desktop */}
           <div className="hidden sm:flex h-full items-center justify-between">
-            {/* Separador | */}
-            <span className="sr-only">separador</span>
             {(() => {
               const Sep = () => <span className="select-none text-amber-100/35">|</span>;
               return (
@@ -352,90 +443,84 @@ export default function Page() {
           </div>
         ) : null}
       </header>
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <div className="grid gap-10 sm:grid-cols-2 sm:items-center">
-          <div>
-            <Pill>Clínica estética en {SITE.city}</Pill>
 
-            <h1 className="mt-5 text-4xl font-semibold leading-tight text-amber-100 sm:text-5xl">
+      {/* ✅ NUEVO HERO TIPO BANNER (como curso/tratamientos) */}
+      <section className="relative isolate overflow-hidden border-b border-white/10">
+        {/* Imagen fondo */}
+        <div className="absolute inset-0 -z-20 bg-black">
+          <img
+            src={SITE.hero}
+            alt={`${SITE.brand} - ${SITE.city}`}
+            className="h-full w-full object-cover opacity-90"
+            loading="eager"
+          />
+          {/* Overlay elegante (para legibilidad sin matar el fondo) */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.30),rgba(0,0,0,0.86))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
+        </div>
+
+        {/* Contenido */}
+        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
+          <div className="max-w-3xl">
+            <Pill>Clínica estética · {SITE.city}</Pill>
+
+            <h1 className="mt-6 text-4xl font-semibold leading-tight text-amber-100 sm:text-6xl">
               Realza tu belleza
               <span className="block text-amber-200/90">con resultados reales</span>
             </h1>
 
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-amber-100/70 sm:text-lg">
-              En <strong className="text-amber-100">{SITE.brand}</strong> cuidamos tu piel con
-              protocolos seguros y atención personalizada. También ofrecemos un{" "}
-              <strong className="text-amber-100">curso</strong> para formación profesional.
+            <p className="mt-5 max-w-2xl text-amber-100/70 sm:text-lg">
+              En <strong className="text-amber-100">{SITE.brand}</strong> trabajamos con protocolos
+              seguros, atención personalizada y un enfoque premium para que te sientas acompañada en
+              cada paso.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href={whatsappGeneral} variant="gold">
                 Agendar cita por WhatsApp
               </Button>
 
-              {/* ✅ Ver tratamientos => /servicios */}
-              <a
-                href="/servicios"
-                className="inline-flex items-center justify-center rounded-full border border-amber-300/30 bg-white/5 px-6 py-3 text-sm font-semibold text-amber-100 hover:bg-white/10"
-              >
-                Ver tratamientos
-              </a>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <Stat t="Atención" d="Premium" />
-              <Stat t="Protocolos" d="Seguros" />
-              <Stat t="Tecnología" d="Avanzada" />
+              <Button href={whatsappServicios} variant="outline">
+                Consultar tratamientos
+              </Button>
             </div>
           </div>
 
-          {/* Visual (tarjeta luxury) */}
-          <div className="relative overflow-hidden rounded-[2rem] border border-amber-300/15 bg-white/5 p-6 backdrop-blur">
-            <div className="absolute inset-0 bg-[radial-gradient(700px_500px_at_80%_20%,rgba(255,215,128,0.16),transparent_55%)]" />
-            <div className="relative rounded-3xl border border-white/10 bg-black/40 p-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs text-amber-100/60">Hoy</div>
-                  <div className="text-lg font-semibold text-amber-100">
-                    Valoración y agenda
-                  </div>
-                </div>
-                <div className="rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-100">
-                  Disponible
-                </div>
-              </div>
+          {/* Tiles iconos (como el banner de curso) */}
+          <div className="mt-12 grid gap-4 sm:grid-cols-4">
+            <HeroIcon title="Seguridad" subtitle="Protocolos y evaluación">
+              <IconShieldBig />
+            </HeroIcon>
 
-              <div className="mt-5 space-y-3">
-                {[
-                  { a: "Depilación láser", b: "Consulta por sesiones" },
-                  { a: "Faciales", b: "Opciones por objetivo" },
-                  { a: "Asesoría estética", b: "Plan recomendado" },
-                ].map((x) => (
-                  <div
-                    key={x.a}
-                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-4"
-                  >
-                    <div>
-                      <div className="text-sm font-semibold text-amber-100">{x.a}</div>
-                      <div className="text-xs text-amber-100/60">{x.b}</div>
-                    </div>
-                    <a
-                      href={whatsappServicios}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-full border border-amber-300/25 bg-black/30 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-300/10"
-                    >
-                      Consultar
-                    </a>
-                  </div>
-                ))}
-              </div>
+            <HeroIcon title="Calidad" subtitle="Técnica + productos">
+              <IconSparkBig />
+            </HeroIcon>
 
-              <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="text-xs text-amber-100/60">Horario</div>
-                <div className="text-sm font-semibold text-amber-100">{SITE.hours}</div>
-                <div className="mt-2 text-xs text-amber-100/60">{SITE.addressLine}</div>
+            <HeroIcon title="Resultados" subtitle="Naturales y elegantes">
+              <IconStarBig />
+            </HeroIcon>
+
+            <HeroIcon title="Horario" subtitle={SITE.hours}>
+              <IconClockBig />
+            </HeroIcon>
+          </div>
+
+          {/* Banda de datos (igual estilo) */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
+              <div className="text-xs text-amber-100/60">Ubicación</div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
+            </div>
+            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
+              <div className="text-xs text-amber-100/60">Tratamientos</div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">
+                Láser · Faciales · Asesoría
+              </div>
+            </div>
+            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
+              <div className="text-xs text-amber-100/60">Formación</div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">
+                Curso profesional disponible
               </div>
             </div>
           </div>
@@ -468,7 +553,6 @@ export default function Page() {
           ))}
         </div>
       </section>
-
 
       {/* Resultados / Galería */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
@@ -539,10 +623,7 @@ export default function Page() {
                 Formación enfocada en técnica, seguridad y atención al cliente.
               </p>
             </div>
-            <a
-              href="/curso"
-              className="text-sm font-semibold text-amber-200 hover:text-amber-100"
-            >
+            <a href="/curso" className="text-sm font-semibold text-amber-200 hover:text-amber-100">
               Ver curso →
             </a>
           </div>
@@ -553,10 +634,7 @@ export default function Page() {
               "Higiene y seguridad",
               "Atención al cliente y fidelización",
             ].map((x) => (
-              <div
-                key={x}
-                className="rounded-3xl border border-white/10 bg-black/30 p-5"
-              >
+              <div key={x} className="rounded-3xl border border-white/10 bg-black/30 p-5">
                 <div className="text-sm font-semibold text-amber-100">{x}</div>
               </div>
             ))}
@@ -635,9 +713,7 @@ export default function Page() {
 
             <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
               <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-1 text-sm font-semibold text-amber-100">
-                {SITE.addressLine}
-              </div>
+              <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
             </div>
           </div>
         </div>
@@ -694,7 +770,6 @@ export default function Page() {
             <div>
               <div className="text-sm font-semibold text-amber-100">Información</div>
               <div className="mt-3 flex flex-col gap-2 text-sm text-amber-100/70">
-                {/* ✅ Tratamientos => /servicios */}
                 <a className="hover:text-amber-100" href="/servicios">
                   Tratamientos
                 </a>
