@@ -440,49 +440,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Tratamientos (preview) */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <SectionTitle
-            title="Tratamientos"
-            desc="Consulta por WhatsApp y te orientamos según tu objetivo."
-          />
-          <a
-            href="/servicios"
-            className="text-sm font-semibold text-amber-200 hover:text-amber-100"
-          >
-            Ver todos →
-          </a>
-        </div>
 
-        <div className="-mt-4 grid gap-4 sm:grid-cols-2">
-          {[
-            {
-              t: "Depilación láser",
-              d: "Evaluación personalizada. Resultados progresivos por sesiones.",
-              msg: "Hola! Quiero info de depilación láser (precio, sesiones y cuidados).",
-            },
-            {
-              t: "Tratamientos faciales",
-              d: "Limpieza, hidratación, manchas, acné y rejuvenecimiento.",
-              msg: "Hola! Quiero info de tratamientos faciales (opciones y precios).",
-            },
-          ].map((x) => (
-            <div
-              key={x.t}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur"
-            >
-              <div className="text-lg font-semibold text-amber-100">{x.t}</div>
-              <p className="mt-2 text-sm text-amber-100/70">{x.d}</p>
-              <div className="mt-5">
-                <Button href={waLink(x.msg)} variant="outline">
-                  Consultar por WhatsApp
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Resultados / Galería */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
