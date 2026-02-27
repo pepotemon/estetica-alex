@@ -440,7 +440,187 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Header responsive (desktop referencia / mobile limpio) */}
+      <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
+        <div className="relative mx-auto h-20 max-w-6xl px-5">
+          {/* Línea inferior */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
 
+          {/* ========================= */}
+          {/* DESKTOP (sm+): referencia */}
+          {/* ========================= */}
+
+          {/* Logo centrado flotante (solo desktop) */}
+          <a
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="hidden sm:block absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
+            aria-label="Ir al inicio"
+            title="Inicio"
+          >
+            {/* Máscara para que la línea no atraviese el logo */}
+            <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
+            <img
+              src={SITE.logoSrc}
+              alt="Alex Estética"
+              className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]"
+            />
+          </a>
+
+          {/* Contenido desktop */}
+          <div className="hidden sm:flex h-full items-center justify-between">
+            {/* Separador | */}
+            <span className="sr-only">separador</span>
+            {(() => {
+              const Sep = () => <span className="select-none text-amber-100/35">|</span>;
+              return (
+                <>
+                  {/* Izquierda */}
+                  <nav className="flex items-center gap-4">
+                    <NavLink href="/#sobre">Sobre Nosotros</NavLink>
+                    <Sep />
+                    <NavLink href="/#contacto">Contacto</NavLink>
+                  </nav>
+
+                  {/* Reserva centro */}
+                  <div className="w-[180px]" />
+
+                  {/* Derecha */}
+                  <div className="flex items-center gap-2">
+                    <nav className="flex items-center gap-4">
+                      <NavLink href="/servicios">Tratamientos</NavLink>
+                      <Sep />
+                      <NavLink href="/curso">Curso</NavLink>
+                    </nav>
+
+                    <a
+                      href={whatsappGeneral}
+                      className="ml-2 rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-semibold text-black hover:brightness-110"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Agende una consulta
+                    </a>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+
+          {/* ==================== */}
+          {/* MOBILE (<sm): limpio */}
+          {/* ==================== */}
+          <div className="flex sm:hidden h-full items-center justify-between">
+            {/* Left: logo pequeño + marca */}
+            <a
+              href="/"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2"
+              aria-label="Ir al inicio"
+            >
+              <img
+                src={SITE.logoSrc}
+                alt="Alex Estética"
+                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
+              />
+              <div className="leading-tight">
+                <div className="text-sm font-semibold tracking-wide text-amber-100">
+                  {SITE.brand}
+                </div>
+                <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
+              </div>
+            </a>
+
+            {/* Right: CTA + menú */}
+            <div className="flex items-center gap-2">
+              <a
+                href={whatsappGeneral}
+                className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-4 py-2 text-xs font-semibold text-black hover:brightness-110"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Agendar
+              </a>
+
+              <button
+                type="button"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
+                onClick={() => setMenuOpen((v) => !v)}
+                aria-label="Abrir menú"
+                aria-expanded={menuOpen}
+              >
+                <span className="sr-only">Menú</span>
+                <span className="flex flex-col gap-1">
+                  <span className="h-0.5 w-5 rounded bg-amber-200" />
+                  <span className="h-0.5 w-5 rounded bg-amber-200" />
+                  <span className="h-0.5 w-5 rounded bg-amber-200" />
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile dropdown (solo móvil) */}
+        {menuOpen ? (
+          <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
+            <div className="mx-auto max-w-6xl px-5 py-3">
+              <div className="flex flex-col gap-1">
+                <a
+                  href="/"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Inicio
+                </a>
+
+                <a
+                  href="/#sobre"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Sobre Nosotros
+                </a>
+
+                <a
+                  href="/servicios"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Tratamientos
+                </a>
+
+                <a
+                  href="/curso"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Curso
+                </a>
+
+                <a
+                  href="/#contacto"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Contacto
+                </a>
+
+                {SITE.instagramUrl ? (
+                  <a
+                    href={SITE.instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Instagram
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </header>
 
       {/* Resultados / Galería */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
