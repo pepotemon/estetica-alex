@@ -5,17 +5,31 @@ import React from "react";
 const SITE = {
   brand: "Alex Estética",
   city: "Gran Canaria",
-  phone: "34600111222", // ✅ 34 + número sin +, sin espacios
-  instagramUrl: "https://instagram.com/", // pon el link real
-  addressLine: "Tu dirección aquí, Gran Canaria",
+
+  // ✅ wa.me usa solo números (sin +, sin espacios)
+  phone: "34661026192",
+
+  instagramUrl:
+    "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
+
+  addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
   hours: "Lun–Sáb · 10:00–20:00",
-  logoSrc: "/alex-logo.png", // /public/alex-logo.png
+  logoSrc: "/alex-logo.png",
 
   // ✅ HERO (pon la imagen en /public/hero.jpg)
   hero: "/hero.jpg",
 
-  // Google Maps embed (cambia el src por el tuyo cuando lo tengas)
-  mapsEmbedSrc: "https://www.google.com/maps?q=Gran%20Canaria&output=embed",
+  // ✅ Mapa por dirección real (sin relleno)
+  mapsEmbedSrc:
+    "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario&output=embed",
+};
+
+const COURSE = {
+  name: "DOMINA EL POST-QUIRÚRGICO DE PRINCIPIO A FIN",
+  modality: "Presencial",
+  hours: "40 horas",
+  breakdown: "20h teoría · 20h práctica",
+  city: SITE.city,
 };
 
 function waLink(text: string) {
@@ -245,15 +259,15 @@ export default function Page() {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   const whatsappGeneral = waLink(
-    `Hola! Estoy interesado/a en ${SITE.brand}. ¿Me puedes dar información y disponibilidad?`
+    `Hola Alex! Quiero agendar una cita en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
   );
 
   const whatsappServicios = waLink(
-    "Hola! Quiero información sobre tratamientos (precios y disponibilidad)."
+    "Hola Alex! Quiero información sobre tratamientos (precios y disponibilidad)."
   );
 
   const whatsappCurso = waLink(
-    "Hola! Quiero información del curso (precio, fechas, modalidad y cupos)."
+    `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
   return (
@@ -264,15 +278,11 @@ export default function Page() {
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
       </div>
 
-      {/* Header responsive (desktop referencia / mobile limpio) */}
+      {/* Header (tu layout) */}
       <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
           {/* Línea inferior */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
-
-          {/* ========================= */}
-          {/* DESKTOP (sm+): referencia */}
-          {/* ========================= */}
 
           {/* Logo centrado flotante (solo desktop) */}
           <a
@@ -282,7 +292,6 @@ export default function Page() {
             aria-label="Ir al inicio"
             title="Inicio"
           >
-            {/* Máscara para que la línea no atraviese el logo */}
             <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
             <img
               src={SITE.logoSrc}
@@ -304,7 +313,6 @@ export default function Page() {
                     <NavLink href="/#contacto">Contacto</NavLink>
                   </nav>
 
-                  {/* Reserva centro */}
                   <div className="w-[180px]" />
 
                   {/* Derecha */}
@@ -323,17 +331,44 @@ export default function Page() {
                     >
                       Agende una consulta
                     </a>
+
+                    {SITE.instagramUrl ? (
+                      <a
+                        href={SITE.instagramUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
+                        aria-label="Instagram"
+                        title="Instagram"
+                      >
+                        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+                          <path
+                            d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                          />
+                          <path
+                            d="M12 16a4 4 0 100-8 4 4 0 000 8z"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                          />
+                          <path
+                            d="M17.5 6.5h.01"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </a>
+                    ) : null}
                   </div>
                 </>
               );
             })()}
           </div>
 
-          {/* ==================== */}
-          {/* MOBILE (<sm): limpio */}
-          {/* ==================== */}
+          {/* Mobile */}
           <div className="flex sm:hidden h-full items-center justify-between">
-            {/* Left: logo pequeño + marca */}
             <a
               href="/"
               onClick={() => setMenuOpen(false)}
@@ -353,7 +388,6 @@ export default function Page() {
               </div>
             </a>
 
-            {/* Right: CTA + menú */}
             <div className="flex items-center gap-2">
               <a
                 href={whatsappGeneral}
@@ -382,50 +416,27 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Mobile dropdown (solo móvil) */}
+        {/* Dropdown móvil */}
         {menuOpen ? (
           <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
             <div className="mx-auto max-w-6xl px-5 py-3">
               <div className="flex flex-col gap-1">
-                <a
-                  href="/"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Inicio
-                </a>
-
-                <a
-                  href="/#sobre"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Sobre Nosotros
-                </a>
-
-                <a
-                  href="/servicios"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Tratamientos
-                </a>
-
-                <a
-                  href="/curso"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Curso
-                </a>
-
-                <a
-                  href="/#contacto"
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Contacto
-                </a>
+                {[
+                  { href: "/", label: "Inicio" },
+                  { href: "/servicios", label: "Tratamientos" },
+                  { href: "/curso", label: "Curso" },
+                  { href: "/#sobre", label: "Sobre Nosotros" },
+                  { href: "/#contacto", label: "Contacto" },
+                ].map((x) => (
+                  <a
+                    key={x.href}
+                    href={x.href}
+                    className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {x.label}
+                  </a>
+                ))}
 
                 {SITE.instagramUrl ? (
                   <a
@@ -444,9 +455,8 @@ export default function Page() {
         ) : null}
       </header>
 
-      {/* ✅ NUEVO HERO TIPO BANNER (como curso/tratamientos) */}
+      {/* HERO tipo banner */}
       <section className="relative isolate overflow-hidden border-b border-white/10">
-        {/* Imagen fondo */}
         <div className="absolute inset-0 -z-20 bg-black">
           <img
             src={SITE.hero}
@@ -454,73 +464,64 @@ export default function Page() {
             className="h-full w-full object-cover opacity-90"
             loading="eager"
           />
-          {/* Overlay elegante (para legibilidad sin matar el fondo) */}
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.30),rgba(0,0,0,0.86))]" />
           <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
         </div>
 
-        {/* Contenido */}
         <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
           <div className="max-w-3xl">
-            <Pill>Clínica estética · {SITE.city}</Pill>
+            <Pill>{SITE.city} · Atención con cita previa</Pill>
 
             <h1 className="mt-6 text-4xl font-semibold leading-tight text-amber-100 sm:text-6xl">
-              Realza tu belleza
-              <span className="block text-amber-200/90">con resultados reales</span>
+              Estética avanzada
+              <span className="block text-amber-200/90">con enfoque premium</span>
             </h1>
 
             <p className="mt-5 max-w-2xl text-amber-100/70 sm:text-lg">
-              En <strong className="text-amber-100">{SITE.brand}</strong> trabajamos con protocolos
-              seguros, atención personalizada y un enfoque premium para que te sientas acompañada en
-              cada paso.
+              Tratamientos faciales, corporales y depilación láser con protocolos seguros.
+              Además, formación profesional en post-quirúrgico.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href={whatsappGeneral} variant="gold">
-                Agendar cita por WhatsApp
+                Agendar por WhatsApp
               </Button>
-
               <Button href={whatsappServicios} variant="outline">
                 Consultar tratamientos
               </Button>
             </div>
           </div>
 
-          {/* Tiles iconos (como el banner de curso) */}
           <div className="mt-12 grid gap-4 sm:grid-cols-4">
-            <HeroIcon title="Seguridad" subtitle="Protocolos y evaluación">
-              <IconShieldBig />
-            </HeroIcon>
-
-            <HeroIcon title="Calidad" subtitle="Técnica + productos">
-              <IconSparkBig />
-            </HeroIcon>
-
-            <HeroIcon title="Resultados" subtitle="Naturales y elegantes">
-              <IconStarBig />
-            </HeroIcon>
-
             <HeroIcon title="Horario" subtitle={SITE.hours}>
               <IconClockBig />
             </HeroIcon>
+            <HeroIcon title="Ubicación" subtitle="Vecindario">
+              <IconStarBig />
+            </HeroIcon>
+            <HeroIcon title="Protocolos" subtitle="Seguros y personalizados">
+              <IconShieldBig />
+            </HeroIcon>
+            <HeroIcon title="Contacto" subtitle="WhatsApp directo">
+              <IconSparkBig />
+            </HeroIcon>
           </div>
 
-          {/* Banda de datos (igual estilo) */}
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-              <div className="text-xs text-amber-100/60">Ubicación</div>
+              <div className="text-xs text-amber-100/60">Dirección</div>
               <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-              <div className="text-xs text-amber-100/60">Tratamientos</div>
+              <div className="text-xs text-amber-100/60">Servicios</div>
               <div className="mt-2 text-sm font-semibold text-amber-100">
-                Láser · Faciales · Asesoría
+                Láser · Faciales · Corporales · Asesorías
               </div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-              <div className="text-xs text-amber-100/60">Formación</div>
+              <div className="text-xs text-amber-100/60">Curso</div>
               <div className="mt-2 text-sm font-semibold text-amber-100">
-                Curso profesional disponible
+                Presencial · {COURSE.hours} · {COURSE.breakdown}
               </div>
             </div>
           </div>
@@ -531,13 +532,13 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
         <SectionTitle
           title="Por qué elegirnos"
-          desc="Una experiencia premium: seguridad, técnica y acompañamiento."
+          desc="Seguridad, técnica y acompañamiento con atención premium."
         />
         <div className="grid gap-4 sm:grid-cols-4">
           {[
-            { icon: "shield" as const, t: "Seguridad", d: "Protocolos y evaluación" },
-            { icon: "spark" as const, t: "Calidad", d: "Productos y técnica" },
-            { icon: "star" as const, t: "Resultados", d: "Naturales y elegantes" },
+            { icon: "shield" as const, t: "Seguridad", d: "Protocolos claros y responsables" },
+            { icon: "spark" as const, t: "Calidad", d: "Técnica y cuidado en cada sesión" },
+            { icon: "star" as const, t: "Resultados", d: "Enfoque realista y progresivo" },
             { icon: "clock" as const, t: "Atención", d: "Puntual y personalizada" },
           ].map((x) => (
             <div
@@ -558,7 +559,7 @@ export default function Page() {
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
         <SectionTitle
           title="Resultados"
-          desc="Imágenes de ejemplo. Si quieres, conectamos esta sección con tu Instagram."
+          desc="Podemos mostrar aquí tus publicaciones reales de Instagram (te explico abajo cómo conectarlo)."
         />
 
         <div className="grid gap-4 sm:grid-cols-3">
@@ -568,7 +569,7 @@ export default function Page() {
               className="aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/5"
             >
               <div className="grid h-full place-items-center">
-                <div className="text-sm text-amber-100/60">Foto {i} (placeholder)</div>
+                <div className="text-sm text-amber-100/60">Foto {i}</div>
               </div>
             </div>
           ))}
@@ -577,40 +578,10 @@ export default function Page() {
         {SITE.instagramUrl ? (
           <div className="mt-6">
             <Button href={SITE.instagramUrl} variant="outline">
-              Ver más resultados en Instagram
+              Ver Instagram @alex_postquirurgicoscanarias
             </Button>
           </div>
         ) : null}
-      </section>
-
-      {/* Testimonios */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle
-          title="Testimonios"
-          desc="Prueba social = confianza. Luego metemos los reales."
-        />
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { n: "María G.", t: "“Trato excelente y resultados increíbles.”" },
-            { n: "Laura P.", t: "“Muy profesional, me sentí segura en todo momento.”" },
-            { n: "Ana S.", t: "“Recomendadísimo. Atención premium.”" },
-          ].map((x) => (
-            <div
-              key={x.n}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur"
-            >
-              <div className="flex items-center gap-1 text-amber-200">
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-              </div>
-              <div className="mt-3 text-sm font-semibold text-amber-100">{x.t}</div>
-              <div className="mt-3 text-xs text-amber-100/60">— {x.n}</div>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* Curso (preview) */}
@@ -618,9 +589,9 @@ export default function Page() {
         <div className="rounded-[2rem] border border-amber-300/15 bg-white/5 p-7 backdrop-blur">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <div className="text-2xl font-semibold text-amber-100">Curso profesional</div>
+              <div className="text-2xl font-semibold text-amber-100">{COURSE.name}</div>
               <p className="mt-2 max-w-2xl text-amber-100/70">
-                Formación enfocada en técnica, seguridad y atención al cliente.
+                Curso {COURSE.modality} en {COURSE.city} · {COURSE.hours} ({COURSE.breakdown})
               </p>
             </div>
             <a href="/curso" className="text-sm font-semibold text-amber-200 hover:text-amber-100">
@@ -630,9 +601,9 @@ export default function Page() {
 
           <div className="mt-7 grid gap-4 sm:grid-cols-3">
             {[
-              "Protocolos paso a paso",
-              "Higiene y seguridad",
-              "Atención al cliente y fidelización",
+              "Post-quirúrgico por fases (criterio profesional)",
+              "Drenaje linfático manual + compresión",
+              "Seguridad, higiene y comunicación con el cliente",
             ].map((x) => (
               <div key={x} className="rounded-3xl border border-white/10 bg-black/30 p-5">
                 <div className="text-sm font-semibold text-amber-100">{x}</div>
@@ -645,39 +616,66 @@ export default function Page() {
               Pedir info del curso (WhatsApp)
             </Button>
             <Button href="/curso" variant="outline">
-              Ver temario y detalles
+              Ver detalles del curso
             </Button>
           </div>
         </div>
       </section>
+      {/* Ubicación + Contacto (Fusionado) */}
+      <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+        <SectionTitle
+          title="Ubicación & Contacto"
+          desc="Estamos en Vecindario. Escríbenos directamente por WhatsApp o visítanos en nuestro centro."
+        />
 
-      {/* Ubicación / Mapa */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle title="Ubicación" desc="Ven a visitarnos. (Luego ponemos el mapa exacto.)" />
-        <div className="grid gap-6 sm:grid-cols-2">
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-            <div className="text-sm font-semibold text-amber-100">Dirección</div>
-            <div className="mt-2 text-amber-100/70">{SITE.addressLine}</div>
+        <div className="grid gap-8 sm:grid-cols-2">
+          {/* Columna izquierda – Información */}
+          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
 
-            <div className="mt-6 grid gap-3">
-              <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
-                <div className="text-xs text-amber-100/60">Horario</div>
-                <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.hours}</div>
+            {/* Dirección */}
+            <div className="mb-6">
+              <div className="text-xs text-amber-100/60">Dirección</div>
+              <div className="mt-1 text-sm font-semibold text-amber-100">
+                {SITE.addressLine}
               </div>
-              <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
-                <div className="text-xs text-amber-100/60">Atención</div>
-                <div className="mt-1 text-sm font-semibold text-amber-100">
-                  Solo con cita previa (recomendado)
-                </div>
+              <div className="mt-1 text-xs text-amber-100/60">
+                {SITE.city}
               </div>
+            </div>
+
+            {/* Horario */}
+            <div className="mb-6">
+              <div className="text-xs text-amber-100/60">Horario</div>
+              <div className="mt-1 text-sm font-semibold text-amber-100">
+                {SITE.hours}
+              </div>
+            </div>
+
+            {/* Botones */}
+            <div className="mt-6 flex flex-col gap-3">
+              <Button href={whatsappGeneral} variant="gold">
+                Escribir por WhatsApp
+              </Button>
+
+              {SITE.instagramUrl ? (
+                <Button href={SITE.instagramUrl} variant="outline">
+                  Ver Instagram
+                </Button>
+              ) : null}
+            </div>
+
+            {/* Nota profesional */}
+            <div className="mt-8 text-xs text-amber-100/50">
+              Atención con cita previa recomendada.
             </div>
           </div>
 
+          {/* Columna derecha – Mapa */}
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
             <iframe
               title="Mapa"
               src={SITE.mapsEmbedSrc}
-              className="h-[360px] w-full"
+              className="h-[420px] w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
@@ -685,47 +683,15 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Contacto */}
-      <section id="contacto" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-          <div className="text-2xl font-semibold text-amber-100">Contacto</div>
-          <p className="mt-2 text-amber-100/70">
-            Te respondemos por WhatsApp con precios, promociones y disponibilidad.
-          </p>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button href={whatsappGeneral} variant="gold">
-              Abrir WhatsApp
-            </Button>
-
-            {SITE.instagramUrl ? (
-              <Button href={SITE.instagramUrl} variant="outline">
-                Ver Instagram
-              </Button>
-            ) : null}
-          </div>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
-              <div className="text-xs text-amber-100/60">Horario</div>
-              <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.hours}</div>
-            </div>
-
-            <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
-              <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer completo */}
+      {/* Footer */}
       <footer className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-10">
           <div className="grid gap-8 sm:grid-cols-3">
             <div>
               <div className="text-sm font-semibold text-amber-100">{SITE.brand}</div>
               <div className="mt-2 text-sm text-amber-100/60">{SITE.city}</div>
+
               <div className="mt-4 flex items-center gap-3">
                 <a
                   href={whatsappGeneral}
@@ -735,6 +701,7 @@ export default function Page() {
                 >
                   WhatsApp
                 </a>
+
                 {SITE.instagramUrl ? (
                   <a
                     href={SITE.instagramUrl}
@@ -799,7 +766,7 @@ export default function Page() {
                 </a>
               </div>
               <div className="mt-4 text-xs text-amber-100/50">
-                *Links legales como placeholder. Los creamos cuando quieras.
+                *Los textos legales se preparan con tu asesoría/gestoría para dejarlos perfectos.
               </div>
             </div>
           </div>
