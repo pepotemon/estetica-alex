@@ -371,7 +371,7 @@ export default function ServiciosPage() {
                     <img
                         src={SITE.tratamientosHeroImg}
                         alt="Tratamientos - Alex Estética"
-                        className="h-full w-full object-cover opacity-85"
+                        className="h-full w-full object-cover object-[65%_center] sm:object-center opacity-95"
                         loading="eager"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.55)_48%,rgba(0,0,0,0.35)_70%,rgba(0,0,0,0.65)_100%)]" />
