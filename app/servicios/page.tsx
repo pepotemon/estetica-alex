@@ -11,7 +11,7 @@ const SITE = {
     // ✅ HERO principal
     tratamientosHeroImg: "/tratamientos-hero.jpg",
 
-    // ✅ NUEVO HERO para el catálogo (pon aquí TU JPG)
+    // ✅ NUEVO HERO para el catálogo
     catalogoHeroImg: "/hero-catalogo.jpg",
 
     // CTA texto
@@ -239,7 +239,6 @@ function ServiceCard({
 }) {
     return (
         <div className="group overflow-hidden rounded-[1.75rem] border border-amber-300/15 bg-black/35 backdrop-blur">
-            {/* Top content */}
             <div className="px-6 pt-6 pb-4">
                 <div className="mb-3 flex items-center justify-center">
                     <div className="grid h-10 w-10 place-items-center rounded-2xl border border-amber-300/20 bg-black/50">
@@ -253,10 +252,8 @@ function ServiceCard({
                 </div>
             </div>
 
-            {/* Divider glow */}
             <div className="mx-6 h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
 
-            {/* Bottom image (como en la referencia) */}
             <div className="relative mt-4 aspect-[16/10] overflow-hidden">
                 <img
                     src={imageSrc}
@@ -264,7 +261,6 @@ function ServiceCard({
                     className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
                 />
-                {/* Overlay suave para look premium */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent_65%)]" />
             </div>
         </div>
@@ -300,16 +296,36 @@ function SectionTitle({
     );
 }
 
+function WhatsAppIcon({ className = "" }: { className?: string }) {
+    return (
+        <svg viewBox="0 0 24 24" className={className} fill="none">
+            <path
+                d="M20 11.9c0 4.5-3.7 8.1-8.2 8.1-1.4 0-2.7-.3-3.9-.9L4 20l1-3.6c-.7-1.2-1.1-2.6-1.1-4.2C3.9 7.6 7.5 4 12 4c4.5 0 8 3.5 8 7.9z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M9.3 9.2c.1-.4.5-.7.9-.7h.7c.3 0 .6.2.7.5l.5 1.2c.1.3.1.6-.1.8l-.5.6c.4.8 1.1 1.5 1.9 1.9l.6-.5c.2-.2.6-.2.8-.1l1.2.5c.3.1.5.4.5.7v.7c0 .4-.3.8-.7.9-.7.2-1.5.2-2.5-.1-2.1-.6-4.3-2.8-4.9-4.9-.3-1-.3-1.8-.1-2.5z"
+                fill="currentColor"
+                opacity="0.9"
+            />
+        </svg>
+    );
+}
+
 function ItemCard({
     icon,
     title,
     desc,
     tags,
+    whatsappHref,
 }: {
     icon?: string;
     title: string;
     desc: string;
     tags?: string[];
+    whatsappHref: string;
 }) {
     return (
         <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -320,7 +336,7 @@ function ItemCard({
                     </div>
                 ) : null}
 
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                     <div className="text-sm font-semibold text-amber-100 sm:text-base">
                         {title}
                     </div>
@@ -335,6 +351,21 @@ function ItemCard({
                             ))}
                         </div>
                     ) : null}
+
+                    {/* ✅ Botón WhatsApp por tratamiento */}
+                    <div className="mt-5">
+                        <a
+                            href={whatsappHref}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-black/35 px-4 py-2 text-xs font-semibold text-amber-100/90 hover:bg-white/5 transition"
+                            title={`Consultar ${title} por WhatsApp`}
+                            aria-label={`Consultar ${title} por WhatsApp`}
+                        >
+                            <WhatsAppIcon className="h-4 w-4 text-amber-200" />
+                            <span>Consultar</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -348,7 +379,8 @@ function AccordionSection({
     subtitle,
     note,
     children,
-    defaultOpen = false,
+    open,
+    onToggle,
 }: {
     id: string;
     indexLabel: string;
@@ -356,13 +388,16 @@ function AccordionSection({
     subtitle?: string;
     note?: string;
     children: React.ReactNode;
-    defaultOpen?: boolean;
+    open: boolean;
+    onToggle: (next: boolean) => void;
 }) {
     return (
         <details
             id={id}
-            className="group rounded-[2rem] border border-amber-300/15 bg-black/35 backdrop-blur open:bg-black/40"
-            open={defaultOpen}
+            // ✅ scroll-mt para que el header sticky NO tape el título
+            className="group rounded-[2rem] border border-amber-300/15 bg-black/35 backdrop-blur open:bg-black/40 scroll-mt-28"
+            open={open}
+            onToggle={(e) => onToggle((e.currentTarget as HTMLDetailsElement).open)}
         >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5">
                 <div className="flex items-center gap-4">
@@ -570,11 +605,17 @@ const CATALOG: CatalogSection[] = [
         subtitle: "Mujer · Hombre · Paquetes completos",
         note: "✦ Pack de zonas específicas — consultar precio personalizado.",
         items: [
-            { title: "Paquetes completos", desc: "Cuerpo completo sin cara · Cuerpo completo con cara · Cara." },
+            {
+                title: "Paquetes completos",
+                desc: "Cuerpo completo sin cara · Cuerpo completo con cara · Cara.",
+            },
             { title: "Cara", desc: "Rostro completo · Bigote · Mentón." },
             { title: "Tronco", desc: "Axilas · Línea del alba · Abdomen completo." },
             { title: "Brazos", desc: "Brazo · Ante-brazo · Brazo + Ante-brazo." },
-            { title: "Zona Íntima", desc: "Zona íntima + Perianal · Axilas + Zona íntima · Axilas + Zona íntima + Perianal · Axilas + Zona íntima + Perianal + Piernas." },
+            {
+                title: "Zona Íntima",
+                desc: "Zona íntima + Perianal · Axilas + Zona íntima · Axilas + Zona íntima + Perianal · Axilas + Zona íntima + Perianal + Piernas.",
+            },
             { title: "Piernas", desc: "Muslos · Piernas · Muslos y piernas." },
         ],
     },
@@ -615,6 +656,9 @@ const CATALOG: CatalogSection[] = [
 export default function ServiciosPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
+    // ✅ Catálogo: todo cerrado al entrar
+    const [openIds, setOpenIds] = React.useState<Set<string>>(() => new Set());
+
     const whatsappGeneral = waLink(
         `Hola! Quiero información de tratamientos en ${SITE.brand} (precios y disponibilidad).`
     );
@@ -650,6 +694,40 @@ export default function ServiciosPage() {
             iconKind: "vip" as const,
         },
     ];
+
+    function toggleSection(id: string, next: boolean) {
+        setOpenIds((prev) => {
+            const s = new Set(prev);
+            if (next) s.add(id);
+            else s.delete(id);
+            return s;
+        });
+    }
+
+    function jumpToSection(id: string) {
+        // ✅ abrir al presionar el chip del índice
+        setOpenIds((prev) => {
+            const s = new Set(prev);
+            s.add(id);
+            return s;
+        });
+
+        // ✅ scroll con espacio para el header sticky (usamos scroll-mt-28 + scrollIntoView)
+        // Espera microtask para que <details> se abra y el layout calcule bien
+        requestAnimationFrame(() => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            // opcional: actualiza hash sin salto brusco
+            history.replaceState(null, "", `#${id}`);
+        });
+    }
+
+    function perItemWhatsapp(title: string) {
+        return waLink(
+            `Hola! Deseo más información del tratamiento "${title}" en ${SITE.brand}. ¿Me puedes decir precio y disponibilidad?`
+        );
+    }
 
     return (
         <main className="min-h-screen bg-black text-white">
@@ -692,10 +770,7 @@ export default function ServiciosPage() {
 
                         <div className="flex items-center gap-2">
                             <nav className="flex items-center gap-4">
-                                <NavA href="/servicios">
-                                    <span className="text-amber-100 font-semibold">Servicios</span>
-                                </NavA>
-                                <Sep />
+                                {/* ✅ QUITADO: Servicios (ya estamos aquí) */}
                                 <NavA href="/curso">Curso</NavA>
                             </nav>
 
@@ -724,7 +799,9 @@ export default function ServiciosPage() {
                                 className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
                             />
                             <div className="leading-tight">
-                                <div className="text-sm font-semibold tracking-wide text-amber-100">{SITE.brand}</div>
+                                <div className="text-sm font-semibold tracking-wide text-amber-100">
+                                    {SITE.brand}
+                                </div>
                                 <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
                             </div>
                         </a>
@@ -765,7 +842,7 @@ export default function ServiciosPage() {
                                 {[
                                     { href: "/", label: "Inicio" },
                                     { href: "/#sobre", label: "Sobre Nosotros" },
-                                    { href: "/servicios", label: "Servicios" },
+                                    // ✅ QUITADO: Servicios (ya estamos aquí)
                                     { href: "/curso", label: "Curso" },
                                     { href: "/#contacto", label: "Contacto" },
                                 ].map((x) => (
@@ -833,7 +910,7 @@ export default function ServiciosPage() {
                 </div>
             </section>
 
-            {/* Nuestros Servicios (IDENTICO al estilo de tu imagen) */}
+            {/* Nuestros Servicios */}
             <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
                 <div className="mb-8 text-center">
                     <div className="text-3xl font-semibold text-amber-100">Nuestros Servicios</div>
@@ -852,9 +929,8 @@ export default function ServiciosPage() {
                 </div>
             </section>
 
-            {/* ✅ NUEVO: Catálogo con HERO de fondo */}
+            {/* Catálogo */}
             <section className="relative isolate overflow-hidden border-t border-white/10">
-                {/* Fondo hero del catálogo */}
                 <div className="pointer-events-none absolute inset-0 -z-10">
                     <img
                         src={SITE.catalogoHeroImg}
@@ -862,35 +938,34 @@ export default function ServiciosPage() {
                         className="h-full w-full object-cover opacity-20"
                         loading="lazy"
                     />
-                    {/* overlays para que el texto sea legible */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.78),rgba(0,0,0,0.92),rgba(0,0,0,0.96))]" />
                     <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_10%,rgba(255,215,128,0.12),transparent_60%)]" />
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
                 </div>
 
-                {/* Contenido */}
                 <div className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
                     <SectionTitle
                         title="Catálogo de Tratamientos"
                         subtitle="Toca una sección para ver todos los tratamientos disponibles."
                     />
 
-                    {/* Índice rápido (anclas) */}
+                    {/* Índice rápido */}
                     <div className="mb-8 flex flex-wrap gap-2">
                         {CATALOG.map((s) => (
-                            <a
+                            <button
                                 key={s.id}
-                                href={`#${s.id}`}
+                                type="button"
+                                onClick={() => jumpToSection(s.id)}
                                 className="rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs font-semibold text-amber-100/80 hover:bg-white/5 transition"
                             >
                                 {s.indexLabel} · {s.title}
-                            </a>
+                            </button>
                         ))}
                     </div>
 
                     <div className="space-y-5">
-                        {CATALOG.map((sec, i) => (
+                        {CATALOG.map((sec) => (
                             <AccordionSection
                                 key={sec.id}
                                 id={sec.id}
@@ -898,7 +973,9 @@ export default function ServiciosPage() {
                                 title={sec.title}
                                 subtitle={sec.subtitle}
                                 note={sec.note}
-                                defaultOpen={i === 0}
+                                // ✅ todo cerrado por defecto
+                                open={openIds.has(sec.id)}
+                                onToggle={(next) => toggleSection(sec.id, next)}
                             >
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     {sec.items.map((it) => (
@@ -908,6 +985,7 @@ export default function ServiciosPage() {
                                             title={it.title}
                                             desc={it.desc}
                                             tags={it.tags}
+                                            whatsappHref={perItemWhatsapp(it.title)}
                                         />
                                     ))}
                                 </div>
@@ -915,7 +993,7 @@ export default function ServiciosPage() {
                         ))}
                     </div>
 
-                    {/* CTA final (solo uno, sin CTA por card) */}
+                    {/* CTA final */}
                     <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-black/35 p-7 backdrop-blur sm:p-10">
                         <div className="text-2xl font-semibold text-amber-100">
                             ¿Hablamos de tu caso?
