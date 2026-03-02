@@ -193,6 +193,365 @@ function ServiceCard({
     );
 }
 
+/* ===========================
+   NUEVO: Catálogo Accordion
+=========================== */
+
+function Tag({ children }: { children: React.ReactNode }) {
+    return (
+        <span className="inline-flex items-center rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs font-semibold text-amber-100/80">
+            {children}
+        </span>
+    );
+}
+
+function SectionTitle({
+    title,
+    subtitle,
+}: {
+    title: string;
+    subtitle?: string;
+}) {
+    return (
+        <div className="mb-6">
+            <div className="text-2xl font-semibold text-amber-100">{title}</div>
+            {subtitle ? (
+                <div className="mt-2 text-sm text-amber-100/65">{subtitle}</div>
+            ) : null}
+        </div>
+    );
+}
+
+function ItemCard({
+    icon,
+    title,
+    desc,
+    tags,
+}: {
+    icon?: string;
+    title: string;
+    desc: string;
+    tags?: string[];
+}) {
+    return (
+        <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <div className="flex items-start gap-4">
+                {icon ? (
+                    <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-2xl border border-amber-300/20 bg-black/40 text-sm font-semibold text-amber-200">
+                        {icon}
+                    </div>
+                ) : null}
+
+                <div className="min-w-0">
+                    <div className="text-sm font-semibold text-amber-100 sm:text-base">
+                        {title}
+                    </div>
+                    <div className="mt-2 text-sm leading-relaxed text-amber-100/70">
+                        {desc}
+                    </div>
+
+                    {tags && tags.length ? (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                            {tags.map((t) => (
+                                <Tag key={t}>{t}</Tag>
+                            ))}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function AccordionSection({
+    id,
+    indexLabel,
+    title,
+    subtitle,
+    note,
+    children,
+    defaultOpen = false,
+}: {
+    id: string;
+    indexLabel: string;
+    title: string;
+    subtitle?: string;
+    note?: string;
+    children: React.ReactNode;
+    defaultOpen?: boolean;
+}) {
+    return (
+        <details
+            id={id}
+            className="group rounded-[2rem] border border-amber-300/15 bg-black/35 backdrop-blur open:bg-black/40"
+            open={defaultOpen}
+        >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5">
+                <div className="flex items-center gap-4">
+                    <div className="grid h-11 w-11 place-items-center rounded-2xl border border-amber-300/20 bg-black/45 text-sm font-semibold text-amber-200">
+                        {indexLabel}
+                    </div>
+                    <div className="min-w-0">
+                        <div className="text-base font-semibold text-amber-100 sm:text-lg">
+                            {title}
+                        </div>
+                        {subtitle ? (
+                            <div className="mt-1 text-sm text-amber-100/60">{subtitle}</div>
+                        ) : null}
+                    </div>
+                </div>
+
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-black/35">
+                    <svg
+                        viewBox="0 0 24 24"
+                        className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
+                        fill="none"
+                    >
+                        <path
+                            d="M6 9l6 6 6-6"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </span>
+            </summary>
+
+            <div className="px-6 pb-6">
+                <div className="mx-1 h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
+
+                {note ? (
+                    <div className="mt-5 rounded-[1.6rem] border border-white/10 bg-black/30 p-5 text-sm text-amber-100/70">
+                        {note}
+                    </div>
+                ) : null}
+
+                <div className="mt-6">{children}</div>
+            </div>
+        </details>
+    );
+}
+
+type CatalogItem = {
+    icon?: string;
+    title: string;
+    desc: string;
+    tags?: string[];
+};
+
+type CatalogSection = {
+    id: string;
+    indexLabel: string;
+    title: string;
+    subtitle?: string;
+    note?: string;
+    items: CatalogItem[];
+};
+
+const CATALOG: CatalogSection[] = [
+    {
+        id: "cuerpo",
+        indexLabel: "01",
+        title: "Cuerpo",
+        subtitle: "Tratamientos corporales",
+        items: [
+            {
+                icon: "✦",
+                title: "Masaje Moldeador con Radiofrecuencia",
+                desc: "Combinación que moldea la figura, activa la circulación y reafirma la piel mediante calor profundo. Disponible en sesión individual o bonos.",
+                tags: ["Sesión", "Bono 5", "Bono 10"],
+            },
+            {
+                icon: "◈",
+                title: "Masaje Moldeador con Diatermia Indiba",
+                desc: "Tecnología Indiba de alta eficacia combinada con masaje moldeador para reducir volumen y mejorar la calidad de la piel en profundidad.",
+                tags: ["Sesión", "Bono 5", "Bono 10"],
+            },
+            {
+                icon: "❖",
+                title: "Masaje Moldeador + Cavitación + Radiofrecuencia + Vacumterapia",
+                desc: "Tratamiento completo que combina cuatro técnicas para reducir la celulitis, moldear y tonificar el cuerpo en una sola sesión.",
+                tags: ["Sesión", "Bono 5", "Bono 10"],
+            },
+            {
+                icon: "◯",
+                title: "Vacum Rotation",
+                desc: "Vacumterapia rotatoria que estimula la circulación linfática, reduce la celulitis y reafirma los tejidos de forma visible y progresiva.",
+                tags: ["Consultar sesiones"],
+            },
+            {
+                icon: "❄",
+                title: "Criolipolisis",
+                desc: "Eliminación de grasa localizada mediante frío controlado. Tratamiento no invasivo que destruye las células grasas sin tiempo de recuperación.",
+                tags: ["Consultar zonas"],
+            },
+            {
+                icon: "⚡",
+                title: "EMS Sculpt",
+                desc: "Estimulación muscular electromagnética de alta intensidad que tonifica y define la musculatura equivalente a miles de contracciones en una sola sesión.",
+                tags: ["Consultar programa"],
+            },
+        ],
+    },
+    {
+        id: "recuperacion",
+        indexLabel: "02",
+        title: "Recuperación",
+        subtitle: "Tratamientos postquirúrgicos por etapas",
+        note:
+            "Cada etapa está diseñada para acompañarte en cada fase de tu recuperación. Consultamos tu caso de forma personalizada y ajustamos las sesiones según tu pauta.",
+        items: [
+            {
+                icon: "1",
+                title: "Drenaje Postquirúrgico — 1ª Etapa",
+                desc: "Primera fase de recuperación. Drena el exceso de líquidos, reduce la inflamación inicial y prepara los tejidos para las siguientes etapas del proceso.",
+                tags: ["Etapa inicial", "Sesiones según pauta"],
+            },
+            {
+                icon: "2",
+                title: "Masaje Linfático Postquirúrgico con Ultrasonido — 2ª Etapa",
+                desc: "Ultrasonido terapéutico que favorece la reabsorción profunda de líquidos, mejora la fibrosis y acelera la recuperación de los tejidos.",
+                tags: ["Etapa intermedia", "Sesiones según pauta"],
+            },
+            {
+                icon: "3",
+                title: "Masaje Linfático Postquirúrgico con Indiba — 3ª Etapa",
+                desc: "Fase final con tecnología Indiba que reafirma, mejora las cicatrices y consolida los resultados definitivos de la cirugía estética.",
+                tags: ["Etapa final", "Bono 5", "Bono 10"],
+            },
+        ],
+    },
+    {
+        id: "rostro",
+        indexLabel: "03",
+        title: "Rostro",
+        subtitle: "Tratamientos faciales",
+        items: [
+            {
+                title: "Limpieza Facial Profunda",
+                desc: "Limpieza completa en profundidad para una piel revitalizada y luminosa.",
+            },
+            {
+                title: "Microdermoabrasión / Punta de Diamante",
+                desc: "Exfoliación mecánica que renueva la textura de la piel y reduce imperfecciones.",
+            },
+            {
+                title: "Dermapem + Punta de Diamante + Ácido Hialurónico",
+                desc: "Hidratación profunda con ácido hialurónico no reticulado para un efecto relleno natural.",
+            },
+            {
+                title: "Dermapem + Punta de Diamante + Vitamina C",
+                desc: "Iluminación y antioxidación para combatir manchas y el envejecimiento cutáneo.",
+            },
+            {
+                title: "Dermapem + Punta de Diamante + Cóctel de Vitaminas",
+                desc: "Nutrición intensiva con complejo vitamínico para revitalizar la piel apagada.",
+            },
+            {
+                title: "Dermapem + Punta de Diamante + Exosomas",
+                desc: "Regeneración celular avanzada con tecnología de exosomas de última generación.",
+            },
+            {
+                title: "Carbón Peel",
+                desc: "Tratamiento láser con carbón que reduce poros, controla la grasa y unifica el tono.",
+            },
+            {
+                title: "Radiofrecuencia Indiba Facial + Punta de Diamante",
+                desc: "Reafirmación y rejuvenecimiento profundo con tecnología Indiba de alto rendimiento.",
+            },
+            {
+                title: "Radiofrecuencia Indiba Facial — Bono 6 sesiones",
+                desc: "Programa intensivo para resultados duraderos de lifting y firmeza facial.",
+                tags: ["Bono 6"],
+            },
+            {
+                title: "Radiofrecuencia Fraccionada con Nano Agujas",
+                desc: "Última generación con microagujas: Oligoelementos · Exosomas · Polivitaminas.",
+            },
+        ],
+    },
+    {
+        id: "laser-avanzado",
+        indexLabel: "04",
+        title: "Láser Avanzado",
+        subtitle: "Eliminación de tatuajes",
+        items: [
+            {
+                icon: "◉",
+                title: "Eliminación con Láser Pico Segundo",
+                desc: "Tecnología láser picosegundo de última generación que fragmenta el pigmento del tatuaje en micropartículas con mínima molestia y máxima eficacia. Apta para todos los colores y fototipos de piel.",
+                tags: ["Consultar según tamaño y zona"],
+            },
+        ],
+    },
+    {
+        id: "depilacion",
+        indexLabel: "05",
+        title: "Depilación Láser",
+        subtitle: "Mujer · Hombre · Paquetes completos",
+        note: "✦ Pack de zonas específicas — consultar precio personalizado.",
+        items: [
+            {
+                title: "Paquetes completos",
+                desc: "Cuerpo completo sin cara · Cuerpo completo con cara · Cara.",
+            },
+            {
+                title: "Cara",
+                desc: "Rostro completo · Bigote · Mentón.",
+            },
+            {
+                title: "Tronco",
+                desc: "Axilas · Línea del alba · Abdomen completo.",
+            },
+            {
+                title: "Brazos",
+                desc: "Brazo · Ante-brazo · Brazo + Ante-brazo.",
+            },
+            {
+                title: "Zona Íntima",
+                desc: "Zona íntima + Perianal · Axilas + Zona íntima · Axilas + Zona íntima + Perianal · Axilas + Zona íntima + Perianal + Piernas.",
+            },
+            {
+                title: "Piernas",
+                desc: "Muslos · Piernas · Muslos y piernas.",
+            },
+        ],
+    },
+    {
+        id: "cejas-pestanas",
+        indexLabel: "06",
+        title: "Cejas & Pestañas",
+        subtitle: "Diseño, definición y mirada",
+        items: [
+            {
+                icon: "〜",
+                title: "Depilación con Hilo + Henna o Tinte",
+                desc: "Depilación de precisión con hilo para un trazo perfecto, combinada con henna o tinte para definir, rellenar y darle color a las cejas de forma natural y duradera.",
+                tags: ["Consultar disponibilidad"],
+            },
+            {
+                icon: "◎",
+                title: "Depilación con Hilo + Laminado + Tinte o Henna",
+                desc: "Tratamiento completo de cejas: depilación con hilo, laminado para fijar y dar volumen a los pelitos, y color con tinte o henna para un acabado impecable y duradero.",
+                tags: ["Consultar disponibilidad"],
+            },
+            {
+                icon: "✧",
+                title: "Lifting de Pestañas",
+                desc: "Riza y levanta las pestañas naturales desde la raíz para conseguir una mirada más abierta y expresiva de forma duradera, sin necesidad de rizador ni máscara.",
+                tags: ["Consultar disponibilidad"],
+            },
+            {
+                icon: "✦",
+                title: "Lifting de Pestañas + Tinte",
+                desc: "Lifting completo con tinte incluido para intensificar el color de las pestañas y conseguir una mirada todavía más intensa, oscura y definida sin maquillaje.",
+                tags: ["Consultar disponibilidad"],
+            },
+        ],
+    },
+];
+
 export default function ServiciosPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -430,6 +789,73 @@ export default function ServiciosPage() {
                             iconKind={s.iconKind}
                         />
                     ))}
+                </div>
+            </section>
+
+            {/* ✅ NUEVO: Catálogo completo (Accordion por secciones) */}
+            <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-16">
+                <SectionTitle
+                    title="Catálogo de Tratamientos"
+                    subtitle="Toca una sección para ver todos los tratamientos disponibles."
+                />
+
+                {/* Índice rápido (anclas) */}
+                <div className="mb-8 flex flex-wrap gap-2">
+                    {CATALOG.map((s) => (
+                        <a
+                            key={s.id}
+                            href={`#${s.id}`}
+                            className="rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs font-semibold text-amber-100/80 hover:bg-white/5 transition"
+                        >
+                            {s.indexLabel} · {s.title}
+                        </a>
+                    ))}
+                </div>
+
+                <div className="space-y-5">
+                    {CATALOG.map((sec, i) => (
+                        <AccordionSection
+                            key={sec.id}
+                            id={sec.id}
+                            indexLabel={sec.indexLabel}
+                            title={sec.title}
+                            subtitle={sec.subtitle}
+                            note={sec.note}
+                            defaultOpen={i === 0}
+                        >
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                {sec.items.map((it) => (
+                                    <ItemCard
+                                        key={`${sec.id}-${it.title}`}
+                                        icon={it.icon}
+                                        title={it.title}
+                                        desc={it.desc}
+                                        tags={it.tags}
+                                    />
+                                ))}
+                            </div>
+                        </AccordionSection>
+                    ))}
+                </div>
+
+                {/* CTA final (solo uno, sin CTA por card) */}
+                <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-white/5 p-7 backdrop-blur sm:p-10">
+                    <div className="text-2xl font-semibold text-amber-100">
+                        ¿Hablamos de tu caso?
+                    </div>
+                    <p className="mt-2 max-w-3xl text-amber-100/70">
+                        Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso.
+                        Te orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o cejas/pestañas).
+                    </p>
+
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                        <Button href={whatsappGeneral} variant="gold">
+                            Solicitar cita
+                        </Button>
+                        <Button href={whatsappCatalogo} variant="outline">
+                            Pedir catálogo completo
+                        </Button>
+                    </div>
                 </div>
             </section>
 

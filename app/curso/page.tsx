@@ -98,7 +98,7 @@ function OutlineDot({ children }: { children: React.ReactNode }) {
     );
 }
 
-/* ===== Iconos (estilo similar al banner) ===== */
+/* ===== Iconos (estilo banner) ===== */
 function IconHand() {
     return (
         <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
@@ -218,34 +218,243 @@ function IconShield() {
     );
 }
 
-function FeatureTile({
+function IconSpark() {
+    return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+            <path
+                d="M12 2l1.5 5 5 1.5-5 1.5-1.5 5-1.5-5-5-1.5 5-1.5L12 2z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M19 13l.9 3 3 .9-3 .9-.9 3-.9-3-3-.9 3-.9.9-3z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function IconCheck() {
+    return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+            <path
+                d="M20 6L9 17l-5-5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+/* ✅ Tile estilo banner: icono arriba + texto dorado centrado */
+function FeatureTileBanner({
     icon,
     title,
-    subtitle,
-    className = "",
 }: {
     icon: React.ReactNode;
     title: string;
-    subtitle: string;
-    className?: string;
 }) {
     return (
         <div
             className={[
-                "group rounded-[1.6rem] border border-amber-300/15 bg-black/35 p-5 backdrop-blur",
-                className,
+                "relative overflow-hidden rounded-[1.35rem] border border-amber-300/20 bg-black/35 px-5 py-6 backdrop-blur",
+                "shadow-[0_0_0_1px_rgba(255,215,128,0.06),0_18px_60px_rgba(0,0,0,0.55)]",
             ].join(" ")}
         >
-            <div className="flex items-center gap-3">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl border border-amber-300/20 bg-black/40">
+            <div className="pointer-events-none absolute inset-0 opacity-70">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/35 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl border border-amber-300/25 bg-black/45">
                     {icon}
                 </div>
-                <div className="min-w-0">
-                    <div className="text-sm font-semibold text-amber-100">{title}</div>
-                    <div className="mt-1 text-xs text-amber-100/60">{subtitle}</div>
+
+                <div className="mt-4 text-sm font-semibold tracking-wide text-amber-100">
+                    {title}
                 </div>
             </div>
         </div>
+    );
+}
+
+/* ===== Temario PRO ===== */
+function ModuleBadge({ n }: { n: number }) {
+    const label = String(n).padStart(2, "0");
+    return (
+        <div className="relative grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-amber-300/25 bg-black/45">
+            <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[0_0_0_1px_rgba(255,215,128,0.08),0_0_35px_rgba(255,215,128,0.08)]" />
+            <span className="font-serif text-sm tracking-[0.22em] text-amber-100">
+                {label}
+            </span>
+        </div>
+    );
+}
+
+function Chip({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs text-amber-100/85 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-300/90" />
+            {children}
+        </div>
+    );
+}
+
+function FancyDetails({
+    index,
+    title,
+    summary,
+    points,
+    chips,
+    ctaHref,
+}: {
+    index: number;
+    title: string;
+    summary: string;
+    points: string[];
+    chips: string[];
+    ctaHref: string;
+}) {
+    return (
+        <details
+            className={[
+                "group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur",
+                "shadow-[0_0_0_1px_rgba(255,215,128,0.04),0_18px_65px_rgba(0,0,0,0.55)]",
+                "open:bg-white/7",
+            ].join(" ")}
+        >
+            {/* Glow/lines */}
+            <div className="pointer-events-none absolute inset-0 opacity-70">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/15 to-transparent" />
+                <div className="absolute -left-24 top-10 h-48 w-48 rounded-full bg-amber-300/10 blur-3xl" />
+                <div className="absolute -right-28 bottom-0 h-56 w-56 rounded-full bg-amber-300/8 blur-3xl" />
+            </div>
+
+            <summary className="relative flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-6 sm:px-7">
+                <div className="flex min-w-0 items-center gap-4">
+                    <ModuleBadge n={index} />
+                    <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-amber-100 sm:text-base">
+                                {title}
+                            </span>
+                            <span className="hidden sm:inline-flex">
+                                <IconSpark />
+                            </span>
+                        </div>
+
+                        {/* Preview line */}
+                        <div className="mt-1 line-clamp-1 text-xs text-amber-100/60 sm:text-sm">
+                            {summary}
+                        </div>
+
+                        {/* ✅ Chips dinámicos (ÚNICOS por módulo) */}
+                        <div className="mt-3 hidden flex-wrap gap-2 sm:flex">
+                            {chips.map((chip) => (
+                                <Chip key={chip}>{chip}</Chip>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Chevron */}
+                <div className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/35">
+                    <svg
+                        viewBox="0 0 24 24"
+                        className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
+                        fill="none"
+                    >
+                        <path
+                            d="M6 9l6 6 6-6"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </div>
+            </summary>
+
+            {/* Content */}
+            <div className="relative px-6 pb-7 sm:px-7">
+                {/* Divider */}
+                <div className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+                <div className="grid gap-5 sm:grid-cols-12">
+                    {/* Left: summary + CTA */}
+                    <div className="sm:col-span-5">
+                        <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-amber-100">
+                                <IconSpark />
+                                Resumen del módulo
+                            </div>
+                            <p className="mt-3 text-sm leading-relaxed text-amber-100/70">
+                                {summary}
+                            </p>
+
+                            <div className="mt-5 flex flex-col gap-3">
+                                <Button href={ctaHref} variant="outline" className="w-full">
+                                    Pedir temario completo de este módulo
+                                </Button>
+                            </div>
+                        </div>
+
+                        {/* Small note */}
+                        <div className="mt-4 rounded-[1.6rem] border border-amber-300/15 bg-white/5 p-5">
+                            <div className="text-xs font-semibold text-amber-100">
+                                Enfoque premium
+                            </div>
+                            <div className="mt-2 text-xs text-amber-100/70">
+                                Protocolos claros, comunicación profesional y práctica aplicable.
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: points */}
+                    <div className="sm:col-span-7">
+                        <div className="grid gap-3">
+                            {points.map((p) => (
+                                <div
+                                    key={p}
+                                    className={[
+                                        "group/pt relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black/30 p-5",
+                                        "shadow-[0_0_0_1px_rgba(255,215,128,0.03)]",
+                                    ].join(" ")}
+                                >
+                                    <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover/pt:opacity-100">
+                                        <div className="absolute inset-0 bg-[radial-gradient(600px_220px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
+                                    </div>
+
+                                    <div className="relative flex gap-3">
+                                        <div className="mt-0.5 grid h-9 w-9 place-items-center rounded-2xl border border-amber-300/20 bg-black/40">
+                                            <IconCheck />
+                                        </div>
+                                        <div className="text-sm text-amber-100/80">{p}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Bottom CTA row (desktop) */}
+                        <div className="mt-4 hidden items-center justify-between rounded-[1.6rem] border border-white/10 bg-white/5 p-5 sm:flex">
+                            <div className="text-sm font-semibold text-amber-100">
+                                ¿Quieres el PDF completo del temario?
+                            </div>
+                            <Button href={ctaHref} variant="gold" className="px-5 py-2">
+                                Enviar por WhatsApp
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
     );
 }
 
@@ -253,25 +462,28 @@ export default function CursoPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const COURSE = {
-        name: "DOMINA EL POST-QUIRÚRGICO DE PRINCIPIO A FIN",
+        nameTop: "DOMINA EL POST-QUIRÚRGICO",
+        nameBottom: "DE PRINCIPIO A FIN",
         modality: "Presencial",
         hours: "40 horas",
         breakdown: "20h teoría · 20h práctica",
     };
 
     const whatsappCurso = waLink(
-        `Hola Alex! Quiero info del curso "${COURSE.name}": precio, próximas fechas y cupos.`
+        `Hola Alex! Quiero info del curso "${COURSE.nameTop} ${COURSE.nameBottom}": precio, próximas fechas y cupos.`
     );
 
     const whatsappTemario = waLink(
-        `Hola Alex! ¿Me puedes enviar el temario completo del curso "${COURSE.name}" y requisitos?`
+        `Hola Alex! ¿Me puedes enviar el temario completo del curso "${COURSE.nameTop} ${COURSE.nameBottom}" y requisitos?`
     );
 
+    // ✅ Temario con chips ÚNICOS por módulo (sin repetición)
     const modules = [
         {
-            title: "1) Fundamentos Anatómicos y Fisiológicos",
+            title: "Fundamentos Anatómicos y Fisiológicos",
             summary:
                 "Comprende qué ocurre en el cuerpo tras la cirugía: edema, drenaje, tejido y cicatrización, para tomar decisiones con más criterio.",
+            chips: ["Anatomía aplicada", "Inflamación", "Cicatrización"],
             points: [
                 "Sistema linfático, edema, inflamación y cicatrización.",
                 "Cómo “leer” el tejido sin invadir lo clínico.",
@@ -279,9 +491,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "2) Tipos de Cirugías Estéticas y Protocolos",
+            title: "Tipos de Cirugías Estéticas y Protocolos",
             summary:
                 "Enfoque práctico por procedimientos frecuentes y objetivos: inflamación, confort, fibrosis y acompañamiento por fases.",
+            chips: ["Lipoescultura", "Abdominoplastia", "Protocolos por fases"],
             points: [
                 "Fases: primeros días, semanas, mantenimiento.",
                 "Objetivos por etapa y organización de sesiones.",
@@ -289,9 +502,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "3) Seguridad, Ética y Marco Legal",
+            title: "Seguridad, Ética y Marco Legal",
             summary:
                 "Aprende a trabajar con límites claros y comunicación profesional: higiene, consentimiento, documentación y responsabilidad.",
+            chips: ["Higiene clínica", "Consentimiento", "Límites profesionales"],
             points: [
                 "Higiene y preparación de cabina (estándar premium).",
                 "Consentimiento informado y comunicación clara.",
@@ -299,9 +513,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "4) Drenaje Linfático Manual Postquirúrgico",
+            title: "Drenaje Linfático Manual Postquirúrgico",
             summary:
-                "Técnica guiada: ritmo, presión, secuencias y errores típicos, buscando confort, mejora visible y constancia del cliente.",
+                "Técnica guiada: ritmo, presión, secuencias y corrección de errores.",
+            chips: ["Ritmo y presión", "Secuencias", "Control del edema"],
             points: [
                 "Principios técnicos y control de presión.",
                 "Secuencias adaptadas según evolución del caso.",
@@ -309,9 +524,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "5) Terapia de Compresión y Prendas",
+            title: "Terapia de Compresión y Prendas",
             summary:
                 "Uso inteligente de compresión: tipos de prendas, ajuste, hábitos y educación al cliente para que el proceso sea más estable.",
+            chips: ["Fajas postquirúrgicas", "Compresión adecuada", "Seguimiento"],
             points: [
                 "Qué revisar: ajuste, comodidad y seguridad.",
                 "Cuidados, constancia y hábitos recomendados.",
@@ -319,9 +535,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "6) Técnicas Complementarias y Aparatología",
+            title: "Técnicas Complementarias y Aparatología",
             summary:
                 "Aprende cuándo conviene (y cuándo no) usar técnicas/aparatos. Enfoque responsable: menos promesas, más criterio.",
+            chips: ["Ultrasonido", "Radiofrecuencia", "Fibrosis"],
             points: [
                 "Elección por objetivo: confort, textura, apoyo al proceso.",
                 "Parámetros generales de seguridad y buenas prácticas.",
@@ -329,9 +546,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "7) Manejo de Complicaciones y Emergencias",
+            title: "Manejo de Complicaciones y Emergencias",
             summary:
                 "Identifica señales de alarma y aplica un protocolo de acción responsable: prioridad absoluta a la salud del cliente.",
+            chips: ["Seroma", "Signos de alarma", "Derivación médica"],
             points: [
                 "Signos de alerta: cuándo derivar de inmediato.",
                 "Cómo documentar y comunicar con profesionalismo.",
@@ -339,9 +557,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "8) Nutrición y Hábitos en la Recuperación",
+            title: "Nutrición y Hábitos en la Recuperación",
             summary:
                 "Acompañamiento educativo (no clínico): hidratación, descanso, hábitos y seguimiento sencillo que mejora adherencia.",
+            chips: ["Hidratación", "Descanso", "Hábitos saludables"],
             points: [
                 "Hábitos que favorecen el proceso (de forma general).",
                 "Cómo orientar sin invadir áreas médicas.",
@@ -349,9 +568,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "9) Gestión de la Cabina Profesional",
+            title: "Gestión de la Cabina Profesional",
             summary:
                 "Estandariza tu servicio para que se vea premium: agenda, experiencia, comunicación y fidelización sin presión.",
+            chips: ["Experiencia cliente", "Agenda estratégica", "Fidelización"],
             points: [
                 "Estructura de sesiones y seguimiento por fases.",
                 "Experiencia del cliente: antes/durante/después.",
@@ -359,9 +579,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "10) Protocolos Prácticos y Casos Clínicos",
+            title: "Protocolos Prácticos y Casos Clínicos",
             summary:
                 "Práctica con lógica real de cabina: valoración, plan por objetivos y toma de decisiones según evolución.",
+            chips: ["Casos reales", "Valoración inicial", "Checklist por sesión"],
             points: [
                 "Protocolos completos de inicio a fin.",
                 "Casos y decisiones: qué hacer según el progreso.",
@@ -369,9 +590,10 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "AN) Anexos (materiales descargables)",
+            title: "Anexos (materiales descargables)",
             summary:
                 "Recursos listos para usar: guías, plantillas y documentos para implementar el método desde el primer día.",
+            chips: ["Plantillas", "Guías PDF", "Material descargable"],
             points: [
                 "Plantillas de control y seguimiento.",
                 "Guías de comunicación y post-tratamiento.",
@@ -570,112 +792,119 @@ export default function CursoPage() {
                 ) : null}
             </header>
 
-            {/* HERO tipo “banner” (FONDO + TITULO + ICONOS) */}
+            {/* ✅ HERO: SIN logo/círculo arriba del título (para que no choque con el header) */}
             <section className="relative isolate overflow-hidden border-b border-white/10">
                 {/* Imagen de fondo */}
                 <div className="absolute inset-0 -z-20 bg-black">
                     <img
                         src={SITE.cursoHeroImg}
                         alt="Curso post-quirúrgico - Alex Estética"
-                        className="h-full w-full object-cover opacity-90"
+                        className="h-full w-full object-cover opacity-95"
                         loading="eager"
                     />
 
-                    {/* Overlay para que el texto siempre se lea bien (sin matar el fondo) */}
-                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.86))]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
+                    {/* Overlay para que el dorado destaque como la imagen */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45),rgba(0,0,0,0.92))]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(1200px_650px_at_50%_15%,rgba(255,215,128,0.14),transparent_60%)]" />
 
-                    {/* Granulado / partículas (sutil, sin líneas) */}
+                    {/* Granulado / destellos (sutil) */}
                     <div
-                        className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-screen
-            bg-[radial-gradient(circle_at_20%_30%,rgba(255,215,128,0.25)_0,transparent_18%),
-                radial-gradient(circle_at_70%_35%,rgba(255,215,128,0.18)_0,transparent_20%),
-                radial-gradient(circle_at_50%_80%,rgba(255,215,128,0.14)_0,transparent_22%),
-                radial-gradient(circle_at_85%_75%,rgba(255,215,128,0.10)_0,transparent_22%)]"
+                        className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-screen
+            bg-[radial-gradient(circle_at_12%_28%,rgba(255,215,128,0.28)_0,transparent_18%),
+                radial-gradient(circle_at_28%_20%,rgba(255,215,128,0.18)_0,transparent_22%),
+                radial-gradient(circle_at_72%_24%,rgba(255,215,128,0.16)_0,transparent_22%),
+                radial-gradient(circle_at_88%_34%,rgba(255,215,128,0.12)_0,transparent_22%),
+                radial-gradient(circle_at_25%_82%,rgba(255,215,128,0.10)_0,transparent_22%)]"
                     />
                 </div>
 
                 {/* Contenido */}
                 <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-                    {/* ✅ centrado en desktop, normal en móvil */}
-                    <div className="max-w-3xl sm:mx-auto sm:text-center">
-                        <p className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs text-amber-100/80 backdrop-blur">
-                            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
-                            Curso presencial · {SITE.city} · 40h (20 teoría + 20 práctica)
-                        </p>
+                    {/* Título como la imagen: 2 líneas, serif, dorado */}
+                    <div className="text-center">
+                        <h1 className="font-serif tracking-[0.06em]">
+                            <span
+                                className={[
+                                    "block text-[2.15rem] leading-[1.05] sm:text-[4.1rem]",
+                                    "text-transparent bg-clip-text",
+                                    "bg-[linear-gradient(90deg,rgba(255,232,170,0.92),rgba(255,208,120,0.98),rgba(255,232,170,0.90))]",
+                                    "drop-shadow-[0_0_26px_rgba(255,215,128,0.18)]",
+                                ].join(" ")}
+                            >
+                                {COURSE.nameTop}
+                            </span>
 
-                        <h1 className="mt-6 text-4xl font-semibold leading-tight text-amber-100 sm:text-6xl">
-                            {COURSE.name}
+                            <span
+                                className={[
+                                    "mt-4 block text-sm sm:text-lg",
+                                    "text-transparent bg-clip-text",
+                                    "bg-[linear-gradient(90deg,rgba(255,232,170,0.82),rgba(255,208,120,0.90),rgba(255,232,170,0.78))]",
+                                    "tracking-[0.38em]",
+                                ].join(" ")}
+                            >
+                                {COURSE.nameBottom}
+                            </span>
                         </h1>
-
-                        <p className="mt-5 max-w-2xl text-amber-100/70 sm:mx-auto sm:text-lg">
-                            Una formación intensiva y práctica para dominar el acompañamiento estético
-                            post-quirúrgico con criterio profesional, protocolos claros y una experiencia
-                            premium de cabina. Aprenderás a organizar sesiones por fases, comunicarte con
-                            seguridad y elevar tus resultados de forma responsable.
-                        </p>
-
-                        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                            <Button href={whatsappCurso} variant="gold">
-                                Pedir precio + próximas fechas
-                            </Button>
-                            <Button href={whatsappTemario} variant="outline">
-                                Solicitar temario completo
-                            </Button>
-                        </div>
                     </div>
 
-                    {/* ✅ Tiles: 2 cols en móvil, 5 cols en desktop, último centrado */}
-                    <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-5">
-                        <FeatureTile
-                            icon={<IconHand />}
-                            title="Drenaje linfático manual"
-                            subtitle="Técnica + secuencias"
-                        />
-                        <FeatureTile
-                            icon={<IconClipboard />}
-                            title="Cirugías & protocolos"
-                            subtitle="Fases + objetivos"
-                        />
-                        <FeatureTile
-                            icon={<IconWarning />}
-                            title="Manejo de complicaciones"
-                            subtitle="Alertas + derivación"
-                        />
-                        <FeatureTile
-                            icon={<IconJacket />}
-                            title="Compresión & aparatología"
-                            subtitle="Uso con criterio"
-                        />
-                        <FeatureTile
-                            className="col-span-2 justify-self-center sm:col-span-1 sm:justify-self-auto"
-                            icon={<IconShield />}
-                            title="Seguridad & ética"
-                            subtitle="Higiene + límites"
-                        />
-                    </div>
-
-                    {/* Banda de datos reales */}
-                    <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-                            <div className="text-xs text-amber-100/60">Modalidad</div>
-                            <div className="mt-2 text-sm font-semibold text-amber-100">
-                                {COURSE.modality}
+                    {/* Tiles dorados abajo (como la imagen). En móvil: scroll horizontal */}
+                    <div className="mt-12">
+                        {/* Mobile: carrusel */}
+                        <div className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-2 sm:hidden">
+                            <div className="min-w-[220px]">
+                                <FeatureTileBanner
+                                    icon={<IconHand />}
+                                    title="DRENAJE LINFÁTICO MANUAL POSTQUIRÚRGICO"
+                                />
+                            </div>
+                            <div className="min-w-[220px]">
+                                <FeatureTileBanner
+                                    icon={<IconClipboard />}
+                                    title="TIPOS DE CIRUGÍAS Y PROTOCOLOS"
+                                />
+                            </div>
+                            <div className="min-w-[220px]">
+                                <FeatureTileBanner
+                                    icon={<IconWarning />}
+                                    title="MANEJO DE COMPLICACIONES"
+                                />
+                            </div>
+                            <div className="min-w-[220px]">
+                                <FeatureTileBanner
+                                    icon={<IconJacket />}
+                                    title="TERAPIA DE COMPRESIÓN Y APARATOLOGÍA"
+                                />
+                            </div>
+                            <div className="min-w-[220px]">
+                                <FeatureTileBanner
+                                    icon={<IconShield />}
+                                    title="SEGURIDAD & ÉTICA PROFESIONAL"
+                                />
                             </div>
                         </div>
 
-                        <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-                            <div className="text-xs text-amber-100/60">Duración</div>
-                            <div className="mt-2 text-sm font-semibold text-amber-100">
-                                {COURSE.hours} · {COURSE.breakdown}
-                            </div>
-                        </div>
-
-                        <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-                            <div className="text-xs text-amber-100/60">Ubicación</div>
-                            <div className="mt-2 text-sm font-semibold text-amber-100">
-                                {SITE.addressLine}
-                            </div>
+                        {/* Desktop: 5 columnas */}
+                        <div className="hidden grid-cols-5 gap-4 sm:grid">
+                            <FeatureTileBanner
+                                icon={<IconHand />}
+                                title="DRENAJE LINFÁTICO MANUAL POSTQUIRÚRGICO"
+                            />
+                            <FeatureTileBanner
+                                icon={<IconClipboard />}
+                                title="TIPOS DE CIRUGÍAS Y PROTOCOLOS"
+                            />
+                            <FeatureTileBanner
+                                icon={<IconWarning />}
+                                title="MANEJO DE COMPLICACIONES"
+                            />
+                            <FeatureTileBanner
+                                icon={<IconJacket />}
+                                title="TERAPIA DE COMPRESIÓN Y APARATOLOGÍA"
+                            />
+                            <FeatureTileBanner
+                                icon={<IconShield />}
+                                title="SEGURIDAD & ÉTICA PROFESIONAL"
+                            />
                         </div>
                     </div>
                 </div>
@@ -729,68 +958,60 @@ export default function CursoPage() {
                         Nota importante (estilo profesional)
                     </div>
                     <p className="mt-2 text-sm leading-relaxed text-amber-100/70">
-                        Esta formación es estética y se trabaja respetando siempre las indicaciones del cirujano.
-                        Aprenderás a identificar señales de alerta y a derivar cuando corresponda, priorizando la
-                        seguridad del cliente.
+                        Esta formación es estética y se trabaja respetando siempre las
+                        indicaciones del cirujano. Aprenderás a identificar señales de alerta
+                        y a derivar cuando corresponda, priorizando la seguridad del cliente.
                     </p>
                 </div>
             </section>
 
-            {/* TEMARIO (ACORDEÓN) */}
+            {/* ✅ TEMARIO PRO (más premium, más “luxury”) */}
             <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-16">
-                <SectionTitle
-                    title="Temario"
-                    desc="Toca cada módulo para ver un resumen breve. El temario completo con detalle lo enviamos por WhatsApp."
-                />
+                <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/5 p-7 backdrop-blur sm:p-10">
+                    <div className="pointer-events-none absolute inset-0">
+                        <div className="absolute -left-28 -top-28 h-72 w-72 rounded-full bg-amber-300/10 blur-3xl" />
+                        <div className="absolute -right-36 -bottom-36 h-96 w-96 rounded-full bg-amber-300/8 blur-3xl" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/15 to-transparent" />
+                    </div>
 
-                <div className="space-y-4">
-                    {modules.map((m) => (
-                        <details
-                            key={m.title}
-                            className="group rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur open:bg-white/7"
-                        >
-                            <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
-                                <div className="text-sm font-semibold text-amber-100 sm:text-base">
-                                    {m.title}
-                                </div>
+                    <div className="relative">
+                        <SectionTitle
+                            title="Temario"
+                            desc="Cada módulo está pensado para que trabajes con criterio profesional. Abre cada bloque para ver los puntos clave."
+                        />
 
-                                <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-black/30">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
-                                        fill="none"
-                                    >
-                                        <path
-                                            d="M6 9l6 6 6-6"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </span>
-                            </summary>
-
-                            <div className="mt-4 text-sm text-amber-100/70">{m.summary}</div>
-
-                            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                                {m.points.map((p) => (
-                                    <div
-                                        key={p}
-                                        className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-amber-100/80"
-                                    >
-                                        {p}
-                                    </div>
-                                ))}
+                        {/* Banda pro */}
+                        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs text-amber-100/80 backdrop-blur">
+                                <span className="h-2 w-2 rounded-full bg-amber-300/90" />
+                                Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
                             </div>
 
-                            <div className="mt-5">
-                                <Button href={whatsappTemario} variant="outline">
-                                    Quiero el detalle completo de este módulo
+                            <div className="flex gap-2">
+                                <Button href={whatsappTemario} variant="outline" className="px-5 py-2">
+                                    Pedir temario completo
+                                </Button>
+                                <Button href={whatsappCurso} variant="gold" className="px-5 py-2">
+                                    Precio + fechas
                                 </Button>
                             </div>
-                        </details>
-                    ))}
+                        </div>
+
+                        <div className="space-y-4">
+                            {modules.map((m, idx) => (
+                                <FancyDetails
+                                    key={m.title}
+                                    index={idx + 1}
+                                    title={m.title}
+                                    summary={m.summary}
+                                    points={m.points}
+                                    chips={m.chips}
+                                    ctaHref={whatsappTemario}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -801,9 +1022,10 @@ export default function CursoPage() {
                         ¿Quieres reservar tu cupo?
                     </div>
                     <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Escríbenos por WhatsApp y te enviamos precio, próximas fechas, cupos disponibles y requisitos.
-                        Si tienes experiencia previa o estás empezando, también te orientamos para que sepas si este
-                        curso encaja contigo.
+                        Escríbenos por WhatsApp y te enviamos precio, próximas fechas, cupos
+                        disponibles y requisitos. Si tienes experiencia previa o estás
+                        empezando, también te orientamos para que sepas si este curso encaja
+                        contigo.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
