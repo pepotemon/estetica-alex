@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Script from "next/script";
 
 const SITE = {
   brand: "Alex Estética",
@@ -52,7 +53,12 @@ function Button({
       ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
       : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
   return (
-    <a href={href} className={`${base} ${styles}`} target="_blank" rel="noreferrer">
+    <a
+      href={href}
+      className={`${base} ${styles}`}
+      target="_blank"
+      rel="noreferrer"
+    >
       {children}
     </a>
   );
@@ -84,15 +90,6 @@ function Pill({ children }: { children: React.ReactNode }) {
       <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
       {children}
     </span>
-  );
-}
-
-function Stat({ t, d }: { t: string; d: string }) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-      <div className="text-xs text-amber-100/60">{t}</div>
-      <div className="mt-1 text-sm font-semibold text-amber-100">{d}</div>
-    </div>
   );
 }
 
@@ -255,22 +252,7 @@ function IconClockBig() {
   );
 }
 
-/* ===== Curso: iconitos sutiles ===== */
-function CourseMeta({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-black/30 p-5">
-      <div className="text-xs text-amber-100/60">{label}</div>
-      <div className="mt-1 text-sm font-semibold text-amber-100">{value}</div>
-    </div>
-  );
-}
-
+/* ===== Curso ===== */
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-3">
@@ -290,6 +272,107 @@ function CheckItem({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* ===========================
+   Instagram Embeds (3 posts)
+   - Diseño “más estético”:
+     • Card luxury con glow
+     • Header mini (Instagram + “Ver Reel”)
+     • Contenedor con altura y overlay para que no se vea “raro”
+=========================== */
+
+const INSTAGRAM_POST_URLS: string[] = [
+  "https://www.instagram.com/reel/DSdeBkKiOfg/",
+  "https://www.instagram.com/reel/DRIIziCilcD/",
+  "https://www.instagram.com/reel/DSIS3NmitnY/",
+];
+
+declare global {
+  interface Window {
+    instgrm?: any;
+  }
+}
+
+function InstagramEmbedCard({
+  url,
+  index,
+}: {
+  url: string;
+  index: number;
+}) {
+  const html = `
+    <blockquote
+      class="instagram-media"
+      data-instgrm-permalink="${url}"
+      data-instgrm-captioned
+      data-instgrm-version="14"
+      style="background:transparent; border:0; margin:0; padding:0; width:100%;"
+    ></blockquote>
+  `;
+
+  return (
+    <article className="group relative overflow-hidden rounded-[2.2rem] border border-amber-300/10 bg-black/35 backdrop-blur">
+      {/* glow */}
+      <div className="pointer-events-none absolute -inset-24 opacity-0 transition duration-500 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-[radial-gradient(480px_280px_at_50%_30%,rgba(255,215,128,0.20),transparent_60%)]" />
+      </div>
+
+      {/* header */}
+      <div className="relative flex items-center justify-between px-5 pt-5">
+        <div className="flex items-center gap-2">
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+              <path
+                d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M12 16a4 4 0 100-8 4 4 0 000 8z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M17.5 6.5h.01"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
+          <div className="leading-tight">
+            <div className="text-sm font-semibold text-amber-100">Reel destacado</div>
+            <div className="text-xs text-amber-100/55">Publicación {index + 1}</div>
+          </div>
+        </div>
+
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-amber-100/90 hover:bg-white/10 hover:text-amber-100 transition"
+        >
+          Ver en Instagram
+        </a>
+      </div>
+
+      {/* body */}
+      <div className="relative px-4 pb-5 pt-4">
+        <div className="overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/30">
+          {/* IMPORTANT:
+              Instagram embed renderiza con su propio layout.
+              Este wrapper le da “marco” y consistencia visual. */}
+          <div className="min-h-[520px] w-full px-3 py-3 sm:min-h-[560px]">
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          </div>
+
+          {/* overlay sutil bottom */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]" />
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function Page() {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -305,15 +388,36 @@ export default function Page() {
     `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
+  // Re-procesa embeds cuando renderiza
+  React.useEffect(() => {
+    const t = setTimeout(() => {
+      try {
+        window.instgrm?.Embeds?.process?.();
+      } catch { }
+    }, 350);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <main className="min-h-screen bg-black text-white">
+      {/* ✅ Script de Instagram SOLO una vez */}
+      <Script
+        src="https://www.instagram.com/embed.js"
+        strategy="lazyOnload"
+        onLoad={() => {
+          try {
+            window.instgrm?.Embeds?.process?.();
+          } catch { }
+        }}
+      />
+
       {/* Background dorado (estilo luxury) */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(1000px_600px_at_15%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(900px_500px_at_85%_20%,rgba(255,215,128,0.12),transparent_55%),radial-gradient(900px_600px_at_50%_85%,rgba(255,215,128,0.10),transparent_60%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
       </div>
 
-      {/* Header (tu layout) */}
+      {/* Header */}
       <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
@@ -538,7 +642,9 @@ export default function Page() {
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
               <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">
+                {SITE.addressLine}
+              </div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
               <div className="text-xs text-amber-100/60">Servicios</div>
@@ -583,28 +689,21 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Resultados / Galería */}
+      {/* ✅ Resultados / Instagram Embeds (3 posts) */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
         <SectionTitle
           title="Resultados"
-          desc="Podemos mostrar aquí tus publicaciones reales de Instagram (te explico abajo cómo conectarlo)."
+          desc="Reels reales del Instagram. Presentados con un marco premium para que se vean más pro."
         />
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/5"
-            >
-              <div className="grid h-full place-items-center">
-                <div className="text-sm text-amber-100/60">Foto {i}</div>
-              </div>
-            </div>
+        <div className="grid gap-5 sm:grid-cols-3">
+          {INSTAGRAM_POST_URLS.map((url, i) => (
+            <InstagramEmbedCard key={url} url={url} index={i} />
           ))}
         </div>
 
         {SITE.instagramUrl ? (
-          <div className="mt-6">
+          <div className="mt-7">
             <Button href={SITE.instagramUrl} variant="outline">
               Ver Instagram @alex_postquirurgicoscanarias
             </Button>
@@ -612,14 +711,12 @@ export default function Page() {
         ) : null}
       </section>
 
-      {/* ✅ CURSO (LIMPIO Y OPTIMIZADO) */}
+      {/* ✅ CURSO */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
         <div className="relative overflow-hidden rounded-[2.2rem] border border-amber-300/15 bg-white/5 p-8 backdrop-blur sm:p-10">
-          {/* Glow sutil luxury */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_20%,rgba(255,215,128,0.14),transparent_60%)]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_420px_at_20%_70%,rgba(255,215,128,0.08),transparent_60%)]" />
 
-          {/* Header */}
           <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl">
               <div className="flex flex-wrap items-center gap-2">
@@ -640,7 +737,6 @@ export default function Page() {
               </p>
             </div>
 
-            {/* Botón discreto */}
             <div className="sm:mt-2">
               <a
                 href="/curso"
@@ -651,15 +747,9 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Contenido */}
           <div className="relative mt-8 grid gap-8 sm:grid-cols-2">
-
-            {/* Resumen */}
             <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7">
-              <div className="text-sm font-semibold text-amber-100">
-                Qué aprenderás
-              </div>
-
+              <div className="text-sm font-semibold text-amber-100">Qué aprenderás</div>
               <div className="mt-6 space-y-5">
                 <CheckItem>
                   Drenaje linfático manual: técnica correcta, control de presión y secuencias.
@@ -676,9 +766,7 @@ export default function Page() {
               </div>
             </div>
 
-            {/* CTA fuerte */}
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 flex flex-col justify-between">
-
               <div>
                 <div className="text-xs text-amber-100/60">Inscripciones abiertas</div>
                 <div className="mt-2 text-lg font-semibold text-amber-100">
@@ -700,7 +788,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Ubicación & Contacto (Fusionado) */}
+      {/* Ubicación & Contacto */}
       <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
         <SectionTitle
           title="Ubicación & Contacto"
@@ -732,7 +820,9 @@ export default function Page() {
               ) : null}
             </div>
 
-            <div className="mt-8 text-xs text-amber-100/50">Atención con cita previa recomendada.</div>
+            <div className="mt-8 text-xs text-amber-100/50">
+              Atención con cita previa recomendada.
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
