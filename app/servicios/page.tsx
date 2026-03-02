@@ -153,7 +153,7 @@ function IconSafe() {
     );
 }
 
-/* ===== Iconos dorados para cada card (como tu imagen) ===== */
+/* ===== Iconos dorados para cada card ===== */
 function CardIcon({ kind }: { kind: "laser" | "facial" | "body" | "vip" }) {
     const common = "h-6 w-6 text-amber-200";
     if (kind === "laser")
@@ -225,7 +225,7 @@ function CardIcon({ kind }: { kind: "laser" | "facial" | "body" | "vip" }) {
     );
 }
 
-/* ===== Card EXACTA: icono+título+sub arriba, imagen abajo (sin CTA) ===== */
+/* ===== Card servicios ===== */
 function ServiceCard({
     title,
     subtitle,
@@ -378,6 +378,7 @@ function AccordionSection({
     title,
     subtitle,
     note,
+    thumbSrc,
     children,
     open,
     onToggle,
@@ -387,6 +388,7 @@ function AccordionSection({
     title: string;
     subtitle?: string;
     note?: string;
+    thumbSrc?: string;
     children: React.ReactNode;
     open: boolean;
     onToggle: (next: boolean) => void;
@@ -394,16 +396,16 @@ function AccordionSection({
     return (
         <details
             id={id}
-            // ✅ scroll-mt para que el header sticky NO tape el título
             className="group rounded-[2rem] border border-amber-300/15 bg-black/35 backdrop-blur open:bg-black/40 scroll-mt-28"
             open={open}
             onToggle={(e) => onToggle((e.currentTarget as HTMLDetailsElement).open)}
         >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 min-w-0">
                     <div className="grid h-11 w-11 place-items-center rounded-2xl border border-amber-300/20 bg-black/45 text-sm font-semibold text-amber-200">
                         {indexLabel}
                     </div>
+
                     <div className="min-w-0">
                         <div className="text-base font-semibold text-amber-100 sm:text-lg">
                             {title}
@@ -411,24 +413,52 @@ function AccordionSection({
                         {subtitle ? (
                             <div className="mt-1 text-sm text-amber-100/60">{subtitle}</div>
                         ) : null}
+
+                        {/* ✅ Mini imagen en móvil (debajo del título) */}
+                        {thumbSrc ? (
+                            <div className="mt-3 sm:hidden relative h-16 w-full overflow-hidden rounded-2xl border border-amber-300/15 bg-black/40">
+                                <img
+                                    src={thumbSrc}
+                                    alt={title}
+                                    className="h-full w-full object-cover opacity-85"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.6),transparent_70%)]" />
+                            </div>
+                        ) : null}
                     </div>
                 </div>
 
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-black/35">
-                    <svg
-                        viewBox="0 0 24 24"
-                        className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
-                        fill="none"
-                    >
-                        <path
-                            d="M6 9l6 6 6-6"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </span>
+                {/* ✅ Derecha: mini imagen + flecha */}
+                <div className="flex items-center gap-3">
+                    {thumbSrc ? (
+                        <div className="relative hidden sm:block h-14 w-24 overflow-hidden rounded-2xl border border-amber-300/15 bg-black/40">
+                            <img
+                                src={thumbSrc}
+                                alt={title}
+                                className="h-full w-full object-cover opacity-90"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-[linear-gradient(to_left,rgba(0,0,0,0.55),transparent_70%)]" />
+                        </div>
+                    ) : null}
+
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-black/35">
+                        <svg
+                            viewBox="0 0 24 24"
+                            className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
+                            fill="none"
+                        >
+                            <path
+                                d="M6 9l6 6 6-6"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </span>
+                </div>
             </summary>
 
             <div className="px-6 pb-6">
@@ -459,15 +489,18 @@ type CatalogSection = {
     title: string;
     subtitle?: string;
     note?: string;
+    thumbSrc?: string;
     items: CatalogItem[];
 };
 
+// ✅ Puedes cambiar estas imágenes por las tuyas reales
 const CATALOG: CatalogSection[] = [
     {
         id: "cuerpo",
         indexLabel: "01",
         title: "Cuerpo",
         subtitle: "Tratamientos corporales",
+        thumbSrc: "/catalogo/cuerpo.jpg",
         items: [
             {
                 icon: "✦",
@@ -512,6 +545,7 @@ const CATALOG: CatalogSection[] = [
         indexLabel: "02",
         title: "Recuperación",
         subtitle: "Tratamientos postquirúrgicos por etapas",
+        thumbSrc: "/catalogo/recuperacion.jpg",
         note:
             "Cada etapa está diseñada para acompañarte en cada fase de tu recuperación. Consultamos tu caso de forma personalizada y ajustamos las sesiones según tu pauta.",
         items: [
@@ -540,6 +574,7 @@ const CATALOG: CatalogSection[] = [
         indexLabel: "03",
         title: "Rostro",
         subtitle: "Tratamientos faciales",
+        thumbSrc: "/catalogo/rostro.jpg",
         items: [
             {
                 title: "Limpieza Facial Profunda",
@@ -589,6 +624,7 @@ const CATALOG: CatalogSection[] = [
         indexLabel: "04",
         title: "Láser Avanzado",
         subtitle: "Eliminación de tatuajes",
+        thumbSrc: "/catalogo/laser.jpg",
         items: [
             {
                 icon: "◉",
@@ -603,6 +639,7 @@ const CATALOG: CatalogSection[] = [
         indexLabel: "05",
         title: "Depilación Láser",
         subtitle: "Mujer · Hombre · Paquetes completos",
+        thumbSrc: "/catalogo/depilacion.jpg",
         note: "✦ Pack de zonas específicas — consultar precio personalizado.",
         items: [
             {
@@ -624,6 +661,7 @@ const CATALOG: CatalogSection[] = [
         indexLabel: "06",
         title: "Cejas & Pestañas",
         subtitle: "Diseño, definición y mirada",
+        thumbSrc: "/catalogo/cejas.jpg",
         items: [
             {
                 icon: "〜",
@@ -712,13 +750,10 @@ export default function ServiciosPage() {
             return s;
         });
 
-        // ✅ scroll con espacio para el header sticky (usamos scroll-mt-28 + scrollIntoView)
-        // Espera microtask para que <details> se abra y el layout calcule bien
         requestAnimationFrame(() => {
             const el = document.getElementById(id);
             if (!el) return;
             el.scrollIntoView({ behavior: "smooth", block: "start" });
-            // opcional: actualiza hash sin salto brusco
             history.replaceState(null, "", `#${id}`);
         });
     }
@@ -842,7 +877,6 @@ export default function ServiciosPage() {
                                 {[
                                     { href: "/", label: "Inicio" },
                                     { href: "/#sobre", label: "Sobre Nosotros" },
-                                    // ✅ QUITADO: Servicios (ya estamos aquí)
                                     { href: "/curso", label: "Curso" },
                                     { href: "/#contacto", label: "Contacto" },
                                 ].map((x) => (
@@ -973,7 +1007,7 @@ export default function ServiciosPage() {
                                 title={sec.title}
                                 subtitle={sec.subtitle}
                                 note={sec.note}
-                                // ✅ todo cerrado por defecto
+                                thumbSrc={sec.thumbSrc}
                                 open={openIds.has(sec.id)}
                                 onToggle={(next) => toggleSection(sec.id, next)}
                             >
@@ -995,9 +1029,7 @@ export default function ServiciosPage() {
 
                     {/* CTA final */}
                     <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-black/35 p-7 backdrop-blur sm:p-10">
-                        <div className="text-2xl font-semibold text-amber-100">
-                            ¿Hablamos de tu caso?
-                        </div>
+                        <div className="text-2xl font-semibold text-amber-100">¿Hablamos de tu caso?</div>
                         <p className="mt-2 max-w-3xl text-amber-100/70">
                             Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso.
                             Te orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o cejas/pestañas).
