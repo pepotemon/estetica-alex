@@ -8,8 +8,11 @@ const SITE = {
     phone: "34600111222",
     logoSrc: "/alex-logo.png",
 
-    // ✅ HERO
+    // ✅ HERO principal
     tratamientosHeroImg: "/tratamientos-hero.jpg",
+
+    // ✅ NUEVO HERO para el catálogo (pon aquí TU JPG)
+    catalogoHeroImg: "/hero-catalogo.jpg",
 
     // CTA texto
     ctaLabel: "Agendar Cita por WhatsApp",
@@ -37,7 +40,12 @@ function Button({
             ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110 shadow-[0_10px_30px_rgba(255,215,128,0.18)]"
             : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
     return (
-        <a href={href} className={`${base} ${styles} ${className}`} target="_blank" rel="noreferrer">
+        <a
+            href={href}
+            className={`${base} ${styles} ${className}`}
+            target="_blank"
+            rel="noreferrer"
+        >
             {children}
         </a>
     );
@@ -93,24 +101,54 @@ function MiniStat({
 function IconPremium() {
     return (
         <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-            <path d="M4 10l4 3 4-7 4 7 4-3v9H4v-9z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            <path
+                d="M4 10l4 3 4-7 4 7 4-3v9H4v-9z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
         </svg>
     );
 }
 function IconTech() {
     return (
         <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-            <path d="M9 2h6v3H9V2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-            <path d="M8 5h8l2 4v11H6V9l2-4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-            <path d="M9 12h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path
+                d="M9 2h6v3H9V2z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M8 5h8l2 4v11H6V9l2-4z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M9 12h6"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+            />
         </svg>
     );
 }
 function IconSafe() {
     return (
         <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-            <path d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z" stroke="currentColor" strokeWidth="1.6" />
-            <path d="M9 12l2 2 4-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+                d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+            />
+            <path
+                d="M9 12l2 2 4-5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
         </svg>
     );
 }
@@ -121,28 +159,68 @@ function CardIcon({ kind }: { kind: "laser" | "facial" | "body" | "vip" }) {
     if (kind === "laser")
         return (
             <svg viewBox="0 0 24 24" className={common} fill="none">
-                <path d="M7 14l10-10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-                <path d="M9 6l2 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-                <path d="M6 17c2.5 2.5 7.5 2.5 10 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path
+                    d="M7 14l10-10"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M9 6l2 2"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M6 17c2.5 2.5 7.5 2.5 10 0"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                />
             </svg>
         );
     if (kind === "facial")
         return (
             <svg viewBox="0 0 24 24" className={common} fill="none">
-                <path d="M12 3c4 0 7 3 7 7 0 6-3 10-7 11-4-1-7-5-7-11 0-4 3-7 7-7z" stroke="currentColor" strokeWidth="1.7" />
-                <path d="M9 11c1.5 1.5 4.5 1.5 6 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path
+                    d="M12 3c4 0 7 3 7 7 0 6-3 10-7 11-4-1-7-5-7-11 0-4 3-7 7-7z"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                />
+                <path
+                    d="M9 11c1.5 1.5 4.5 1.5 6 0"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                />
             </svg>
         );
     if (kind === "body")
         return (
             <svg viewBox="0 0 24 24" className={common} fill="none">
-                <path d="M8 6c1-2 2-3 4-3s3 1 4 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-                <path d="M7 9c1 2 1 8 5 12 4-4 4-10 5-12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                    d="M8 6c1-2 2-3 4-3s3 1 4 3"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M7 9c1 2 1 8 5 12 4-4 4-10 5-12"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
             </svg>
         );
     return (
         <svg viewBox="0 0 24 24" className={common} fill="none">
-            <path d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+            <path
+                d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinejoin="round"
+            />
         </svg>
     );
 }
@@ -194,7 +272,7 @@ function ServiceCard({
 }
 
 /* ===========================
-   NUEVO: Catálogo Accordion
+   Catálogo Accordion
 =========================== */
 
 function Tag({ children }: { children: React.ReactNode }) {
@@ -492,30 +570,12 @@ const CATALOG: CatalogSection[] = [
         subtitle: "Mujer · Hombre · Paquetes completos",
         note: "✦ Pack de zonas específicas — consultar precio personalizado.",
         items: [
-            {
-                title: "Paquetes completos",
-                desc: "Cuerpo completo sin cara · Cuerpo completo con cara · Cara.",
-            },
-            {
-                title: "Cara",
-                desc: "Rostro completo · Bigote · Mentón.",
-            },
-            {
-                title: "Tronco",
-                desc: "Axilas · Línea del alba · Abdomen completo.",
-            },
-            {
-                title: "Brazos",
-                desc: "Brazo · Ante-brazo · Brazo + Ante-brazo.",
-            },
-            {
-                title: "Zona Íntima",
-                desc: "Zona íntima + Perianal · Axilas + Zona íntima · Axilas + Zona íntima + Perianal · Axilas + Zona íntima + Perianal + Piernas.",
-            },
-            {
-                title: "Piernas",
-                desc: "Muslos · Piernas · Muslos y piernas.",
-            },
+            { title: "Paquetes completos", desc: "Cuerpo completo sin cara · Cuerpo completo con cara · Cara." },
+            { title: "Cara", desc: "Rostro completo · Bigote · Mentón." },
+            { title: "Tronco", desc: "Axilas · Línea del alba · Abdomen completo." },
+            { title: "Brazos", desc: "Brazo · Ante-brazo · Brazo + Ante-brazo." },
+            { title: "Zona Íntima", desc: "Zona íntima + Perianal · Axilas + Zona íntima · Axilas + Zona íntima + Perianal · Axilas + Zona íntima + Perianal + Piernas." },
+            { title: "Piernas", desc: "Muslos · Piernas · Muslos y piernas." },
         ],
     },
     {
@@ -792,69 +852,87 @@ export default function ServiciosPage() {
                 </div>
             </section>
 
-            {/* ✅ NUEVO: Catálogo completo (Accordion por secciones) */}
-            <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-16">
-                <SectionTitle
-                    title="Catálogo de Tratamientos"
-                    subtitle="Toca una sección para ver todos los tratamientos disponibles."
-                />
-
-                {/* Índice rápido (anclas) */}
-                <div className="mb-8 flex flex-wrap gap-2">
-                    {CATALOG.map((s) => (
-                        <a
-                            key={s.id}
-                            href={`#${s.id}`}
-                            className="rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs font-semibold text-amber-100/80 hover:bg-white/5 transition"
-                        >
-                            {s.indexLabel} · {s.title}
-                        </a>
-                    ))}
+            {/* ✅ NUEVO: Catálogo con HERO de fondo */}
+            <section className="relative isolate overflow-hidden border-t border-white/10">
+                {/* Fondo hero del catálogo */}
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                    <img
+                        src={SITE.catalogoHeroImg}
+                        alt="Catálogo - Alex Estética"
+                        className="h-full w-full object-cover opacity-20"
+                        loading="lazy"
+                    />
+                    {/* overlays para que el texto sea legible */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.78),rgba(0,0,0,0.92),rgba(0,0,0,0.96))]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_10%,rgba(255,215,128,0.12),transparent_60%)]" />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
                 </div>
 
-                <div className="space-y-5">
-                    {CATALOG.map((sec, i) => (
-                        <AccordionSection
-                            key={sec.id}
-                            id={sec.id}
-                            indexLabel={sec.indexLabel}
-                            title={sec.title}
-                            subtitle={sec.subtitle}
-                            note={sec.note}
-                            defaultOpen={i === 0}
-                        >
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                {sec.items.map((it) => (
-                                    <ItemCard
-                                        key={`${sec.id}-${it.title}`}
-                                        icon={it.icon}
-                                        title={it.title}
-                                        desc={it.desc}
-                                        tags={it.tags}
-                                    />
-                                ))}
-                            </div>
-                        </AccordionSection>
-                    ))}
-                </div>
+                {/* Contenido */}
+                <div className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+                    <SectionTitle
+                        title="Catálogo de Tratamientos"
+                        subtitle="Toca una sección para ver todos los tratamientos disponibles."
+                    />
 
-                {/* CTA final (solo uno, sin CTA por card) */}
-                <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-white/5 p-7 backdrop-blur sm:p-10">
-                    <div className="text-2xl font-semibold text-amber-100">
-                        ¿Hablamos de tu caso?
+                    {/* Índice rápido (anclas) */}
+                    <div className="mb-8 flex flex-wrap gap-2">
+                        {CATALOG.map((s) => (
+                            <a
+                                key={s.id}
+                                href={`#${s.id}`}
+                                className="rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs font-semibold text-amber-100/80 hover:bg-white/5 transition"
+                            >
+                                {s.indexLabel} · {s.title}
+                            </a>
+                        ))}
                     </div>
-                    <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso.
-                        Te orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o cejas/pestañas).
-                    </p>
 
-                    <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                        <Button href={whatsappGeneral} variant="gold">
-                            Solicitar cita
-                        </Button>
-                        <Button href={whatsappCatalogo} variant="outline">
-                            Pedir catálogo completo
-                        </Button>
+                    <div className="space-y-5">
+                        {CATALOG.map((sec, i) => (
+                            <AccordionSection
+                                key={sec.id}
+                                id={sec.id}
+                                indexLabel={sec.indexLabel}
+                                title={sec.title}
+                                subtitle={sec.subtitle}
+                                note={sec.note}
+                                defaultOpen={i === 0}
+                            >
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    {sec.items.map((it) => (
+                                        <ItemCard
+                                            key={`${sec.id}-${it.title}`}
+                                            icon={it.icon}
+                                            title={it.title}
+                                            desc={it.desc}
+                                            tags={it.tags}
+                                        />
+                                    ))}
+                                </div>
+                            </AccordionSection>
+                        ))}
+                    </div>
+
+                    {/* CTA final (solo uno, sin CTA por card) */}
+                    <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-black/35 p-7 backdrop-blur sm:p-10">
+                        <div className="text-2xl font-semibold text-amber-100">
+                            ¿Hablamos de tu caso?
+                        </div>
+                        <p className="mt-2 max-w-3xl text-amber-100/70">
+                            Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso.
+                            Te orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o cejas/pestañas).
+                        </p>
+
+                        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                            <Button href={whatsappGeneral} variant="gold">
+                                Solicitar cita
+                            </Button>
+                            <Button href={whatsappCatalogo} variant="outline">
+                                Pedir catálogo completo
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </section>
