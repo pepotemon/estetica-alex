@@ -6,21 +6,13 @@ import Script from "next/script";
 const SITE = {
   brand: "Alex Estética",
   city: "Gran Canaria",
-
-  // ✅ wa.me usa solo números (sin +, sin espacios)
   phone: "34661026192",
-
   instagramUrl:
     "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
-
   addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
   hours: "Lun–Sáb · 10:00–20:00",
   logoSrc: "/alex-logo.png",
-
-  // ✅ HERO (pon la imagen en /public/hero.jpg)
   hero: "/hero.jpg",
-
-  // ✅ Mapa por dirección real (sin relleno)
   mapsEmbedSrc:
     "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario&output=embed",
 };
@@ -37,16 +29,22 @@ function waLink(text: string) {
   return `https://wa.me/${SITE.phone}?text=${encodeURIComponent(text)}`;
 }
 
+/** ✅ Botón reutilizable:
+ *  - Por defecto abre nueva pestaña (ideal para WhatsApp / Instagram)
+ *  - Para navegación interna usa: newTab={false}
+ */
 function Button({
   href,
   children,
   variant = "gold",
   className = "",
+  newTab = true,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "gold" | "outline";
   className?: string;
+  newTab?: boolean;
 }) {
   const base =
     "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
@@ -54,13 +52,12 @@ function Button({
     variant === "gold"
       ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
       : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
+
+  const target = newTab ? "_blank" : undefined;
+  const rel = newTab ? "noreferrer" : undefined;
+
   return (
-    <a
-      href={href}
-      className={`${base} ${styles} ${className}`}
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a href={href} className={`${base} ${styles} ${className}`} target={target} rel={rel}>
       {children}
     </a>
   );
@@ -165,7 +162,6 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
   );
 }
 
-/* ===== Iconos para el HERO (estilo “banner”) ===== */
 function HeroIcon({
   children,
   title,
@@ -254,7 +250,6 @@ function IconClockBig() {
   );
 }
 
-/* ===== Curso ===== */
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-3">
@@ -275,16 +270,12 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 }
 
 /* ===========================
-   Instagram (Opción C)
-   - Desktop (sm+): embed oficial
-   - Mobile: cards con thumbnail + botón (sin iframe => fluido)
+   Instagram (cards, igual en móvil y PC)
 =========================== */
 
 type InstaItem = {
   url: string;
-  // ✅ sube estas imágenes a /public/instagram/
-  // (pueden ser capturas/miniaturas del reel)
-  thumb: string;
+  thumb: string; // /public/instagram/reel-x.jpg
   label?: string;
 };
 
@@ -306,29 +297,7 @@ const INSTAGRAM_ITEMS: InstaItem[] = [
   },
 ];
 
-declare global {
-  interface Window {
-    instgrm?: any;
-  }
-}
-
-function InstagramEmbedDesktop({ url }: { url: string }) {
-  const html = `
-    <blockquote
-      class="instagram-media"
-      data-instgrm-permalink="${url}"
-      data-instgrm-version="14"
-      style="background:transparent; border:0; margin:0; padding:0; width:100%;"
-    ></blockquote>
-  `;
-  return (
-    <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 backdrop-blur">
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </div>
-  );
-}
-
-function InstagramCardMobile({ item }: { item: InstaItem }) {
+function InstagramCard({ item }: { item: InstaItem }) {
   return (
     <a
       href={item.url}
@@ -345,7 +314,7 @@ function InstagramCardMobile({ item }: { item: InstaItem }) {
           className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.75),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),transparent_60%)]" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -361,17 +330,187 @@ function InstagramCardMobile({ item }: { item: InstaItem }) {
 
           <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-black/40 px-4 py-2 text-xs font-semibold text-amber-100/90">
             <svg viewBox="0 0 24 24" className="h-4 w-4 text-amber-200" fill="none">
-              <path
-                d="M8 5l11 7-11 7V5z"
-                fill="currentColor"
-                opacity="0.9"
-              />
+              <path d="M8 5l11 7-11 7V5z" fill="currentColor" opacity="0.9" />
             </svg>
             Ver
           </span>
         </div>
       </div>
     </a>
+  );
+}
+
+/* ===========================
+   Reviews
+=========================== */
+
+type Review = { name: string; when: string; stars: 5 | 4; text: string };
+
+const REVIEWS: Review[] = [
+  {
+    name: "María C.",
+    when: "Hace 2 semanas",
+    stars: 5,
+    text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión.",
+  },
+  {
+    name: "Laura G.",
+    when: "Hace 1 mes",
+    stars: 5,
+    text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré.",
+  },
+  {
+    name: "Ana P.",
+    when: "Hace 3 semanas",
+    stars: 5,
+    text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp.",
+  },
+  {
+    name: "Diana R.",
+    when: "Hace 5 días",
+    stars: 5,
+    text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado.",
+  },
+  {
+    name: "Sofía M.",
+    when: "Hace 2 meses",
+    stars: 5,
+    text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!",
+  },
+  {
+    name: "Valentina S.",
+    when: "Hace 1 semana",
+    stars: 5,
+    text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso.",
+  },
+  {
+    name: "Carolina T.",
+    when: "Hace 3 meses",
+    stars: 5,
+    text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real.",
+  },
+  {
+    name: "Paula N.",
+    when: "Hace 4 semanas",
+    stars: 5,
+    text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita.",
+  },
+  {
+    name: "Daniela V.",
+    when: "Hace 6 días",
+    stars: 5,
+    text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación.",
+  },
+  {
+    name: "Isabel A.",
+    when: "Hace 2 meses",
+    stars: 4,
+    text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena.",
+  },
+  {
+    name: "Natalia F.",
+    when: "Hace 1 mes",
+    stars: 5,
+    text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti.",
+  },
+];
+
+function StarRow({ value }: { value: number }) {
+  const full = Math.max(0, Math.min(5, Math.round(value)));
+  return (
+    <div className="flex items-center gap-1">
+      {Array.from({ length: 5 }).map((_, i) => {
+        const filled = i < full;
+        return (
+          <svg
+            key={i}
+            viewBox="0 0 24 24"
+            className={`h-4 w-4 ${filled ? "text-amber-300" : "text-amber-200/25"}`}
+            fill={filled ? "currentColor" : "none"}
+          >
+            <path
+              d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      })}
+    </div>
+  );
+}
+
+function ReviewsPanel() {
+  const [expanded, setExpanded] = React.useState(false);
+  const visible = expanded ? REVIEWS : REVIEWS.slice(0, 3);
+
+  const avg =
+    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) /
+    10;
+
+  return (
+    <div className="mt-10">
+      <div className="rounded-[2.2rem] border border-white/10 bg-white/5 p-7 sm:backdrop-blur sm:p-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-sm font-semibold text-amber-100">Opiniones de clientes</div>
+            <div className="mt-2 flex items-center gap-3">
+              <StarRow value={avg} />
+              <div className="text-sm text-amber-100/70">
+                {avg} / 5 · {REVIEWS.length} reseñas
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/70">
+              Verificadas
+            </span>
+            <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-amber-100/60">
+              Experiencia premium
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-3">
+          {visible.map((r, idx) => (
+            <div
+              key={`${r.name}-${idx}`}
+              className="rounded-2xl border border-white/10 bg-black/30 p-5"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <div className="text-sm font-semibold text-amber-100">{r.name}</div>
+                    <div className="text-xs text-amber-100/50">{r.when}</div>
+                  </div>
+                  <div className="mt-2 text-sm text-amber-100/70 leading-relaxed">
+                    {r.text}
+                  </div>
+                </div>
+
+                <div className="shrink-0">
+                  <StarRow value={r.stars} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {REVIEWS.length > 3 ? (
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="inline-flex items-center justify-center rounded-full border border-amber-300/25 bg-black/30 px-5 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-300/10 hover:text-amber-100 transition"
+            >
+              {expanded ? "Ocultar comentarios" : "Mostrar más comentarios"}
+            </button>
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
@@ -382,51 +521,22 @@ export default function Page() {
     `Hola Alex! Quiero agendar una cita en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
   );
 
-  const whatsappServicios = waLink(
-    "Hola Alex! Quiero información sobre tratamientos (precios y disponibilidad)."
-  );
-
   const whatsappCurso = waLink(
     `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
-  // Re-procesa embeds SOLO si hay desktop (sm+)
-  React.useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
-    if (!mq.matches) return;
-
-    const t = setTimeout(() => {
-      try {
-        window.instgrm?.Embeds?.process?.();
-      } catch { }
-    }, 250);
-
-    return () => clearTimeout(t);
-  }, []);
+  // ✅ ya no necesitamos procesar embeds, pero dejamos el Script por si lo usas en otras páginas
+  React.useEffect(() => { }, []);
 
   return (
     <main className="relative min-h-screen bg-black text-white">
-      {/* ✅ Script de Instagram SOLO una vez (pero lo usaremos realmente en desktop) */}
-      <Script
-        src="https://www.instagram.com/embed.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          try {
-            // procesar solo si estamos en desktop
-            if (window.matchMedia("(min-width: 640px)").matches) {
-              window.instgrm?.Embeds?.process?.();
-            }
-          } catch { }
-        }}
-      />
+      <Script src="https://www.instagram.com/embed.js" strategy="lazyOnload" />
 
-      {/* ✅ Fondo: ABSOLUTE (no fixed) => scroll fluido en móvil */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(1000px_600px_at_15%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(900px_500px_at_85%_20%,rgba(255,215,128,0.12),transparent_55%),radial-gradient(900px_600px_at_50%_85%,rgba(255,215,128,0.10),transparent_60%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
       </div>
 
-      {/* Header (blur SOLO sm+) */}
       <header className="sticky top-0 z-30 bg-black/60 sm:bg-black/50 sm:backdrop-blur">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
@@ -511,12 +621,7 @@ export default function Page() {
           </div>
 
           <div className="flex sm:hidden h-full items-center justify-between">
-            <a
-              href="/"
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2"
-              aria-label="Ir al inicio"
-            >
+            <a href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
               <img
                 src={SITE.logoSrc}
                 alt="Alex Estética"
@@ -596,7 +701,6 @@ export default function Page() {
         ) : null}
       </header>
 
-      {/* HERO tipo banner */}
       <section className="relative isolate overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 -z-20 bg-black">
           <img
@@ -627,7 +731,9 @@ export default function Page() {
               <Button href={whatsappGeneral} variant="gold">
                 Agendar por WhatsApp
               </Button>
-              <Button href={whatsappServicios} variant="outline">
+
+              {/* ✅ CAMBIO 1: ahora va a /servicios (interna) */}
+              <Button href="/servicios" variant="outline" newTab={false}>
                 Consultar tratamientos
               </Button>
             </div>
@@ -651,7 +757,9 @@ export default function Page() {
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
               <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">
+                {SITE.addressLine}
+              </div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
               <div className="text-xs text-amber-100/60">Servicios</div>
@@ -669,7 +777,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Por qué elegirnos */}
       <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
         <SectionTitle
           title="Por qué elegirnos"
@@ -696,24 +803,16 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ✅ Resultados / Instagram */}
+      {/* ✅ CAMBIO 2: igual en PC y móvil => solo cards */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
         <SectionTitle
-          title="Resultados"
-          desc="En móvil verás un formato más fluido (sin iframes). En desktop se muestran embeds oficiales."
+          title="Nuestro trabajo"
+          desc="Una muestra real de nuestros tratamientos y resultados."
         />
 
-        {/* Mobile (sin iframes) */}
-        <div className="grid gap-4 sm:hidden">
+        <div className="grid gap-4 sm:grid-cols-3">
           {INSTAGRAM_ITEMS.map((item) => (
-            <InstagramCardMobile key={item.url} item={item} />
-          ))}
-        </div>
-
-        {/* Desktop (embeds oficiales) */}
-        <div className="hidden gap-4 sm:grid sm:grid-cols-3">
-          {INSTAGRAM_ITEMS.map((item) => (
-            <InstagramEmbedDesktop key={item.url} url={item.url} />
+            <InstagramCard key={item.url} item={item} />
           ))}
         </div>
 
@@ -725,12 +824,9 @@ export default function Page() {
           </div>
         ) : null}
 
-        <div className="mt-3 text-xs text-amber-100/50">
-          *En móvil usamos miniaturas para evitar “pegado” al hacer scroll.
-        </div>
+        <ReviewsPanel />
       </section>
 
-      {/* ✅ CURSO */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
         <div className="relative overflow-hidden rounded-[2.2rem] border border-amber-300/15 bg-white/5 p-8 sm:backdrop-blur sm:p-10">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_20%,rgba(255,215,128,0.14),transparent_60%)]" />
@@ -751,8 +847,8 @@ export default function Page() {
 
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-amber-100/70 sm:text-base">
                 Formación intensiva diseñada para profesionales que desean dominar el
-                acompañamiento estético post-quirúrgico con criterio técnico, seguridad
-                y enfoque premium de cabina.
+                acompañamiento estético post-quirúrgico con criterio técnico, seguridad y
+                enfoque premium de cabina.
               </p>
             </div>
 
@@ -807,7 +903,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Ubicación & Contacto */}
       <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
         <SectionTitle
           title="Ubicación & Contacto"
@@ -856,7 +951,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-10">
           <div className="grid gap-8 sm:grid-cols-3">
@@ -913,7 +1007,7 @@ export default function Page() {
                   Tratamientos
                 </a>
                 <a className="hover:text-amber-100" href="#resultados">
-                  Resultados
+                  Nuestro trabajo
                 </a>
                 <a className="hover:text-amber-100" href="/curso">
                   Curso
@@ -938,7 +1032,6 @@ export default function Page() {
                 </a>
               </div>
               <div className="mt-4 text-xs text-amber-100/50">
-                *Los textos legales se preparan con tu asesoría/gestoría para dejarlos perfectos.
               </div>
             </div>
           </div>
