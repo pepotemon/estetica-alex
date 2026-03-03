@@ -5,7 +5,7 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
-    phone: "34600111222",
+    phone: "34661026192",
     logoSrc: "/alex-logo.png",
 
     // ✅ HERO principal
@@ -796,7 +796,8 @@ export default function ServiciosPage() {
                     {/* Desktop layout */}
                     <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
-                            <NavA href="/#sobre">Sobre Nosotros</NavA>
+                            {/* ✅ CAMBIO: ahora va a la nueva página /sobre */}
+                            <NavA href="/sobre">Sobre Nosotros</NavA>
                             <Sep />
                             <NavA href="/#contacto">Contacto</NavA>
                         </nav>
@@ -805,7 +806,8 @@ export default function ServiciosPage() {
 
                         <div className="flex items-center gap-2">
                             <nav className="flex items-center gap-4">
-                                {/* ✅ QUITADO: Servicios (ya estamos aquí) */}
+                                <NavA href="/servicios">Tratamientos</NavA>
+                                <Sep />
                                 <NavA href="/curso">Curso</NavA>
                             </nav>
 
@@ -876,7 +878,9 @@ export default function ServiciosPage() {
                             <div className="flex flex-col gap-1">
                                 {[
                                     { href: "/", label: "Inicio" },
-                                    { href: "/#sobre", label: "Sobre Nosotros" },
+                                    // ✅ CAMBIO: /sobre
+                                    { href: "/sobre", label: "Sobre Nosotros" },
+                                    { href: "/servicios", label: "Tratamientos" },
                                     { href: "/curso", label: "Curso" },
                                     { href: "/#contacto", label: "Contacto" },
                                 ].map((x) => (
@@ -922,7 +926,8 @@ export default function ServiciosPage() {
                         </h1>
 
                         <p className="mt-5 max-w-xl text-base leading-relaxed text-amber-100/70 sm:text-lg">
-                            Tratamientos premium con atención personalizada, protocolos seguros y una experiencia elegante en cabina.
+                            Tratamientos premium con atención personalizada, protocolos seguros y una experiencia
+                            elegante en cabina.
                         </p>
 
                         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -1031,8 +1036,9 @@ export default function ServiciosPage() {
                     <div className="mt-10 rounded-[2rem] border border-amber-300/15 bg-black/35 p-7 backdrop-blur sm:p-10">
                         <div className="text-2xl font-semibold text-amber-100">¿Hablamos de tu caso?</div>
                         <p className="mt-2 max-w-3xl text-amber-100/70">
-                            Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso.
-                            Te orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o cejas/pestañas).
+                            Cada piel es única. Cuéntanos lo que necesitas y te asesoramos sin compromiso. Te
+                            orientamos según tu objetivo (cuerpo, postquirúrgico, rostro, láser, depilación o
+                            cejas/pestañas).
                         </p>
 
                         <div className="mt-7 flex flex-col gap-3 sm:flex-row">

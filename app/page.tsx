@@ -10,7 +10,7 @@ const SITE = {
   instagramUrl:
     "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
   addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
-  hours: "Lun–Sáb · 10:00–20:00",
+  hours: "Lun–Vier · 8:00–20:00 | Sab · 8:00–13:00",
   logoSrc: "/alex-logo.png",
   hero: "/hero.jpg",
   mapsEmbedSrc:
@@ -57,7 +57,12 @@ function Button({
   const rel = newTab ? "noreferrer" : undefined;
 
   return (
-    <a href={href} className={`${base} ${styles} ${className}`} target={target} rel={rel}>
+    <a
+      href={href}
+      className={`${base} ${styles} ${className}`}
+      target={target}
+      rel={rel}
+    >
       {children}
     </a>
   );
@@ -270,31 +275,19 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 }
 
 /* ===========================
-   Instagram (cards, igual en móvil y PC)
+   Instagram (cards)
 =========================== */
 
 type InstaItem = {
   url: string;
-  thumb: string; // /public/instagram/reel-x.jpg
+  thumb: string;
   label?: string;
 };
 
 const INSTAGRAM_ITEMS: InstaItem[] = [
-  {
-    url: "https://www.instagram.com/reel/DSdeBkKiOfg/",
-    thumb: "/instagram/reel-1.jpg",
-    label: "Reel",
-  },
-  {
-    url: "https://www.instagram.com/reel/DIi9gWiqLHJ/",
-    thumb: "/instagram/reel-2.jpg",
-    label: "Reel",
-  },
-  {
-    url: "https://www.instagram.com/reel/DSIS3NmitnY/",
-    thumb: "/instagram/reel-3.jpg",
-    label: "Reel",
-  },
+  { url: "https://www.instagram.com/reel/DSdeBkKiOfg/", thumb: "/instagram/reel-1.jpg", label: "Reel" },
+  { url: "https://www.instagram.com/reel/DIi9gWiqLHJ/", thumb: "/instagram/reel-2.jpg", label: "Reel" },
+  { url: "https://www.instagram.com/reel/DSIS3NmitnY/", thumb: "/instagram/reel-3.jpg", label: "Reel" },
 ];
 
 function InstagramCard({ item }: { item: InstaItem }) {
@@ -347,72 +340,17 @@ function InstagramCard({ item }: { item: InstaItem }) {
 type Review = { name: string; when: string; stars: 5 | 4; text: string };
 
 const REVIEWS: Review[] = [
-  {
-    name: "María C.",
-    when: "Hace 2 semanas",
-    stars: 5,
-    text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión.",
-  },
-  {
-    name: "Laura G.",
-    when: "Hace 1 mes",
-    stars: 5,
-    text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré.",
-  },
-  {
-    name: "Ana P.",
-    when: "Hace 3 semanas",
-    stars: 5,
-    text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp.",
-  },
-  {
-    name: "Diana R.",
-    when: "Hace 5 días",
-    stars: 5,
-    text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado.",
-  },
-  {
-    name: "Sofía M.",
-    when: "Hace 2 meses",
-    stars: 5,
-    text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!",
-  },
-  {
-    name: "Valentina S.",
-    when: "Hace 1 semana",
-    stars: 5,
-    text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso.",
-  },
-  {
-    name: "Carolina T.",
-    when: "Hace 3 meses",
-    stars: 5,
-    text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real.",
-  },
-  {
-    name: "Paula N.",
-    when: "Hace 4 semanas",
-    stars: 5,
-    text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita.",
-  },
-  {
-    name: "Daniela V.",
-    when: "Hace 6 días",
-    stars: 5,
-    text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación.",
-  },
-  {
-    name: "Isabel A.",
-    when: "Hace 2 meses",
-    stars: 4,
-    text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena.",
-  },
-  {
-    name: "Natalia F.",
-    when: "Hace 1 mes",
-    stars: 5,
-    text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti.",
-  },
+  { name: "María C.", when: "Hace 2 semanas", stars: 5, text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión." },
+  { name: "Laura G.", when: "Hace 1 mes", stars: 5, text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré." },
+  { name: "Ana P.", when: "Hace 3 semanas", stars: 5, text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp." },
+  { name: "Diana R.", when: "Hace 5 días", stars: 5, text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado." },
+  { name: "Sofía M.", when: "Hace 2 meses", stars: 5, text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!" },
+  { name: "Valentina S.", when: "Hace 1 semana", stars: 5, text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso." },
+  { name: "Carolina T.", when: "Hace 3 meses", stars: 5, text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real." },
+  { name: "Paula N.", when: "Hace 4 semanas", stars: 5, text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita." },
+  { name: "Daniela V.", when: "Hace 6 días", stars: 5, text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación." },
+  { name: "Isabel A.", when: "Hace 2 meses", stars: 4, text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena." },
+  { name: "Natalia F.", when: "Hace 1 mes", stars: 5, text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti." },
 ];
 
 function StarRow({ value }: { value: number }) {
@@ -446,8 +384,7 @@ function ReviewsPanel() {
   const visible = expanded ? REVIEWS : REVIEWS.slice(0, 3);
 
   const avg =
-    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) /
-    10;
+    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) / 10;
 
   return (
     <div className="mt-10">
@@ -525,7 +462,6 @@ export default function Page() {
     `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
-  // ✅ ya no necesitamos procesar embeds, pero dejamos el Script por si lo usas en otras páginas
   React.useEffect(() => { }, []);
 
   return (
@@ -562,7 +498,8 @@ export default function Page() {
               return (
                 <>
                   <nav className="flex items-center gap-4">
-                    <NavLink href="/#sobre">Sobre Nosotros</NavLink>
+                    {/* ✅ CAMBIO: ahora va a /sobre */}
+                    <NavLink href="/sobre">Sobre Nosotros</NavLink>
                     <Sep />
                     <NavLink href="/#contacto">Contacto</NavLink>
                   </nav>
@@ -628,9 +565,7 @@ export default function Page() {
                 className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
               />
               <div className="leading-tight">
-                <div className="text-sm font-semibold tracking-wide text-amber-100">
-                  {SITE.brand}
-                </div>
+                <div className="text-sm font-semibold tracking-wide text-amber-100">{SITE.brand}</div>
                 <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
               </div>
             </a>
@@ -671,7 +606,8 @@ export default function Page() {
                   { href: "/", label: "Inicio" },
                   { href: "/servicios", label: "Tratamientos" },
                   { href: "/curso", label: "Curso" },
-                  { href: "/#sobre", label: "Sobre Nosotros" },
+                  // ✅ CAMBIO: ahora va a /sobre
+                  { href: "/sobre", label: "Sobre Nosotros" },
                   { href: "/#contacto", label: "Contacto" },
                 ].map((x) => (
                   <a
@@ -732,7 +668,6 @@ export default function Page() {
                 Agendar por WhatsApp
               </Button>
 
-              {/* ✅ CAMBIO 1: ahora va a /servicios (interna) */}
               <Button href="/servicios" variant="outline" newTab={false}>
                 Consultar tratamientos
               </Button>
@@ -757,9 +692,7 @@ export default function Page() {
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
               <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">
-                {SITE.addressLine}
-              </div>
+              <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
               <div className="text-xs text-amber-100/60">Servicios</div>
@@ -803,12 +736,8 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ✅ CAMBIO 2: igual en PC y móvil => solo cards */}
       <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle
-          title="Nuestro trabajo"
-          desc="Una muestra real de nuestros tratamientos y resultados."
-        />
+        <SectionTitle title="Nuestro trabajo" desc="Una muestra real de nuestros tratamientos y resultados." />
 
         <div className="grid gap-4 sm:grid-cols-3">
           {INSTAGRAM_ITEMS.map((item) => (
@@ -847,8 +776,7 @@ export default function Page() {
 
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-amber-100/70 sm:text-base">
                 Formación intensiva diseñada para profesionales que desean dominar el
-                acompañamiento estético post-quirúrgico con criterio técnico, seguridad y
-                enfoque premium de cabina.
+                acompañamiento estético post-quirúrgico con criterio técnico, seguridad y enfoque premium de cabina.
               </p>
             </div>
 
@@ -866,18 +794,10 @@ export default function Page() {
             <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7">
               <div className="text-sm font-semibold text-amber-100">Qué aprenderás</div>
               <div className="mt-6 space-y-5">
-                <CheckItem>
-                  Drenaje linfático manual: técnica correcta, control de presión y secuencias.
-                </CheckItem>
-                <CheckItem>
-                  Organización por fases del post-quirúrgico y planificación de sesiones.
-                </CheckItem>
-                <CheckItem>
-                  Señales de alerta, límites profesionales y derivación responsable.
-                </CheckItem>
-                <CheckItem>
-                  Comunicación con el cliente y posicionamiento profesional premium.
-                </CheckItem>
+                <CheckItem>Drenaje linfático manual: técnica correcta, control de presión y secuencias.</CheckItem>
+                <CheckItem>Organización por fases del post-quirúrgico y planificación de sesiones.</CheckItem>
+                <CheckItem>Señales de alerta, límites profesionales y derivación responsable.</CheckItem>
+                <CheckItem>Comunicación con el cliente y posicionamiento profesional premium.</CheckItem>
               </div>
             </div>
 
@@ -888,8 +808,8 @@ export default function Page() {
                   ¿Quieres reservar tu cupo?
                 </div>
                 <p className="mt-3 text-sm text-amber-100/70">
-                  Escríbenos por WhatsApp y te enviaremos toda la información sobre
-                  próximas fechas, inversión y disponibilidad.
+                  Escríbenos por WhatsApp y te enviaremos toda la información sobre próximas fechas,
+                  inversión y disponibilidad.
                 </p>
               </div>
 
@@ -934,9 +854,7 @@ export default function Page() {
               ) : null}
             </div>
 
-            <div className="mt-8 text-xs text-amber-100/50">
-              Atención con cita previa recomendada.
-            </div>
+            <div className="mt-8 text-xs text-amber-100/50">Atención con cita previa recomendada.</div>
           </div>
 
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
@@ -1003,6 +921,9 @@ export default function Page() {
             <div>
               <div className="text-sm font-semibold text-amber-100">Información</div>
               <div className="mt-3 flex flex-col gap-2 text-sm text-amber-100/70">
+                <a className="hover:text-amber-100" href="/sobre">
+                  Sobre Nosotros
+                </a>
                 <a className="hover:text-amber-100" href="/servicios">
                   Tratamientos
                 </a>
@@ -1031,8 +952,6 @@ export default function Page() {
                   Política de cookies
                 </a>
               </div>
-              <div className="mt-4 text-xs text-amber-100/50">
-              </div>
             </div>
           </div>
 
@@ -1040,7 +959,6 @@ export default function Page() {
             <div className="text-sm text-amber-100/60">
               © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
             </div>
-            <div className="text-sm text-amber-100/40">Next.js + Vercel</div>
           </div>
         </div>
       </footer>

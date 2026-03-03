@@ -639,7 +639,7 @@ export default function CursoPage() {
                     <div className="hidden h-full items-center justify-between sm:flex">
                         {/* Izquierda del logo */}
                         <nav className="flex items-center gap-4">
-                            <NavA href="/#sobre">Sobre Nosotros</NavA>
+                            <NavA href="/sobre">Sobre Nosotros</NavA>
                             <Sep />
                             <NavA href="/#contacto">Contacto</NavA>
                         </nav>
@@ -762,7 +762,7 @@ export default function CursoPage() {
                                     { href: "/", label: "Inicio" },
                                     { href: "/servicios", label: "Tratamientos" },
                                     { href: "/curso", label: "Curso" },
-                                    { href: "/#sobre", label: "Sobre Nosotros" },
+                                    { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
                                 ].map((x) => (
                                     <a
