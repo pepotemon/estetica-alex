@@ -609,6 +609,7 @@ export default function Page() {
                   // ✅ CAMBIO: ahora va a /sobre
                   { href: "/sobre", label: "Sobre Nosotros" },
                   { href: "/#contacto", label: "Contacto" },
+                  { href: "/cookies", label: "Cookies" },
                 ].map((x) => (
                   <a
                     key={x.href}
@@ -942,15 +943,9 @@ export default function Page() {
             <div>
               <div className="text-sm font-semibold text-amber-100">Legal</div>
               <div className="mt-3 flex flex-col gap-2 text-sm text-amber-100/70">
-                <a className="hover:text-amber-100" href="/aviso-legal">
-                  Aviso legal
-                </a>
-                <a className="hover:text-amber-100" href="/privacidad">
-                  Política de privacidad
-                </a>
-                <a className="hover:text-amber-100" href="/cookies">
-                  Política de cookies
-                </a>
+                <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">Cookies</a>
+                <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">Privacidad</a>
+                <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">Aviso legal</a>
               </div>
             </div>
           </div>

@@ -5,11 +5,10 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
-    logoSrc: "/alex-logo.png",
-    founderImg: "/sobre.jpg", // coloca aquí la foto profesional
     phone: "34661026192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
+    logoSrc: "/alex-logo.png",
 };
 
 function waLink(text: string) {
@@ -84,34 +83,45 @@ function SectionTitle({
 }) {
     return (
         <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-amber-100">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-amber-100">
                 {title}
-            </h2>
-            {desc && (
+            </h1>
+            {desc ? (
                 <p className="mt-3 max-w-3xl text-amber-100/70 text-sm sm:text-base">
                     {desc}
                 </p>
-            )}
+            ) : null}
         </div>
     );
 }
 
-function ValueCard({
+function Card({
     title,
-    desc,
+    children,
 }: {
     title: string;
-    desc: string;
+    children: React.ReactNode;
 }) {
     return (
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
             <div className="text-lg font-semibold text-amber-100">{title}</div>
-            <p className="mt-3 text-sm text-amber-100/70 leading-relaxed">{desc}</p>
+            <div className="mt-4 text-sm text-amber-100/70 leading-relaxed space-y-3">
+                {children}
+            </div>
         </div>
     );
 }
 
-export default function SobrePage() {
+function Badge({ children }: { children: React.ReactNode }) {
+    return (
+        <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
+            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
+            {children}
+        </span>
+    );
+}
+
+export default function CookiesPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const whatsappGeneral = waLink(
@@ -126,7 +136,7 @@ export default function SobrePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
             </div>
 
-            {/* ✅ HEADER (igual al resto de pantallas) */}
+            {/* ✅ HEADER (igual a todas las pantallas) */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
@@ -147,7 +157,7 @@ export default function SobrePage() {
                         />
                     </a>
 
-                    {/* Desktop layout */}
+                    {/* Desktop */}
                     <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
@@ -196,7 +206,7 @@ export default function SobrePage() {
                         </div>
                     </div>
 
-                    {/* Mobile layout */}
+                    {/* Mobile */}
                     <div className="flex sm:hidden h-full items-center justify-between">
                         <a
                             href="/"
@@ -276,125 +286,131 @@ export default function SobrePage() {
                 ) : null}
             </header>
 
-            {/* HERO */}
-            <section className="relative isolate overflow-hidden border-b border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-                    <div className="grid gap-12 sm:grid-cols-2 items-center">
-                        {/* Texto */}
-                        <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
-                                Más de 25 años de experiencia
-                            </div>
-
-                            <h1 className="mt-6 text-4xl sm:text-5xl font-semibold leading-tight text-amber-100">
-                                Trayectoria, ciencia y compromiso
-                                <span className="block text-amber-200/90">
-                                    al servicio de tu recuperación
-                                </span>
-                            </h1>
-
-                            <p className="mt-6 text-amber-100/70 leading-relaxed">
-                                Con más de dos décadas dedicadas al bienestar corporal y la recuperación
-                                funcional, nuestro fundador ha acompañado a cientos de pacientes en
-                                procesos postquirúrgicos, combinando conocimiento técnico, experiencia
-                                clínica y una atención profundamente personalizada.
-                            </p>
-                        </div>
-
-                        {/* Imagen */}
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
-                            <div className="overflow-hidden rounded-[2.5rem] border border-white/10">
-                                <img
-                                    src={SITE.founderImg}
-                                    alt="Fundador Alex Estética"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* PERFIL PROFESIONAL */}
-            <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-                <SectionTitle
-                    title="Perfil Profesional"
-                    desc="Formación técnica, experiencia práctica y una visión integral del cuerpo humano."
-                />
-
-                <div className="grid gap-8 sm:grid-cols-2">
-                    <div className="space-y-6 text-amber-100/70 text-sm sm:text-base leading-relaxed">
-                        <p>
-                            Especialista en masajes postoperatorios con más de 25 años de experiencia,
-                            ha desarrollado protocolos personalizados enfocados en acelerar la
-                            recuperación, mejorar la movilidad y optimizar los resultados estéticos
-                            tras intervenciones quirúrgicas.
-                        </p>
-
-                        <p>
-                            Técnico en medicina estética, combina conocimientos anatómicos avanzados
-                            con técnicas manuales precisas y aparatología complementaria, garantizando
-                            seguridad y efectividad en cada sesión.
-                        </p>
-
-                        <p>
-                            Su formación en nutrición deportiva y preparación física le permite
-                            ofrecer una visión integral del proceso de recuperación, entendiendo
-                            cómo el metabolismo, la alimentación y el movimiento influyen en
-                            los resultados finales del paciente.
-                        </p>
+            {/* CONTENT */}
+            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+                <div className="mb-10">
+                    <Badge>Información legal</Badge>
+                    <div className="mt-4">
+                        <SectionTitle
+                            title="Política de Cookies"
+                            desc={`En ${SITE.brand} usamos cookies para mejorar la experiencia de navegación, medir el rendimiento del sitio y ofrecer contenidos más relevantes. Aquí te explicamos qué son, qué usamos y cómo puedes gestionarlas.`}
+                        />
                     </div>
 
-                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
-                        <div className="text-amber-100 font-semibold text-lg">
-                            Especializaciones
-                        </div>
-
-                        <ul className="mt-6 space-y-4 text-sm text-amber-100/70">
-                            <li>• Recuperación post-liposucción y abdominoplastia</li>
-                            <li>• Drenaje linfático manual avanzado</li>
-                            <li>• Terapia de compresión postquirúrgica</li>
-                            <li>• Nutrición aplicada a procesos de recuperación</li>
-                            <li>• Planificación física adaptada al postoperatorio</li>
-                            <li>• Protocolos personalizados por fases</li>
+                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7 text-sm text-amber-100/70">
+                        <div className="text-amber-100 font-semibold">Resumen rápido</div>
+                        <ul className="mt-3 space-y-2">
+                            <li>• Puedes aceptar, rechazar o configurar cookies desde tu navegador.</li>
+                            <li>• Las cookies técnicas son necesarias para que el sitio funcione correctamente.</li>
+                            <li>• Las cookies analíticas ayudan a entender el uso del sitio (de forma agregada).</li>
                         </ul>
                     </div>
                 </div>
+
+                <div className="grid gap-6">
+                    <Card title="1) ¿Qué son las cookies?">
+                        <p>
+                            Una cookie es un pequeño archivo que se descarga en tu dispositivo al acceder
+                            a determinadas páginas web. Permite, por ejemplo, recordar preferencias,
+                            mantener sesiones o recopilar información estadística.
+                        </p>
+                    </Card>
+
+                    <Card title="2) Tipos de cookies que pueden usarse en este sitio">
+                        <div>
+                            <div className="text-amber-100 font-semibold">Cookies técnicas (necesarias)</div>
+                            <p className="mt-2">
+                                Son imprescindibles para el funcionamiento básico del sitio: seguridad,
+                                navegación, mantenimiento de sesión y carga correcta de contenidos.
+                            </p>
+                        </div>
+
+                        <div className="pt-2">
+                            <div className="text-amber-100 font-semibold">Cookies de preferencias</div>
+                            <p className="mt-2">
+                                Permiten recordar tus elecciones (por ejemplo, idioma o preferencias visuales)
+                                para que no tengas que configurarlas cada vez.
+                            </p>
+                        </div>
+
+                        <div className="pt-2">
+                            <div className="text-amber-100 font-semibold">Cookies analíticas</div>
+                            <p className="mt-2">
+                                Nos ayudan a entender cómo se usa el sitio (páginas más visitadas, tiempo de
+                                permanencia, etc.) con el fin de mejorar el contenido y la experiencia.
+                            </p>
+                        </div>
+
+                        <div className="pt-2">
+                            <div className="text-amber-100 font-semibold">Cookies de terceros</div>
+                            <p className="mt-2">
+                                Algunas integraciones pueden establecer cookies (por ejemplo, redes sociales o
+                                servicios de medición). Estas cookies dependen del proveedor tercero.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card title="3) ¿Qué cookies usamos exactamente?">
+                        <p>
+                            Este sitio puede utilizar cookies técnicas propias y, si se habilitan herramientas
+                            de medición o integraciones (p. ej. analítica o redes sociales), cookies de terceros.
+                        </p>
+                        <p>
+                            Si quieres que lo dejemos “100% fino”, dime qué tienes instalado:
+                            <span className="text-amber-100 font-semibold">
+                                {" "}
+                                Google Analytics / Meta Pixel / YouTube / Google Maps / Chat widget{" "}
+                            </span>
+                            y te pongo la tabla exacta (nombre, proveedor, duración, finalidad).
+                        </p>
+                    </Card>
+
+                    <Card title="4) Cómo gestionar, bloquear o eliminar cookies">
+                        <p>
+                            Puedes permitir, bloquear o eliminar cookies desde la configuración de tu navegador.
+                            Ten en cuenta que, si bloqueas cookies técnicas, el sitio podría no funcionar
+                            correctamente.
+                        </p>
+                        <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                            <div className="text-amber-100 font-semibold text-sm">Guía rápida</div>
+                            <ul className="mt-3 space-y-2">
+                                <li>• Chrome: Configuración → Privacidad y seguridad → Cookies</li>
+                                <li>• Safari: Preferencias → Privacidad → Cookies</li>
+                                <li>• Firefox: Ajustes → Privacidad & Seguridad → Cookies</li>
+                                <li>• Edge: Configuración → Cookies y permisos del sitio</li>
+                            </ul>
+                        </div>
+                    </Card>
+
+                    <Card title="5) Actualizaciones de esta política">
+                        <p>
+                            Podemos actualizar esta Política de Cookies para adaptarla a cambios legales o
+                            técnicos. Te recomendamos revisarla periódicamente.
+                        </p>
+                    </Card>
+
+                    <Card title="6) Contacto">
+                        <p>
+                            Si tienes dudas sobre esta Política de Cookies, puedes escribirnos y te respondemos
+                            con la mayor brevedad posible.
+                        </p>
+                        <div className="mt-4">
+                            <Button href={whatsappGeneral} variant="outline">
+                                Consultar por WhatsApp
+                            </Button>
+                        </div>
+                    </Card>
+                </div>
             </section>
 
-            {/* FILOSOFÍA */}
-            <section className="mx-auto max-w-6xl px-5 pb-20">
-                <SectionTitle
-                    title="Nuestra Filosofía"
-                    desc="No se trata solo de estética, sino de acompañar procesos con responsabilidad."
-                />
-
-                <div className="grid gap-6 sm:grid-cols-3">
-                    <ValueCard
-                        title="Seguridad ante todo"
-                        desc="Cada protocolo es diseñado respetando los tiempos biológicos del cuerpo, priorizando siempre la salud y evitando prácticas invasivas innecesarias."
-                    />
-
-                    <ValueCard
-                        title="Acompañamiento personalizado"
-                        desc="Cada paciente recibe una evaluación individualizada para adaptar técnicas y frecuencia según su evolución real."
-                    />
-
-                    <ValueCard
-                        title="Resultados responsables"
-                        desc="Nuestro enfoque no busca promesas irreales, sino mejoras progresivas, sostenibles y visibles con respaldo técnico."
-                    />
-                </div>
-
-                {/* ✅ FINAL (2 botones) */}
-                <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
+            {/* ✅ FINAL (2 botones) */}
+            <section className="mx-auto max-w-6xl px-5 pb-16">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
                     <div className="text-2xl font-semibold text-amber-100">
                         Te invitamos a conocernos
                     </div>
                     <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Cuéntanos tu objetivo y te orientamos sin compromiso. Atención premium, protocolos
-                        responsables y acompañamiento real durante tu proceso.
+                        Si deseas información de tratamientos, agenda y disponibilidad, te orientamos sin compromiso.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -408,10 +424,22 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* FOOTER SIMPLE */}
+            {/* Footer */}
             <footer className="border-t border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
+                        Cookies
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
+                        Privacidad
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
+                        Aviso legal
+                    </a>
                 </div>
             </footer>
         </main>
