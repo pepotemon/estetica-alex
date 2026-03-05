@@ -514,8 +514,7 @@ export default function CursoPage() {
         },
         {
             title: "Drenaje Linfático Manual Postquirúrgico",
-            summary:
-                "Técnica guiada: ritmo, presión, secuencias y corrección de errores.",
+            summary: "Técnica guiada: ritmo, presión, secuencias y corrección de errores.",
             chips: ["Ritmo y presión", "Secuencias", "Control del edema"],
             points: [
                 "Principios técnicos y control de presión.",
@@ -764,7 +763,6 @@ export default function CursoPage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -793,7 +791,7 @@ export default function CursoPage() {
                 ) : null}
             </header>
 
-            {/* ✅ HERO: SIN logo/círculo arriba del título (para que no choque con el header) */}
+            {/* ✅ HERO */}
             <section className="relative isolate overflow-hidden border-b border-white/10">
                 {/* Imagen de fondo */}
                 <div className="absolute inset-0 -z-20 bg-black">
@@ -804,7 +802,7 @@ export default function CursoPage() {
                         loading="eager"
                     />
 
-                    {/* Overlay para que el dorado destaque como la imagen */}
+                    {/* Overlay */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45),rgba(0,0,0,0.92))]" />
                     <div className="absolute inset-0 bg-[radial-gradient(1200px_650px_at_50%_15%,rgba(255,215,128,0.14),transparent_60%)]" />
 
@@ -821,7 +819,7 @@ export default function CursoPage() {
 
                 {/* Contenido */}
                 <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-                    {/* Título como la imagen: 2 líneas, serif, dorado */}
+                    {/* Título */}
                     <div className="text-center">
                         <h1 className="font-serif tracking-[0.06em]">
                             <span
@@ -846,6 +844,96 @@ export default function CursoPage() {
                                 {COURSE.nameBottom}
                             </span>
                         </h1>
+                    </div>
+
+                    {/* ✅ NUEVO: Introducción + resumen (SIN borrar nada, solo complementa) */}
+                    <div className="mt-10">
+                        <div className="mx-auto max-w-4xl rounded-[2rem] border border-white/10 bg-black/35 p-7 backdrop-blur sm:p-10">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/40 px-3 py-1 text-xs text-amber-100/80">
+                                <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
+                                El auge del post-quirúrgico
+                            </div>
+
+                            <h2 className="mt-5 text-2xl sm:text-3xl font-semibold text-amber-100">
+                                Una oportunidad real de especialización
+                            </h2>
+
+                            <p className="mt-4 text-sm sm:text-base leading-relaxed text-amber-100/75">
+                                En la actualidad, el sector del bienestar crece impulsado por el aumento
+                                de las cirugías estéticas. Procedimientos como la{" "}
+                                <span className="text-amber-100 font-semibold">
+                                    abdominoplastia
+                                </span>{" "}
+                                y la{" "}
+                                <span className="text-amber-100 font-semibold">
+                                    lipoescultura
+                                </span>{" "}
+                                se han consolidado como los más demandados, y con ello aparece una
+                                necesidad crítica en el mercado:{" "}
+                                <span className="text-amber-100 font-semibold">
+                                    profesionales capacitados en tratamientos post-operatorios
+                                </span>{" "}
+                                para acompañar una recuperación segura, responsable y con resultados.
+                            </p>
+
+                            <p className="mt-4 text-sm sm:text-base leading-relaxed text-amber-100/75">
+                                Este curso está diseñado para que domines el proceso{" "}
+                                <span className="text-amber-100 font-semibold">
+                                    de principio a fin
+                                </span>
+                                : desde entender qué ocurre en el tejido y el sistema linfático, hasta
+                                aplicar protocolos por fases, trabajar con compresión, usar aparatología
+                                con criterio y saber reconocer señales de alerta.
+                            </p>
+
+                            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                                    <div className="text-xs text-amber-100/60">Lo que consigues</div>
+                                    <div className="mt-2 text-sm font-semibold text-amber-100">
+                                        Criterio + técnica
+                                    </div>
+                                    <div className="mt-2 text-sm text-amber-100/70">
+                                        Saber qué hacer, cuándo hacerlo y cuándo derivar.
+                                    </div>
+                                </div>
+
+                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                                    <div className="text-xs text-amber-100/60">Enfoque</div>
+                                    <div className="mt-2 text-sm font-semibold text-amber-100">
+                                        Protocolos por fases
+                                    </div>
+                                    <div className="mt-2 text-sm text-amber-100/70">
+                                        Edema → fibrosis → recuperación estable y resultados.
+                                    </div>
+                                </div>
+
+                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                                    <div className="text-xs text-amber-100/60">Salida</div>
+                                    <div className="mt-2 text-sm font-semibold text-amber-100">
+                                        Servicio premium
+                                    </div>
+                                    <div className="mt-2 text-sm text-amber-100/70">
+                                        Cabina profesional, comunicación y fidelización.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs text-amber-100/80">
+                                    <span className="h-2 w-2 rounded-full bg-amber-300/90" />
+                                    Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
+                                </div>
+
+                                <div className="flex flex-col gap-3 sm:flex-row">
+                                    <Button href={whatsappCurso} variant="gold" className="px-6 py-3">
+                                        Preguntar precio y fechas
+                                    </Button>
+                                    <Button href={whatsappTemario} variant="outline" className="px-6 py-3">
+                                        Pedir temario completo
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Tiles dorados abajo (como la imagen). En móvil: scroll horizontal */}
