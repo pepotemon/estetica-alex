@@ -883,7 +883,7 @@ export default function ServiciosPage() {
                                     { href: "/servicios", label: "Tratamientos" },
                                     { href: "/curso", label: "Curso" },
                                     { href: "/#contacto", label: "Contacto" },
-                                    { href: "/cookies", label: "Cookies" },
+
                                 ].map((x) => (
                                     <a
                                         key={x.href}

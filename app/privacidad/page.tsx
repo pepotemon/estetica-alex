@@ -5,11 +5,10 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
-    logoSrc: "/alex-logo.png",
-    founderImg: "/sobre.jpg", // coloca aquí la foto profesional
     phone: "34661026192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
+    logoSrc: "/alex-logo.png",
 };
 
 function waLink(text: string) {
@@ -84,34 +83,45 @@ function SectionTitle({
 }) {
     return (
         <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-amber-100">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-amber-100">
                 {title}
-            </h2>
-            {desc && (
+            </h1>
+            {desc ? (
                 <p className="mt-3 max-w-3xl text-amber-100/70 text-sm sm:text-base">
                     {desc}
                 </p>
-            )}
+            ) : null}
         </div>
     );
 }
 
-function ValueCard({
+function Card({
     title,
-    desc,
+    children,
 }: {
     title: string;
-    desc: string;
+    children: React.ReactNode;
 }) {
     return (
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
             <div className="text-lg font-semibold text-amber-100">{title}</div>
-            <p className="mt-3 text-sm text-amber-100/70 leading-relaxed">{desc}</p>
+            <div className="mt-4 text-sm text-amber-100/70 leading-relaxed space-y-3">
+                {children}
+            </div>
         </div>
     );
 }
 
-export default function SobrePage() {
+function Badge({ children }: { children: React.ReactNode }) {
+    return (
+        <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
+            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
+            {children}
+        </span>
+    );
+}
+
+export default function PrivacidadPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const whatsappGeneral = waLink(
@@ -126,7 +136,7 @@ export default function SobrePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
             </div>
 
-            {/* ✅ HEADER (igual al resto de pantallas) */}
+            {/* ✅ HEADER (igual a todas las pantallas) */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
@@ -147,7 +157,7 @@ export default function SobrePage() {
                         />
                     </a>
 
-                    {/* Desktop layout */}
+                    {/* Desktop */}
                     <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
@@ -196,7 +206,7 @@ export default function SobrePage() {
                         </div>
                     </div>
 
-                    {/* Mobile layout */}
+                    {/* Mobile */}
                     <div className="flex sm:hidden h-full items-center justify-between">
                         <a
                             href="/"
@@ -247,7 +257,9 @@ export default function SobrePage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-
+                                    { href: "/cookies", label: "Cookies" },
+                                    { href: "/privacidad", label: "Privacidad" },
+                                    { href: "/aviso-legal", label: "Aviso legal" },
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -276,125 +288,185 @@ export default function SobrePage() {
                 ) : null}
             </header>
 
-            {/* HERO */}
-            <section className="relative isolate overflow-hidden border-b border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-                    <div className="grid gap-12 sm:grid-cols-2 items-center">
-                        {/* Texto */}
-                        <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
-                                Más de 25 años de experiencia
-                            </div>
+            {/* CONTENT */}
+            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+                <div className="mb-10">
+                    <Badge>Información legal</Badge>
 
-                            <h1 className="mt-6 text-4xl sm:text-5xl font-semibold leading-tight text-amber-100">
-                                Trayectoria, ciencia y compromiso
-                                <span className="block text-amber-200/90">
-                                    al servicio de tu recuperación
-                                </span>
-                            </h1>
-
-                            <p className="mt-6 text-amber-100/70 leading-relaxed">
-                                Con más de dos décadas dedicadas al bienestar corporal y la recuperación
-                                funcional, nuestro fundador ha acompañado a cientos de pacientes en
-                                procesos postquirúrgicos, combinando conocimiento técnico, experiencia
-                                clínica y una atención profundamente personalizada.
-                            </p>
-                        </div>
-
-                        {/* Imagen */}
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
-                            <div className="overflow-hidden rounded-[2.5rem] border border-white/10">
-                                <img
-                                    src={SITE.founderImg}
-                                    alt="Fundador Alex Estética"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* PERFIL PROFESIONAL */}
-            <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-                <SectionTitle
-                    title="Perfil Profesional"
-                    desc="Formación técnica, experiencia práctica y una visión integral del cuerpo humano."
-                />
-
-                <div className="grid gap-8 sm:grid-cols-2">
-                    <div className="space-y-6 text-amber-100/70 text-sm sm:text-base leading-relaxed">
-                        <p>
-                            Especialista en masajes postoperatorios con más de 25 años de experiencia,
-                            ha desarrollado protocolos personalizados enfocados en acelerar la
-                            recuperación, mejorar la movilidad y optimizar los resultados estéticos
-                            tras intervenciones quirúrgicas.
-                        </p>
-
-                        <p>
-                            Técnico en medicina estética, combina conocimientos anatómicos avanzados
-                            con técnicas manuales precisas y aparatología complementaria, garantizando
-                            seguridad y efectividad en cada sesión.
-                        </p>
-
-                        <p>
-                            Su formación en nutrición deportiva y preparación física le permite
-                            ofrecer una visión integral del proceso de recuperación, entendiendo
-                            cómo el metabolismo, la alimentación y el movimiento influyen en
-                            los resultados finales del paciente.
-                        </p>
+                    <div className="mt-4">
+                        <SectionTitle
+                            title="Política de Privacidad"
+                            desc={`En ${SITE.brand} nos tomamos muy en serio tu privacidad. Esta política explica qué datos tratamos, con qué finalidad, durante cuánto tiempo, con qué base legal y cuáles son tus derechos.`}
+                        />
                     </div>
 
-                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
-                        <div className="text-amber-100 font-semibold text-lg">
-                            Especializaciones
-                        </div>
-
-                        <ul className="mt-6 space-y-4 text-sm text-amber-100/70">
-                            <li>• Recuperación post-liposucción y abdominoplastia</li>
-                            <li>• Drenaje linfático manual avanzado</li>
-                            <li>• Terapia de compresión postquirúrgica</li>
-                            <li>• Nutrición aplicada a procesos de recuperación</li>
-                            <li>• Planificación física adaptada al postoperatorio</li>
-                            <li>• Protocolos personalizados por fases</li>
+                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7 text-sm text-amber-100/70">
+                        <div className="text-amber-100 font-semibold">Importante</div>
+                        <ul className="mt-3 space-y-2">
+                            <li>• Esta web puede incluir enlaces de contacto (por ejemplo, WhatsApp) y redes sociales.</li>
+                            <li>• No solicitamos datos “sensibles” por la web; si compartes información de salud, lo haces voluntariamente.</li>
+                            <li>• Puedes ejercer tus derechos en cualquier momento (ver sección “Tus derechos”).</li>
                         </ul>
                     </div>
                 </div>
+
+                <div className="grid gap-6">
+                    <Card title="1) Responsable del tratamiento">
+                        <p>
+                            <span className="text-amber-100 font-semibold">{SITE.brand}</span> (en adelante,
+                            “el Centro”).
+                        </p>
+                        <p>
+                            <span className="text-amber-100 font-semibold">Ámbito:</span> {SITE.city}.
+                        </p>
+                        <p>
+                            <span className="text-amber-100 font-semibold">Contacto:</span>{" "}
+                            puedes escribirnos por WhatsApp desde la web.
+                        </p>
+                        <div className="pt-1">
+                            <Button href={whatsappGeneral} variant="outline">
+                                Contactar por WhatsApp
+                            </Button>
+                        </div>
+                        <p className="text-xs text-amber-100/55">
+                            *Si quieres que quede perfecto a nivel legal, luego añadimos: razón social/NIF, email
+                            de contacto y domicilio fiscal exacto.
+                        </p>
+                    </Card>
+
+                    <Card title="2) Qué datos recogemos">
+                        <p>
+                            Dependiendo de cómo interactúes con la web, podemos tratar:
+                        </p>
+                        <ul className="space-y-2">
+                            <li>• <span className="text-amber-100 font-semibold">Datos de contacto</span>: nombre, teléfono, mensajes (si nos escribes).</li>
+                            <li>• <span className="text-amber-100 font-semibold">Datos de navegación</span>: IP, dispositivo, páginas visitadas, cookies (ver Política de Cookies).</li>
+                            <li>• <span className="text-amber-100 font-semibold">Datos de redes sociales</span>: si interactúas con Instagram o enlaces de terceros.</li>
+                            <li>• <span className="text-amber-100 font-semibold">Contenido del mensaje</span>: lo que escribas voluntariamente (por ejemplo, tu objetivo estético).</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="3) Finalidades del tratamiento">
+                        <ul className="space-y-2">
+                            <li>• Atender solicitudes de información, dudas y consultas.</li>
+                            <li>• Gestionar citas, disponibilidad y seguimiento de solicitudes.</li>
+                            <li>• Mejorar la experiencia de navegación y el rendimiento del sitio.</li>
+                            <li>• En su caso, enviar comunicaciones relacionadas con tu solicitud (nunca spam).</li>
+                            <li>• Cumplir obligaciones legales cuando sea aplicable.</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="4) Base legal (por qué podemos tratar tus datos)">
+                        <ul className="space-y-2">
+                            <li>• <span className="text-amber-100 font-semibold">Consentimiento</span>: cuando nos contactas o aceptas cookies (si aplica).</li>
+                            <li>• <span className="text-amber-100 font-semibold">Ejecución de medidas precontractuales</span>: para gestionar tu petición de cita o información.</li>
+                            <li>• <span className="text-amber-100 font-semibold">Interés legítimo</span>: para seguridad del sitio y mejora del servicio (analítica agregada, prevención de fraude).</li>
+                            <li>• <span className="text-amber-100 font-semibold">Obligación legal</span>: cuando una norma nos obligue (por ejemplo, facturación si procede).</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="5) ¿Con quién compartimos tus datos?">
+                        <p>
+                            No vendemos tus datos. Solo se compartirán cuando sea necesario para prestar el servicio
+                            o por obligación legal.
+                        </p>
+                        <ul className="space-y-2">
+                            <li>• <span className="text-amber-100 font-semibold">Proveedores técnicos</span> (hosting, analítica si se usa, etc.).</li>
+                            <li>• <span className="text-amber-100 font-semibold">Plataformas de comunicación</span> (por ejemplo, WhatsApp) cuando decides escribirnos.</li>
+                            <li>• <span className="text-amber-100 font-semibold">Autoridades</span> si existe obligación legal.</li>
+                        </ul>
+
+                    </Card>
+
+                    <Card title="6) Transferencias internacionales">
+                        <p>
+                            Algunos proveedores (por ejemplo, redes sociales o herramientas de analítica) pueden
+                            tratar datos fuera del Espacio Económico Europeo. En ese caso, se aplicarán garantías
+                            adecuadas según normativa vigente (por ejemplo, cláusulas contractuales tipo).
+                        </p>
+                    </Card>
+
+                    <Card title="7) Plazos de conservación">
+                        <ul className="space-y-2">
+                            <li>• Consultas: durante el tiempo necesario para atender y cerrar tu solicitud.</li>
+                            <li>• Citas/gestión: durante el tiempo necesario para la coordinación y seguimiento.</li>
+                            <li>• Obligaciones legales: durante los plazos exigidos por normativa aplicable.</li>
+                            <li>• Cookies: según el tipo (ver Política de Cookies).</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="8) Tus derechos">
+                        <p>
+                            Puedes solicitar:
+                        </p>
+                        <ul className="space-y-2">
+                            <li>• Acceso a tus datos</li>
+                            <li>• Rectificación de datos inexactos</li>
+                            <li>• Supresión (“derecho al olvido”)</li>
+                            <li>• Oposición al tratamiento</li>
+                            <li>• Limitación del tratamiento</li>
+                            <li>• Portabilidad de tus datos</li>
+                        </ul>
+
+                        <p className="pt-1">
+                            Para ejercerlos, contáctanos y te responderemos lo antes posible.
+                        </p>
+
+                        <div className="pt-2">
+                            <Button href={whatsappGeneral} variant="outline">
+                                Ejercer derechos por WhatsApp
+                            </Button>
+                        </div>
+
+                        <p className="text-xs text-amber-100/55">
+                            También tienes derecho a presentar una reclamación ante la autoridad de control competente
+                            si consideras que el tratamiento no se ajusta a la normativa.
+                        </p>
+                    </Card>
+
+                    <Card title="9) Seguridad de la información">
+                        <p>
+                            Aplicamos medidas razonables de seguridad para proteger la información frente a accesos no
+                            autorizados, alteración, pérdida o divulgación. Aun así, ninguna transmisión por Internet
+                            es 100% segura.
+                        </p>
+                    </Card>
+
+                    <Card title="10) Menores de edad">
+                        <p>
+                            Este sitio y sus servicios no están dirigidos a menores sin la supervisión de un adulto.
+                            Si crees que un menor nos ha facilitado datos, contáctanos para eliminarlos.
+                        </p>
+                    </Card>
+
+                    <Card title="11) Cambios en esta política">
+                        <p>
+                            Podemos actualizar esta Política de Privacidad para adaptarla a cambios legales o técnicos.
+                            La versión publicada en esta página será la vigente en cada momento.
+                        </p>
+                    </Card>
+
+                    <Card title="12) Contacto">
+                        <p>
+                            Si tienes dudas sobre privacidad o sobre esta política, escríbenos y te orientamos.
+                        </p>
+                        <div className="pt-2">
+                            <Button href={whatsappGeneral} variant="gold">
+                                Consultar por WhatsApp
+                            </Button>
+                        </div>
+                    </Card>
+                </div>
             </section>
 
-            {/* FILOSOFÍA */}
-            <section className="mx-auto max-w-6xl px-5 pb-20">
-                <SectionTitle
-                    title="Nuestra Filosofía"
-                    desc="No se trata solo de estética, sino de acompañar procesos con responsabilidad."
-                />
-
-                <div className="grid gap-6 sm:grid-cols-3">
-                    <ValueCard
-                        title="Seguridad ante todo"
-                        desc="Cada protocolo es diseñado respetando los tiempos biológicos del cuerpo, priorizando siempre la salud y evitando prácticas invasivas innecesarias."
-                    />
-
-                    <ValueCard
-                        title="Acompañamiento personalizado"
-                        desc="Cada paciente recibe una evaluación individualizada para adaptar técnicas y frecuencia según su evolución real."
-                    />
-
-                    <ValueCard
-                        title="Resultados responsables"
-                        desc="Nuestro enfoque no busca promesas irreales, sino mejoras progresivas, sostenibles y visibles con respaldo técnico."
-                    />
-                </div>
-
-                {/* ✅ FINAL (2 botones) */}
-                <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
+            {/* ✅ FINAL (2 botones) */}
+            <section className="mx-auto max-w-6xl px-5 pb-16">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
                     <div className="text-2xl font-semibold text-amber-100">
                         Te invitamos a conocernos
                     </div>
                     <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Cuéntanos tu objetivo y te orientamos sin compromiso. Atención premium, protocolos
-                        responsables y acompañamiento real durante tu proceso.
+                        Si deseas información de tratamientos, agenda y disponibilidad, te orientamos sin compromiso.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -408,10 +480,22 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* FOOTER SIMPLE */}
+            {/* Footer */}
             <footer className="border-t border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
+                        Cookies
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
+                        Privacidad
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
+                        Aviso legal
+                    </a>
                 </div>
             </footer>
         </main>

@@ -609,7 +609,7 @@ export default function Page() {
                   // ✅ CAMBIO: ahora va a /sobre
                   { href: "/sobre", label: "Sobre Nosotros" },
                   { href: "/#contacto", label: "Contacto" },
-                  { href: "/cookies", label: "Cookies" },
+
                 ].map((x) => (
                   <a
                     key={x.href}

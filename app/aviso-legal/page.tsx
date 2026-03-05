@@ -5,11 +5,10 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
-    logoSrc: "/alex-logo.png",
-    founderImg: "/sobre.jpg", // coloca aquí la foto profesional
     phone: "34661026192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
+    logoSrc: "/alex-logo.png",
 };
 
 function waLink(text: string) {
@@ -75,6 +74,15 @@ function Sep() {
     return <span className="select-none text-amber-100/35">|</span>;
 }
 
+function Badge({ children }: { children: React.ReactNode }) {
+    return (
+        <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
+            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
+            {children}
+        </span>
+    );
+}
+
 function SectionTitle({
     title,
     desc,
@@ -84,34 +92,36 @@ function SectionTitle({
 }) {
     return (
         <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-amber-100">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-amber-100">
                 {title}
-            </h2>
-            {desc && (
+            </h1>
+            {desc ? (
                 <p className="mt-3 max-w-3xl text-amber-100/70 text-sm sm:text-base">
                     {desc}
                 </p>
-            )}
+            ) : null}
         </div>
     );
 }
 
-function ValueCard({
+function Card({
     title,
-    desc,
+    children,
 }: {
     title: string;
-    desc: string;
+    children: React.ReactNode;
 }) {
     return (
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
             <div className="text-lg font-semibold text-amber-100">{title}</div>
-            <p className="mt-3 text-sm text-amber-100/70 leading-relaxed">{desc}</p>
+            <div className="mt-4 text-sm text-amber-100/70 leading-relaxed space-y-3">
+                {children}
+            </div>
         </div>
     );
 }
 
-export default function SobrePage() {
+export default function AvisoLegalPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const whatsappGeneral = waLink(
@@ -126,7 +136,7 @@ export default function SobrePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
             </div>
 
-            {/* ✅ HEADER (igual al resto de pantallas) */}
+            {/* ✅ HEADER (igual a todas las pantallas) */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
@@ -147,7 +157,7 @@ export default function SobrePage() {
                         />
                     </a>
 
-                    {/* Desktop layout */}
+                    {/* Desktop */}
                     <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
@@ -196,7 +206,7 @@ export default function SobrePage() {
                         </div>
                     </div>
 
-                    {/* Mobile layout */}
+                    {/* Mobile */}
                     <div className="flex sm:hidden h-full items-center justify-between">
                         <a
                             href="/"
@@ -247,7 +257,9 @@ export default function SobrePage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-
+                                    { href: "/cookies", label: "Cookies" },
+                                    { href: "/privacidad", label: "Privacidad" },
+                                    { href: "/aviso-legal", label: "Aviso legal" },
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -276,125 +288,155 @@ export default function SobrePage() {
                 ) : null}
             </header>
 
-            {/* HERO */}
-            <section className="relative isolate overflow-hidden border-b border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-                    <div className="grid gap-12 sm:grid-cols-2 items-center">
-                        {/* Texto */}
-                        <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
-                                Más de 25 años de experiencia
-                            </div>
+            {/* CONTENT */}
+            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+                <div className="mb-10">
+                    <Badge>Información legal</Badge>
 
-                            <h1 className="mt-6 text-4xl sm:text-5xl font-semibold leading-tight text-amber-100">
-                                Trayectoria, ciencia y compromiso
-                                <span className="block text-amber-200/90">
-                                    al servicio de tu recuperación
-                                </span>
-                            </h1>
-
-                            <p className="mt-6 text-amber-100/70 leading-relaxed">
-                                Con más de dos décadas dedicadas al bienestar corporal y la recuperación
-                                funcional, nuestro fundador ha acompañado a cientos de pacientes en
-                                procesos postquirúrgicos, combinando conocimiento técnico, experiencia
-                                clínica y una atención profundamente personalizada.
-                            </p>
-                        </div>
-
-                        {/* Imagen */}
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
-                            <div className="overflow-hidden rounded-[2.5rem] border border-white/10">
-                                <img
-                                    src={SITE.founderImg}
-                                    alt="Fundador Alex Estética"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* PERFIL PROFESIONAL */}
-            <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-                <SectionTitle
-                    title="Perfil Profesional"
-                    desc="Formación técnica, experiencia práctica y una visión integral del cuerpo humano."
-                />
-
-                <div className="grid gap-8 sm:grid-cols-2">
-                    <div className="space-y-6 text-amber-100/70 text-sm sm:text-base leading-relaxed">
-                        <p>
-                            Especialista en masajes postoperatorios con más de 25 años de experiencia,
-                            ha desarrollado protocolos personalizados enfocados en acelerar la
-                            recuperación, mejorar la movilidad y optimizar los resultados estéticos
-                            tras intervenciones quirúrgicas.
-                        </p>
-
-                        <p>
-                            Técnico en medicina estética, combina conocimientos anatómicos avanzados
-                            con técnicas manuales precisas y aparatología complementaria, garantizando
-                            seguridad y efectividad en cada sesión.
-                        </p>
-
-                        <p>
-                            Su formación en nutrición deportiva y preparación física le permite
-                            ofrecer una visión integral del proceso de recuperación, entendiendo
-                            cómo el metabolismo, la alimentación y el movimiento influyen en
-                            los resultados finales del paciente.
-                        </p>
+                    <div className="mt-4">
+                        <SectionTitle
+                            title="Aviso Legal"
+                            desc={`Este Aviso Legal regula el acceso y uso del sitio web de ${SITE.brand}. Al navegar por este sitio aceptas las condiciones descritas a continuación.`}
+                        />
                     </div>
 
-                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
-                        <div className="text-amber-100 font-semibold text-lg">
-                            Especializaciones
-                        </div>
-
-                        <ul className="mt-6 space-y-4 text-sm text-amber-100/70">
-                            <li>• Recuperación post-liposucción y abdominoplastia</li>
-                            <li>• Drenaje linfático manual avanzado</li>
-                            <li>• Terapia de compresión postquirúrgica</li>
-                            <li>• Nutrición aplicada a procesos de recuperación</li>
-                            <li>• Planificación física adaptada al postoperatorio</li>
-                            <li>• Protocolos personalizados por fases</li>
+                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7 text-sm text-amber-100/70">
+                        <div className="text-amber-100 font-semibold">Pendiente de completar (para que quede perfecto)</div>
+                        <ul className="mt-3 space-y-2">
+                            <li>• Razón social / titular exacto</li>
+                            <li>• NIF/CIF</li>
+                            <li>• Domicilio fiscal</li>
+                            <li>• Email de contacto</li>
                         </ul>
+                        <p className="mt-3 text-xs text-amber-100/55">
+                            Si me pasas esos 4 datos, lo dejamos 100% formal para España.
+                        </p>
                     </div>
+                </div>
+
+                <div className="grid gap-6">
+                    <Card title="1) Titularidad del sitio web">
+                        <p>
+                            Titular: <span className="text-amber-100 font-semibold">{SITE.brand}</span>
+                        </p>
+                        <p>
+                            Ámbito: <span className="text-amber-100 font-semibold">{SITE.city}</span>
+                        </p>
+                        <p>
+                            Contacto: a través de los canales publicados en la web (WhatsApp y/o redes sociales).
+                        </p>
+                    </Card>
+
+                    <Card title="2) Objeto y ámbito de aplicación">
+                        <p>
+                            Este sitio tiene finalidad informativa y comercial, mostrando servicios, tratamientos y
+                            vías de contacto para solicitar información o reservar una cita.
+                        </p>
+                        <p>
+                            El acceso al sitio es gratuito, salvo el coste de conexión del usuario según su operador.
+                        </p>
+                    </Card>
+
+                    <Card title="3) Condiciones de uso">
+                        <ul className="space-y-2">
+                            <li>• El usuario se compromete a realizar un uso adecuado y lícito del sitio.</li>
+                            <li>• Queda prohibido utilizar el sitio con fines fraudulentos o que puedan dañar su funcionamiento.</li>
+                            <li>• El titular podrá actualizar contenidos, secciones o servicios sin previo aviso.</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="4) Propiedad intelectual e industrial">
+                        <p>
+                            Todos los contenidos del sitio (textos, diseños, imágenes, logotipos, vídeos, código y
+                            elementos gráficos) son titularidad del Centro o se usan con autorización/licencia.
+                        </p>
+                        <p>
+                            Queda prohibida la reproducción, distribución o comunicación pública total o parcial sin
+                            autorización expresa, salvo en los casos permitidos por la ley.
+                        </p>
+                    </Card>
+
+                    <Card title="5) Enlaces a terceros (WhatsApp, Instagram, etc.)">
+                        <p>
+                            Este sitio puede incluir enlaces a plataformas de terceros (por ejemplo, WhatsApp o Instagram).
+                            Al acceder a ellos, el usuario queda sujeto a las condiciones y políticas de dichas plataformas.
+                        </p>
+                        <p>
+                            El Centro no se responsabiliza del contenido, funcionamiento o disponibilidad de sitios de terceros.
+                        </p>
+                    </Card>
+
+                    <Card title="6) Responsabilidad">
+                        <p>
+                            El Centro no garantiza la ausencia de interrupciones o errores en el acceso al sitio, aunque
+                            adoptará medidas razonables para mantenerlo operativo y seguro.
+                        </p>
+                        <p>
+                            El Centro no se hace responsable de daños derivados del uso del sitio cuando provengan de:
+                        </p>
+                        <ul className="space-y-2">
+                            <li>• Fallos del usuario, del dispositivo o de su conexión a Internet.</li>
+                            <li>• Ataques o incidencias inevitables en sistemas de terceros.</li>
+                            <li>• Contenidos o servicios enlazados de terceros.</li>
+                        </ul>
+                    </Card>
+
+                    <Card title="7) Información sobre tratamientos (carácter informativo)">
+                        <p>
+                            La información del sitio tiene carácter general e informativo. No sustituye una valoración
+                            presencial, diagnóstico médico ni indicaciones del cirujano.
+                        </p>
+                        <p>
+                            Cada caso requiere una evaluación individual y un protocolo adaptado, especialmente en
+                            procesos postquirúrgicos.
+                        </p>
+                    </Card>
+
+                    <Card title="8) Protección de datos y cookies">
+                        <p>
+                            El tratamiento de datos personales se regula en la{" "}
+                            <a className="text-amber-200 hover:text-amber-100 font-semibold" href="/privacidad">
+                                Política de Privacidad
+                            </a>
+                            .
+                        </p>
+                        <p>
+                            El uso de cookies se regula en la{" "}
+                            <a className="text-amber-200 hover:text-amber-100 font-semibold" href="/cookies">
+                                Política de Cookies
+                            </a>
+                            .
+                        </p>
+                    </Card>
+
+                    <Card title="9) Legislación aplicable y jurisdicción">
+                        <p>
+                            Este Aviso Legal se rige por la legislación aplicable en España. En caso de conflicto,
+                            las partes se someterán a los juzgados y tribunales que correspondan conforme a derecho.
+                        </p>
+                    </Card>
+
+                    <Card title="10) Contacto">
+                        <p>
+                            Para cualquier consulta relacionada con este Aviso Legal, puedes escribirnos.
+                        </p>
+                        <div className="pt-2">
+                            <Button href={whatsappGeneral} variant="outline">
+                                Consultar por WhatsApp
+                            </Button>
+                        </div>
+                    </Card>
                 </div>
             </section>
 
-            {/* FILOSOFÍA */}
-            <section className="mx-auto max-w-6xl px-5 pb-20">
-                <SectionTitle
-                    title="Nuestra Filosofía"
-                    desc="No se trata solo de estética, sino de acompañar procesos con responsabilidad."
-                />
-
-                <div className="grid gap-6 sm:grid-cols-3">
-                    <ValueCard
-                        title="Seguridad ante todo"
-                        desc="Cada protocolo es diseñado respetando los tiempos biológicos del cuerpo, priorizando siempre la salud y evitando prácticas invasivas innecesarias."
-                    />
-
-                    <ValueCard
-                        title="Acompañamiento personalizado"
-                        desc="Cada paciente recibe una evaluación individualizada para adaptar técnicas y frecuencia según su evolución real."
-                    />
-
-                    <ValueCard
-                        title="Resultados responsables"
-                        desc="Nuestro enfoque no busca promesas irreales, sino mejoras progresivas, sostenibles y visibles con respaldo técnico."
-                    />
-                </div>
-
-                {/* ✅ FINAL (2 botones) */}
-                <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
+            {/* ✅ FINAL (2 botones) */}
+            <section className="mx-auto max-w-6xl px-5 pb-16">
+                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
                     <div className="text-2xl font-semibold text-amber-100">
                         Te invitamos a conocernos
                     </div>
                     <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Cuéntanos tu objetivo y te orientamos sin compromiso. Atención premium, protocolos
-                        responsables y acompañamiento real durante tu proceso.
+                        Si deseas información de tratamientos, agenda y disponibilidad, te orientamos sin compromiso.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -408,10 +450,22 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* FOOTER SIMPLE */}
+            {/* Footer */}
             <footer className="border-t border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
+                        Cookies
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
+                        Privacidad
+                    </a>
+                    <span className="mx-2 text-amber-100/35">·</span>
+                    <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
+                        Aviso legal
+                    </a>
                 </div>
             </footer>
         </main>

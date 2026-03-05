@@ -764,7 +764,7 @@ export default function CursoPage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-                                    { href: "/cookies", label: "Cookies" },
+
                                 ].map((x) => (
                                     <a
                                         key={x.href}
