@@ -1059,6 +1059,7 @@ export default function ServiciosPage() {
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
                 </div>
+
             </footer>
         </main>
     );

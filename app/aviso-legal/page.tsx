@@ -6,13 +6,46 @@ const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
     phone: "34661026192",
+    logoSrc: "/alex-logo.png",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
-    logoSrc: "/alex-logo.png",
+
+    legal: {
+        razonSocial: "Alex estética",
+        nif: "45393142C",
+        domicilioFiscal: "Av. Canarias 450, Bloque B, Local 3",
+        email: "alex37valle@hotmail.com",
+    },
 };
 
 function waLink(text: string) {
     return `https://wa.me/${SITE.phone}?text=${encodeURIComponent(text)}`;
+}
+
+function NavA({
+    href,
+    children,
+    active,
+}: {
+    href: string;
+    children: React.ReactNode;
+    active?: boolean;
+}) {
+    return (
+        <a
+            href={href}
+            className={[
+                "text-sm font-semibold transition",
+                active ? "text-amber-100" : "text-amber-100/80 hover:text-amber-100",
+            ].join(" ")}
+        >
+            {children}
+        </a>
+    );
+}
+
+function Sep() {
+    return <span className="select-none text-amber-100/25">|</span>;
 }
 
 function Button({
@@ -20,7 +53,7 @@ function Button({
     children,
     variant = "gold",
     className = "",
-    newTab = true,
+    newTab = false,
 }: {
     href: string;
     children: React.ReactNode;
@@ -32,90 +65,44 @@ function Button({
         "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
     const styles =
         variant === "gold"
-            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110 shadow-[0_10px_30px_rgba(255,215,128,0.18)]"
+            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
             : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
-
-    const target = newTab ? "_blank" : undefined;
-    const rel = newTab ? "noreferrer" : undefined;
 
     return (
         <a
             href={href}
             className={`${base} ${styles} ${className}`}
-            target={target}
-            rel={rel}
+            target={newTab ? "_blank" : undefined}
+            rel={newTab ? "noreferrer" : undefined}
         >
             {children}
         </a>
     );
 }
 
-function NavA({
-    href,
-    children,
-    onClick,
-}: {
-    href: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-}) {
+function SectionTitle({ title, desc }: { title: string; desc?: string }) {
     return (
-        <a
-            href={href}
-            onClick={onClick}
-            className="text-sm font-medium text-amber-100/80 hover:text-amber-100 transition"
-        >
-            {children}
-        </a>
-    );
-}
-
-function Sep() {
-    return <span className="select-none text-amber-100/35">|</span>;
-}
-
-function Badge({ children }: { children: React.ReactNode }) {
-    return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
-            <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
-            {children}
-        </span>
-    );
-}
-
-function SectionTitle({
-    title,
-    desc,
-}: {
-    title: string;
-    desc?: string;
-}) {
-    return (
-        <div className="mb-8">
-            <h1 className="text-3xl sm:text-4xl font-semibold text-amber-100">
-                {title}
-            </h1>
-            {desc ? (
-                <p className="mt-3 max-w-3xl text-amber-100/70 text-sm sm:text-base">
-                    {desc}
-                </p>
-            ) : null}
+        <div className="mb-7">
+            <div className="text-2xl font-semibold text-amber-100">{title}</div>
+            {desc ? <p className="mt-2 text-amber-100/70">{desc}</p> : null}
         </div>
     );
 }
 
-function Card({
-    title,
-    children,
-}: {
-    title: string;
-    children: React.ReactNode;
-}) {
+function Card({ children }: { children: React.ReactNode }) {
     return (
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-            <div className="text-lg font-semibold text-amber-100">{title}</div>
-            <div className="mt-4 text-sm text-amber-100/70 leading-relaxed space-y-3">
-                {children}
+            {children}
+        </div>
+    );
+}
+
+function Row({ k, v }: { k: string; v: React.ReactNode }) {
+    return (
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+            <div className="text-sm font-semibold text-amber-100">{k}</div>
+            <div className="text-sm text-amber-100/75 sm:max-w-[70%] sm:text-right">
+                {v}
             </div>
         </div>
     );
@@ -125,27 +112,26 @@ export default function AvisoLegalPage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const whatsappGeneral = waLink(
-        `Hola! Quiero agendar una valoración en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
+        `Hola Alex! Quiero agendar una cita en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
     );
 
     return (
         <main className="min-h-screen bg-black text-white">
             {/* Fondo luxury */}
-            <div className="pointer-events-none fixed inset-0 -z-10">
-                <div className="absolute inset-0 bg-[radial-gradient(900px_600px_at_20%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(900px_600px_at_80%_80%,rgba(255,215,128,0.12),transparent_60%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
+            <div className="pointer-events-none fixed inset-0 -z-30">
+                <div className="absolute inset-0 bg-[radial-gradient(1000px_650px_at_20%_10%,rgba(255,215,128,0.10),transparent_60%),radial-gradient(900px_520px_at_80%_20%,rgba(255,215,128,0.06),transparent_55%),radial-gradient(900px_650px_at_50%_85%,rgba(255,215,128,0.05),transparent_60%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.96))]" />
             </div>
 
-            {/* ✅ HEADER (igual a todas las pantallas) */}
+            {/* Header (igual al resto) */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
 
-                    {/* Logo centrado flotante (desktop) */}
                     <a
                         href="/"
                         onClick={() => setMenuOpen(false)}
-                        className="hidden sm:block absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
+                        className="absolute left-1/2 top-0 z-40 hidden -translate-x-1/2 -translate-y-8 sm:block"
                         aria-label="Ir al inicio"
                         title="Inicio"
                     >
@@ -158,7 +144,7 @@ export default function AvisoLegalPage() {
                     </a>
 
                     {/* Desktop */}
-                    <div className="hidden sm:flex h-full items-center justify-between">
+                    <div className="hidden h-full items-center justify-between sm:flex">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
                             <Sep />
@@ -174,16 +160,29 @@ export default function AvisoLegalPage() {
                                 <NavA href="/curso">Curso</NavA>
                             </nav>
 
+                            <a
+                                href={whatsappGeneral}
+                                className="ml-2 rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-semibold text-black hover:brightness-110"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Agende una consulta
+                            </a>
+
                             {SITE.instagramUrl ? (
                                 <a
                                     href={SITE.instagramUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
+                                    className="hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
                                     aria-label="Instagram"
                                     title="Instagram"
                                 >
-                                    <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        className="h-5 w-5 text-amber-200"
+                                        fill="none"
+                                    >
                                         <path
                                             d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
                                             stroke="currentColor"
@@ -207,12 +206,11 @@ export default function AvisoLegalPage() {
                     </div>
 
                     {/* Mobile */}
-                    <div className="flex sm:hidden h-full items-center justify-between">
+                    <div className="flex h-full items-center justify-between sm:hidden">
                         <a
                             href="/"
                             onClick={() => setMenuOpen(false)}
                             className="flex items-center gap-2"
-                            aria-label="Ir al inicio"
                         >
                             <img
                                 src={SITE.logoSrc}
@@ -228,6 +226,15 @@ export default function AvisoLegalPage() {
                         </a>
 
                         <div className="flex items-center gap-2">
+                            <a
+                                href={whatsappGeneral}
+                                className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-4 py-2 text-xs font-semibold text-black hover:brightness-110"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Agendar
+                            </a>
+
                             <button
                                 type="button"
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
@@ -246,7 +253,6 @@ export default function AvisoLegalPage() {
                     </div>
                 </div>
 
-                {/* Mobile dropdown */}
                 {menuOpen ? (
                     <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
                         <div className="mx-auto max-w-6xl px-5 py-3">
@@ -257,9 +263,9 @@ export default function AvisoLegalPage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-                                    { href: "/cookies", label: "Cookies" },
                                     { href: "/privacidad", label: "Privacidad" },
-                                    { href: "/aviso-legal", label: "Aviso legal" },
+                                    { href: "/cookies", label: "Cookies" },
+                                    { href: "/aviso-legal", label: "Aviso Legal" },
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -270,181 +276,157 @@ export default function AvisoLegalPage() {
                                         {x.label}
                                     </a>
                                 ))}
-
-                                {SITE.instagramUrl ? (
-                                    <a
-                                        href={SITE.instagramUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                                        onClick={() => setMenuOpen(false)}
-                                    >
-                                        Instagram
-                                    </a>
-                                ) : null}
                             </div>
                         </div>
                     </div>
                 ) : null}
             </header>
 
-            {/* CONTENT */}
-            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-                <div className="mb-10">
-                    <Badge>Información legal</Badge>
+            {/* HERO */}
+            <section className="relative isolate overflow-hidden border-b border-white/10">
+                <div className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+                    <div className="max-w-3xl">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs text-amber-100/80">
+                            <span className="h-2 w-2 rounded-full bg-amber-300/90" />
+                            Información legal del sitio
+                        </div>
 
-                    <div className="mt-4">
-                        <SectionTitle
-                            title="Aviso Legal"
-                            desc={`Este Aviso Legal regula el acceso y uso del sitio web de ${SITE.brand}. Al navegar por este sitio aceptas las condiciones descritas a continuación.`}
-                        />
-                    </div>
+                        <h1 className="mt-5 text-3xl sm:text-4xl font-semibold text-amber-100">
+                            Aviso Legal
+                        </h1>
 
-                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7 text-sm text-amber-100/70">
-                        <div className="text-amber-100 font-semibold">Pendiente de completar (para que quede perfecto)</div>
-                        <ul className="mt-3 space-y-2">
-                            <li>• Razón social / titular exacto</li>
-                            <li>• NIF/CIF</li>
-                            <li>• Domicilio fiscal</li>
-                            <li>• Email de contacto</li>
-                        </ul>
-                        <p className="mt-3 text-xs text-amber-100/55">
-                            Si me pasas esos 4 datos, lo dejamos 100% formal para España.
+                        <p className="mt-3 text-amber-100/70">
+                            Este documento regula el uso del sitio web, así como la información
+                            del titular y las condiciones generales de acceso.
                         </p>
+
+                        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                            <Button href="/privacidad" variant="outline">
+                                Ver Política de Privacidad
+                            </Button>
+                            <Button href="/cookies" variant="outline">
+                                Ver Política de Cookies
+                            </Button>
+                        </div>
                     </div>
                 </div>
+            </section>
 
+            {/* CONTENIDO */}
+            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
                 <div className="grid gap-6">
-                    <Card title="1) Titularidad del sitio web">
-                        <p>
-                            Titular: <span className="text-amber-100 font-semibold">{SITE.brand}</span>
-                        </p>
-                        <p>
-                            Ámbito: <span className="text-amber-100 font-semibold">{SITE.city}</span>
-                        </p>
-                        <p>
-                            Contacto: a través de los canales publicados en la web (WhatsApp y/o redes sociales).
-                        </p>
+                    <Card>
+                        <SectionTitle
+                            title="1. Titular del sitio web"
+                            desc="Datos identificativos del responsable del sitio."
+                        />
+
+                        <div className="space-y-4">
+                            <Row k="Razón social" v={SITE.legal.razonSocial} />
+                            <div className="h-px w-full bg-white/10" />
+                            <Row k="NIF" v={SITE.legal.nif} />
+                            <div className="h-px w-full bg-white/10" />
+                            <Row k="Domicilio fiscal" v={SITE.legal.domicilioFiscal} />
+                            <div className="h-px w-full bg-white/10" />
+                            <Row
+                                k="Email de contacto"
+                                v={
+                                    <a
+                                        className="text-amber-200 hover:text-amber-100"
+                                        href={`mailto:${SITE.legal.email}`}
+                                    >
+                                        {SITE.legal.email}
+                                    </a>
+                                }
+                            />
+                        </div>
                     </Card>
 
-                    <Card title="2) Objeto y ámbito de aplicación">
-                        <p>
-                            Este sitio tiene finalidad informativa y comercial, mostrando servicios, tratamientos y
-                            vías de contacto para solicitar información o reservar una cita.
-                        </p>
-                        <p>
-                            El acceso al sitio es gratuito, salvo el coste de conexión del usuario según su operador.
-                        </p>
+                    <Card>
+                        <SectionTitle
+                            title="2. Condiciones de uso"
+                            desc="Acceso, navegación y responsabilidades."
+                        />
+                        <div className="space-y-3 text-sm text-amber-100/75 leading-relaxed">
+                            <p>
+                                El acceso y uso de este sitio atribuye la condición de usuario e implica la
+                                aceptación de las presentes condiciones. El usuario se compromete a hacer un
+                                uso diligente del sitio y a no emplearlo para actividades ilícitas o contrarias
+                                a la buena fe y al orden público.
+                            </p>
+                            <p>
+                                El titular podrá modificar en cualquier momento la presentación, configuración
+                                y contenidos del sitio, así como las presentes condiciones.
+                            </p>
+                        </div>
                     </Card>
 
-                    <Card title="3) Condiciones de uso">
-                        <ul className="space-y-2">
-                            <li>• El usuario se compromete a realizar un uso adecuado y lícito del sitio.</li>
-                            <li>• Queda prohibido utilizar el sitio con fines fraudulentos o que puedan dañar su funcionamiento.</li>
-                            <li>• El titular podrá actualizar contenidos, secciones o servicios sin previo aviso.</li>
-                        </ul>
+                    <Card>
+                        <SectionTitle title="3. Propiedad intelectual e industrial" />
+                        <div className="space-y-3 text-sm text-amber-100/75 leading-relaxed">
+                            <p>
+                                Todos los contenidos del sitio (textos, imágenes, logotipos, diseño, código fuente
+                                y demás elementos) están protegidos por la normativa de propiedad intelectual e
+                                industrial. Queda prohibida su reproducción, distribución o transformación sin
+                                autorización expresa del titular.
+                            </p>
+                        </div>
                     </Card>
 
-                    <Card title="4) Propiedad intelectual e industrial">
-                        <p>
-                            Todos los contenidos del sitio (textos, diseños, imágenes, logotipos, vídeos, código y
-                            elementos gráficos) son titularidad del Centro o se usan con autorización/licencia.
-                        </p>
-                        <p>
-                            Queda prohibida la reproducción, distribución o comunicación pública total o parcial sin
-                            autorización expresa, salvo en los casos permitidos por la ley.
-                        </p>
+                    <Card>
+                        <SectionTitle title="4. Responsabilidad" />
+                        <div className="space-y-3 text-sm text-amber-100/75 leading-relaxed">
+                            <p>
+                                El titular no se hace responsable de los daños o perjuicios derivados del acceso
+                                o uso del sitio, incluyendo fallos técnicos, interrupciones del servicio o presencia
+                                de virus u otros elementos dañinos.
+                            </p>
+                            <p>
+                                La información del sitio tiene carácter informativo y no sustituye el asesoramiento
+                                profesional o médico cuando corresponda.
+                            </p>
+                        </div>
                     </Card>
 
-                    <Card title="5) Enlaces a terceros (WhatsApp, Instagram, etc.)">
-                        <p>
-                            Este sitio puede incluir enlaces a plataformas de terceros (por ejemplo, WhatsApp o Instagram).
-                            Al acceder a ellos, el usuario queda sujeto a las condiciones y políticas de dichas plataformas.
-                        </p>
-                        <p>
-                            El Centro no se responsabiliza del contenido, funcionamiento o disponibilidad de sitios de terceros.
-                        </p>
+                    <Card>
+                        <SectionTitle title="5. Enlaces a terceros" />
+                        <div className="space-y-3 text-sm text-amber-100/75 leading-relaxed">
+                            <p>
+                                En caso de que el sitio contenga enlaces a páginas de terceros, el titular no
+                                asume responsabilidad sobre sus contenidos, políticas o prácticas.
+                            </p>
+                        </div>
                     </Card>
 
-                    <Card title="6) Responsabilidad">
-                        <p>
-                            El Centro no garantiza la ausencia de interrupciones o errores en el acceso al sitio, aunque
-                            adoptará medidas razonables para mantenerlo operativo y seguro.
-                        </p>
-                        <p>
-                            El Centro no se hace responsable de daños derivados del uso del sitio cuando provengan de:
-                        </p>
-                        <ul className="space-y-2">
-                            <li>• Fallos del usuario, del dispositivo o de su conexión a Internet.</li>
-                            <li>• Ataques o incidencias inevitables en sistemas de terceros.</li>
-                            <li>• Contenidos o servicios enlazados de terceros.</li>
-                        </ul>
-                    </Card>
-
-                    <Card title="7) Información sobre tratamientos (carácter informativo)">
-                        <p>
-                            La información del sitio tiene carácter general e informativo. No sustituye una valoración
-                            presencial, diagnóstico médico ni indicaciones del cirujano.
-                        </p>
-                        <p>
-                            Cada caso requiere una evaluación individual y un protocolo adaptado, especialmente en
-                            procesos postquirúrgicos.
-                        </p>
-                    </Card>
-
-                    <Card title="8) Protección de datos y cookies">
-                        <p>
-                            El tratamiento de datos personales se regula en la{" "}
-                            <a className="text-amber-200 hover:text-amber-100 font-semibold" href="/privacidad">
-                                Política de Privacidad
-                            </a>
-                            .
-                        </p>
-                        <p>
-                            El uso de cookies se regula en la{" "}
-                            <a className="text-amber-200 hover:text-amber-100 font-semibold" href="/cookies">
-                                Política de Cookies
-                            </a>
-                            .
-                        </p>
-                    </Card>
-
-                    <Card title="9) Legislación aplicable y jurisdicción">
-                        <p>
-                            Este Aviso Legal se rige por la legislación aplicable en España. En caso de conflicto,
-                            las partes se someterán a los juzgados y tribunales que correspondan conforme a derecho.
-                        </p>
-                    </Card>
-
-                    <Card title="10) Contacto">
-                        <p>
-                            Para cualquier consulta relacionada con este Aviso Legal, puedes escribirnos.
-                        </p>
-                        <div className="pt-2">
-                            <Button href={whatsappGeneral} variant="outline">
-                                Consultar por WhatsApp
-                            </Button>
+                    <Card>
+                        <SectionTitle title="6. Legislación aplicable" />
+                        <div className="space-y-3 text-sm text-amber-100/75 leading-relaxed">
+                            <p>
+                                Las presentes condiciones se regirán por la normativa aplicable en España.
+                                Para cualquier controversia, las partes se someterán a los juzgados y tribunales
+                                que correspondan conforme a la legislación vigente.
+                            </p>
                         </div>
                     </Card>
                 </div>
             </section>
 
-            {/* ✅ FINAL (2 botones) */}
+            {/* CTA FINAL (dos botones) */}
             <section className="mx-auto max-w-6xl px-5 pb-16">
-                <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
+                <div className="rounded-[2rem] border border-amber-300/15 bg-white/5 p-8 backdrop-blur sm:p-10">
                     <div className="text-2xl font-semibold text-amber-100">
-                        Te invitamos a conocernos
+                        ¿Necesitas ayuda o más información?
                     </div>
                     <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Si deseas información de tratamientos, agenda y disponibilidad, te orientamos sin compromiso.
+                        Si tienes preguntas sobre el uso del sitio o cualquier punto legal, escríbenos y te orientamos.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                         <Button href={whatsappGeneral} variant="gold">
-                            Agendar una valoración
+                            Hablar por WhatsApp
                         </Button>
-                        <Button href="/servicios" variant="outline" newTab={false}>
-                            Ver catálogo de tratamientos
+                        <Button href="/privacidad" variant="outline">
+                            Ver Privacidad
                         </Button>
                     </div>
                 </div>
@@ -452,20 +434,24 @@ export default function AvisoLegalPage() {
 
             {/* Footer */}
             <footer className="border-t border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
-                    © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
-                        Cookies
-                    </a>
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
-                        Privacidad
-                    </a>
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
-                        Aviso legal
-                    </a>
+                <div className="mx-auto max-w-6xl px-5 py-10">
+                    <div className="grid gap-3 sm:grid-cols-2 sm:items-center sm:justify-between">
+                        <div className="text-sm text-amber-100/60">
+                            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                        </div>
+
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end text-sm">
+                            <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
+                                Privacidad
+                            </a>
+                            <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
+                                Cookies
+                            </a>
+                            <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
+                                Aviso legal
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </main>

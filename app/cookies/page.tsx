@@ -9,6 +9,13 @@ const SITE = {
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
     logoSrc: "/alex-logo.png",
+
+    legal: {
+        razonSocial: "Alex estética",
+        nif: "45393142C",
+        domicilioFiscal: "Av. Canarias 450, Bloque B, Local 3",
+        email: "alex37valle@hotmail.com",
+    },
 };
 
 function waLink(text: string) {
@@ -258,6 +265,8 @@ export default function CookiesPage() {
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
                                     { href: "/cookies", label: "Cookies" },
+                                    { href: "/privacidad", label: "Privacidad" },
+                                    { href: "/aviso-legal", label: "Aviso legal" },
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -321,7 +330,7 @@ export default function CookiesPage() {
                             <div className="text-amber-100 font-semibold">Cookies técnicas (necesarias)</div>
                             <p className="mt-2">
                                 Son imprescindibles para el funcionamiento básico del sitio: seguridad,
-                                navegación, mantenimiento de sesión y carga correcta de contenidos.
+                                navegación y carga correcta de contenidos.
                             </p>
                         </div>
 
@@ -336,7 +345,7 @@ export default function CookiesPage() {
                         <div className="pt-2">
                             <div className="text-amber-100 font-semibold">Cookies analíticas</div>
                             <p className="mt-2">
-                                Nos ayudan a entender cómo se usa el sitio (páginas más visitadas, tiempo de
+                                Ayudan a entender cómo se usa el sitio (páginas más visitadas, tiempo de
                                 permanencia, etc.) con el fin de mejorar el contenido y la experiencia.
                             </p>
                         </div>
@@ -344,24 +353,28 @@ export default function CookiesPage() {
                         <div className="pt-2">
                             <div className="text-amber-100 font-semibold">Cookies de terceros</div>
                             <p className="mt-2">
-                                Algunas integraciones pueden establecer cookies (por ejemplo, redes sociales o
-                                servicios de medición). Estas cookies dependen del proveedor tercero.
+                                Algunas integraciones pueden establecer cookies (por ejemplo, redes sociales,
+                                mapas o servicios de medición). Estas cookies dependen del proveedor tercero.
                             </p>
                         </div>
                     </Card>
 
                     <Card title="3) ¿Qué cookies usamos exactamente?">
                         <p>
-                            Este sitio puede utilizar cookies técnicas propias y, si se habilitan herramientas
-                            de medición o integraciones (p. ej. analítica o redes sociales), cookies de terceros.
+                            Este sitio puede utilizar cookies técnicas propias para su funcionamiento. Además, si
+                            se habilitan servicios de terceros (por ejemplo, analítica, mapas o integraciones de
+                            redes sociales), dichos proveedores pueden establecer cookies bajo sus propias políticas.
                         </p>
                         <p>
-                            Si quieres que lo dejemos “100% fino”, dime qué tienes instalado:
-                            <span className="text-amber-100 font-semibold">
-                                {" "}
-                                Google Analytics / Meta Pixel / YouTube / Google Maps / Chat widget{" "}
-                            </span>
-                            y te pongo la tabla exacta (nombre, proveedor, duración, finalidad).
+                            Para ver cómo se gestionan, consulta también{" "}
+                            <a href="/privacidad" className="text-amber-200 hover:text-amber-100 font-semibold">
+                                Política de Privacidad
+                            </a>{" "}
+                            y{" "}
+                            <a href="/aviso-legal" className="text-amber-200 hover:text-amber-100 font-semibold">
+                                Aviso Legal
+                            </a>
+                            .
                         </p>
                     </Card>
 
@@ -394,10 +407,37 @@ export default function CookiesPage() {
                             Si tienes dudas sobre esta Política de Cookies, puedes escribirnos y te respondemos
                             con la mayor brevedad posible.
                         </p>
-                        <div className="mt-4">
-                            <Button href={whatsappGeneral} variant="outline">
-                                Consultar por WhatsApp
-                            </Button>
+
+                        <div className="mt-4 rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
+                            <div className="text-amber-100 font-semibold text-sm">Datos del responsable</div>
+                            <div className="mt-3 space-y-2 text-sm text-amber-100/70">
+                                <div>
+                                    <span className="text-amber-100 font-semibold">Razón social:</span>{" "}
+                                    {SITE.legal.razonSocial}
+                                </div>
+                                <div>
+                                    <span className="text-amber-100 font-semibold">NIF:</span> {SITE.legal.nif}
+                                </div>
+                                <div>
+                                    <span className="text-amber-100 font-semibold">Domicilio fiscal:</span>{" "}
+                                    {SITE.legal.domicilioFiscal}
+                                </div>
+                                <div>
+                                    <span className="text-amber-100 font-semibold">Email:</span>{" "}
+                                    <a
+                                        className="text-amber-200 hover:text-amber-100"
+                                        href={`mailto:${SITE.legal.email}`}
+                                    >
+                                        {SITE.legal.email}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <Button href={whatsappGeneral} variant="outline">
+                                    Consultar por WhatsApp
+                                </Button>
+                            </div>
                         </div>
                     </Card>
                 </div>
@@ -426,20 +466,24 @@ export default function CookiesPage() {
 
             {/* Footer */}
             <footer className="border-t border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
-                    © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
-                        Cookies
-                    </a>
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
-                        Privacidad
-                    </a>
-                    <span className="mx-2 text-amber-100/35">·</span>
-                    <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
-                        Aviso legal
-                    </a>
+                <div className="mx-auto max-w-6xl px-5 py-10">
+                    <div className="grid gap-3 sm:grid-cols-2 sm:items-center sm:justify-between">
+                        <div className="text-sm text-amber-100/60">
+                            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                        </div>
+
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end text-sm">
+                            <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">
+                                Cookies
+                            </a>
+                            <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">
+                                Privacidad
+                            </a>
+                            <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">
+                                Aviso legal
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </main>
