@@ -5,6 +5,8 @@ import CookieBanner from "./components/analytics/CookieBanner";
 import Analytics from "./components/analytics/analytics";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://alexesteticanarias.com"),
+
   title: {
     default: "Alex Estética · Gran Canaria",
     template: "%s | Alex Estética",
@@ -22,7 +24,14 @@ export const metadata: Metadata = {
     "curso estética Gran Canaria",
   ],
 
-  metadataBase: new URL("https://alexesteticanarias.com"),
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/favicon.ico"],
+  },
 
   openGraph: {
     title: "Alex Estética · Gran Canaria",
@@ -65,11 +74,7 @@ export default function RootLayout({
     <html lang="es">
       <body>
         {children}
-
-        {/* Banner de cookies */}
         <CookieBanner />
-
-        {/* Scripts de Analytics y Meta Pixel (solo si aceptan cookies) */}
         <Analytics />
       </body>
     </html>
