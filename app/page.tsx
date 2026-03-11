@@ -10,7 +10,7 @@ const SITE = {
   instagramUrl:
     "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
   addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
-  hours: "Lun–Vier · 8:00–20:00 | Sab · 8:00–13:00",
+  hours: "Lun–Vier · 9:00–13:00 y 16:00-20:00 | Sab · 9:00–13:00",
   logoSrc: "/alex-logo.png",
   hero: "/hero.jpg",
   mapsEmbedSrc:

@@ -312,14 +312,12 @@ function FancyDetails({
     summary,
     points,
     chips,
-    ctaHref,
 }: {
     index: number;
     title: string;
     summary: string;
     points: string[];
     chips: string[];
-    ctaHref: string;
 }) {
     return (
         <details
@@ -350,12 +348,10 @@ function FancyDetails({
                             </span>
                         </div>
 
-                        {/* Preview line */}
                         <div className="mt-1 line-clamp-1 text-xs text-amber-100/60 sm:text-sm">
                             {summary}
                         </div>
 
-                        {/* ✅ Chips dinámicos (ÚNICOS por módulo) */}
                         <div className="mt-3 hidden flex-wrap gap-2 sm:flex">
                             {chips.map((chip) => (
                                 <Chip key={chip}>{chip}</Chip>
@@ -364,7 +360,6 @@ function FancyDetails({
                     </div>
                 </div>
 
-                {/* Chevron */}
                 <div className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/35">
                     <svg
                         viewBox="0 0 24 24"
@@ -382,13 +377,10 @@ function FancyDetails({
                 </div>
             </summary>
 
-            {/* Content */}
             <div className="relative px-6 pb-7 sm:px-7">
-                {/* Divider */}
                 <div className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
                 <div className="grid gap-5 sm:grid-cols-12">
-                    {/* Left: summary + CTA */}
                     <div className="sm:col-span-5">
                         <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
                             <div className="flex items-center gap-2 text-sm font-semibold text-amber-100">
@@ -398,26 +390,9 @@ function FancyDetails({
                             <p className="mt-3 text-sm leading-relaxed text-amber-100/70">
                                 {summary}
                             </p>
-
-                            <div className="mt-5 flex flex-col gap-3">
-                                <Button href={ctaHref} variant="outline" className="w-full">
-                                    Pedir temario completo de este módulo
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Small note */}
-                        <div className="mt-4 rounded-[1.6rem] border border-amber-300/15 bg-white/5 p-5">
-                            <div className="text-xs font-semibold text-amber-100">
-                                Enfoque premium
-                            </div>
-                            <div className="mt-2 text-xs text-amber-100/70">
-                                Protocolos claros, comunicación profesional y práctica aplicable.
-                            </div>
                         </div>
                     </div>
 
-                    {/* Right: points */}
                     <div className="sm:col-span-7">
                         <div className="grid gap-3">
                             {points.map((p) => (
@@ -440,16 +415,6 @@ function FancyDetails({
                                     </div>
                                 </div>
                             ))}
-                        </div>
-
-                        {/* Bottom CTA row (desktop) */}
-                        <div className="mt-4 hidden items-center justify-between rounded-[1.6rem] border border-white/10 bg-white/5 p-5 sm:flex">
-                            <div className="text-sm font-semibold text-amber-100">
-                                ¿Quieres el PDF completo del temario?
-                            </div>
-                            <Button href={ctaHref} variant="gold" className="px-5 py-2">
-                                Enviar por WhatsApp
-                            </Button>
                         </div>
                     </div>
                 </div>
@@ -612,10 +577,8 @@ export default function CursoPage() {
             {/* Header EXACTO estilo referencia (igual a Tratamientos) */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
-                    {/* Línea inferior (queda POR DEBAJO del logo) */}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
 
-                    {/* Logo centrado flotante (solo desktop) */}
                     <a
                         href="/"
                         onClick={() => setMenuOpen(false)}
@@ -623,10 +586,8 @@ export default function CursoPage() {
                         aria-label="Ir al inicio"
                         title="Inicio"
                     >
-                        {/* Máscara oscura para que la línea NO atraviese el logo (EXACTA) */}
                         <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
 
-                        {/* ✅ MISMO tamaño que Tratamientos */}
                         <img
                             src={SITE.logoSrc}
                             alt="Alex Estética"
@@ -634,19 +595,15 @@ export default function CursoPage() {
                         />
                     </a>
 
-                    {/* Desktop layout */}
                     <div className="hidden h-full items-center justify-between sm:flex">
-                        {/* Izquierda del logo */}
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
                             <Sep />
                             <NavA href="/#contacto">Contacto</NavA>
                         </nav>
 
-                        {/* Reserva centro para que el logo no empuje nada */}
                         <div className="w-[180px]" />
 
-                        {/* Derecha del logo */}
                         <div className="flex items-center gap-2">
                             <nav className="flex items-center gap-4">
                                 <NavA href="/servicios">Tratamientos</NavA>
@@ -701,9 +658,7 @@ export default function CursoPage() {
                         </div>
                     </div>
 
-                    {/* Mobile layout */}
                     <div className="flex h-full items-center justify-between sm:hidden">
-                        {/* Left: logo pequeño + marca */}
                         <a
                             href="/"
                             onClick={() => setMenuOpen(false)}
@@ -723,7 +678,6 @@ export default function CursoPage() {
                             </div>
                         </a>
 
-                        {/* Right: CTA + menú */}
                         <div className="flex items-center gap-2">
                             <a
                                 href={whatsappCurso}
@@ -752,7 +706,6 @@ export default function CursoPage() {
                     </div>
                 </div>
 
-                {/* Mobile dropdown */}
                 {menuOpen ? (
                     <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
                         <div className="mx-auto max-w-6xl px-5 py-3">
@@ -793,7 +746,6 @@ export default function CursoPage() {
 
             {/* ✅ HERO */}
             <section className="relative isolate overflow-hidden border-b border-white/10">
-                {/* Imagen de fondo */}
                 <div className="absolute inset-0 -z-20 bg-black">
                     <img
                         src={SITE.cursoHeroImg}
@@ -802,11 +754,9 @@ export default function CursoPage() {
                         loading="eager"
                     />
 
-                    {/* Overlay */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45),rgba(0,0,0,0.92))]" />
                     <div className="absolute inset-0 bg-[radial-gradient(1200px_650px_at_50%_15%,rgba(255,215,128,0.14),transparent_60%)]" />
 
-                    {/* Granulado / destellos (sutil) */}
                     <div
                         className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-screen
             bg-[radial-gradient(circle_at_12%_28%,rgba(255,215,128,0.28)_0,transparent_18%),
@@ -817,9 +767,7 @@ export default function CursoPage() {
                     />
                 </div>
 
-                {/* Contenido */}
                 <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-                    {/* Título */}
                     <div className="text-center">
                         <h1 className="font-serif tracking-[0.06em]">
                             <span
@@ -846,7 +794,6 @@ export default function CursoPage() {
                         </h1>
                     </div>
 
-                    {/* ✅ NUEVO: Introducción + resumen (SIN borrar nada, solo complementa) */}
                     <div className="mt-10">
                         <div className="mx-auto max-w-4xl rounded-[2rem] border border-white/10 bg-black/35 p-7 backdrop-blur sm:p-10">
                             <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/40 px-3 py-1 text-xs text-amber-100/80">
@@ -923,22 +870,11 @@ export default function CursoPage() {
                                     <span className="h-2 w-2 rounded-full bg-amber-300/90" />
                                     Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
                                 </div>
-
-                                <div className="flex flex-col gap-3 sm:flex-row">
-                                    <Button href={whatsappCurso} variant="gold" className="px-6 py-3">
-                                        Preguntar precio y fechas
-                                    </Button>
-                                    <Button href={whatsappTemario} variant="outline" className="px-6 py-3">
-                                        Pedir temario completo
-                                    </Button>
-                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Tiles dorados abajo (como la imagen). En móvil: scroll horizontal */}
                     <div className="mt-12">
-                        {/* Mobile: carrusel */}
                         <div className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-2 sm:hidden">
                             <div className="min-w-[220px]">
                                 <FeatureTileBanner
@@ -972,7 +908,6 @@ export default function CursoPage() {
                             </div>
                         </div>
 
-                        {/* Desktop: 5 columnas */}
                         <div className="hidden grid-cols-5 gap-4 sm:grid">
                             <FeatureTileBanner
                                 icon={<IconHand />}
@@ -999,7 +934,6 @@ export default function CursoPage() {
                 </div>
             </section>
 
-            {/* QUÉ APRENDERÁS (en bloques) */}
             <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
                 <SectionTitle
                     title="Qué vas a dominar"
@@ -1054,7 +988,6 @@ export default function CursoPage() {
                 </div>
             </section>
 
-            {/* ✅ TEMARIO PRO (más premium, más “luxury”) */}
             <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-16">
                 <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/5 p-7 backdrop-blur sm:p-10">
                     <div className="pointer-events-none absolute inset-0">
@@ -1070,20 +1003,10 @@ export default function CursoPage() {
                             desc="Cada módulo está pensado para que trabajes con criterio profesional. Abre cada bloque para ver los puntos clave."
                         />
 
-                        {/* Banda pro */}
                         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs text-amber-100/80 backdrop-blur">
                                 <span className="h-2 w-2 rounded-full bg-amber-300/90" />
                                 Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
-                            </div>
-
-                            <div className="flex gap-2">
-                                <Button href={whatsappTemario} variant="outline" className="px-5 py-2">
-                                    Pedir temario completo
-                                </Button>
-                                <Button href={whatsappCurso} variant="gold" className="px-5 py-2">
-                                    Precio + fechas
-                                </Button>
                             </div>
                         </div>
 
@@ -1096,7 +1019,6 @@ export default function CursoPage() {
                                     summary={m.summary}
                                     points={m.points}
                                     chips={m.chips}
-                                    ctaHref={whatsappTemario}
                                 />
                             ))}
                         </div>
@@ -1104,7 +1026,6 @@ export default function CursoPage() {
                 </div>
             </section>
 
-            {/* CTA FINAL */}
             <section className="mx-auto max-w-6xl px-5 pb-16">
                 <div className="rounded-[2rem] border border-amber-300/15 bg-white/5 p-8 backdrop-blur sm:p-10">
                     <div className="text-2xl font-semibold text-amber-100">
@@ -1158,13 +1079,10 @@ export default function CursoPage() {
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="border-t border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
                 </div>
-
-
             </footer>
         </main>
     );
