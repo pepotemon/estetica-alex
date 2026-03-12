@@ -6,10 +6,20 @@ const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
     logoSrc: "/alex-logo.png",
-    founderImg: "/sobre.jpg", // coloca aquí la foto profesional
     phone: "34661026192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
+
+    galleryImages: [
+        "/sobre/1.jpg",
+        "/sobre/2.jpg",
+        "/sobre/3.jpg",
+        "/sobre/4.jpg",
+        "/sobre/5.jpg",
+        "/sobre/6.jpg",
+        "/sobre/7.jpg",
+        "/sobre/8.jpg",
+    ],
 };
 
 function waLink(text: string) {
@@ -111,6 +121,186 @@ function ValueCard({
     );
 }
 
+function ChevronLeftIcon() {
+    return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+            <path
+                d="M15 6l-6 6 6 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function ChevronRightIcon() {
+    return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+            <path
+                d="M9 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function GalleryHero({
+    images,
+    brand,
+}: {
+    images: string[];
+    brand: string;
+}) {
+    const [current, setCurrent] = React.useState(0);
+    const touchStartX = React.useRef<number | null>(null);
+    const touchEndX = React.useRef<number | null>(null);
+
+    const goTo = React.useCallback(
+        (index: number) => {
+            setCurrent((index + images.length) % images.length);
+        },
+        [images.length]
+    );
+
+    const goPrev = React.useCallback(() => {
+        setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    }, [images.length]);
+
+    const goNext = React.useCallback(() => {
+        setCurrent((prev) => (prev + 1) % images.length);
+    }, [images.length]);
+
+    const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchEndX.current = null;
+    };
+
+    const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = () => {
+        if (touchStartX.current === null || touchEndX.current === null) return;
+
+        const delta = touchStartX.current - touchEndX.current;
+        const threshold = 50;
+
+        if (delta > threshold) goNext();
+        if (delta < -threshold) goPrev();
+
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
+
+    return (
+        <div className="relative">
+            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
+
+            <div
+                className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/20"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
+                <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full overflow-hidden">
+                    <div
+                        className="flex h-full w-full transition-transform duration-500 ease-out"
+                        style={{ transform: `translateX(-${current * 100}%)` }}
+                    >
+                        {images.map((src, index) => (
+                            <div
+                                key={`${src}-${index}`}
+                                className="relative h-full w-full shrink-0"
+                            >
+                                <img
+                                    src={src}
+                                    alt={`${brand} galería ${index + 1}`}
+                                    className="h-full w-full object-cover"
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    draggable={false}
+                                />
+                                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),rgba(0,0,0,0.08),rgba(0,0,0,0.18))]" />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent)]" />
+
+                    <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+                        <div className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-[11px] text-amber-100/80 backdrop-blur">
+                            Espacio Alex Estética
+                        </div>
+
+                        <div className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-[11px] text-amber-100/75 backdrop-blur">
+                            {String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+                        </div>
+                    </div>
+
+                    {images.length > 1 ? (
+                        <>
+                            <button
+                                type="button"
+                                onClick={goPrev}
+                                aria-label="Foto anterior"
+                                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-3 text-amber-100 backdrop-blur transition hover:bg-black/60"
+                            >
+                                <ChevronLeftIcon />
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={goNext}
+                                aria-label="Foto siguiente"
+                                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-3 text-amber-100 backdrop-blur transition hover:bg-black/60"
+                            >
+                                <ChevronRightIcon />
+                            </button>
+                        </>
+                    ) : null}
+
+                    {images.length > 1 ? (
+                        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
+                            {images.map((_, index) => {
+                                const active = index === current;
+                                return (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        aria-label={`Ir a la foto ${index + 1}`}
+                                        onClick={() => goTo(index)}
+                                        className={[
+                                            "h-2.5 rounded-full transition-all duration-300",
+                                            active
+                                                ? "w-8 bg-amber-300 shadow-[0_0_18px_rgba(255,215,128,0.45)]"
+                                                : "w-2.5 bg-white/35 hover:bg-white/50",
+                                        ].join(" ")}
+                                    />
+                                );
+                            })}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-4">
+                <div className="text-xs text-amber-100/55">
+                    Desliza con el dedo o usa las flechas para recorrer la clínica.
+                </div>
+
+                <div className="hidden sm:flex items-center gap-2 text-xs text-amber-100/60">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-300/80" />
+                    Galería del espacio
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function SobrePage() {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -126,12 +316,11 @@ export default function SobrePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
             </div>
 
-            {/* ✅ HEADER (igual al resto de pantallas) */}
+            {/* HEADER */}
             <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
 
-                    {/* Logo centrado flotante (desktop) */}
                     <a
                         href="/"
                         onClick={() => setMenuOpen(false)}
@@ -147,7 +336,6 @@ export default function SobrePage() {
                         />
                     </a>
 
-                    {/* Desktop layout */}
                     <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
@@ -196,7 +384,6 @@ export default function SobrePage() {
                         </div>
                     </div>
 
-                    {/* Mobile layout */}
                     <div className="flex sm:hidden h-full items-center justify-between">
                         <a
                             href="/"
@@ -236,7 +423,6 @@ export default function SobrePage() {
                     </div>
                 </div>
 
-                {/* Mobile dropdown */}
                 {menuOpen ? (
                     <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
                         <div className="mx-auto max-w-6xl px-5 py-3">
@@ -247,7 +433,6 @@ export default function SobrePage() {
                                     { href: "/curso", label: "Curso" },
                                     { href: "/sobre", label: "Sobre Nosotros" },
                                     { href: "/#contacto", label: "Contacto" },
-
                                 ].map((x) => (
                                     <a
                                         key={x.href}
@@ -280,7 +465,6 @@ export default function SobrePage() {
             <section className="relative isolate overflow-hidden border-b border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
                     <div className="grid gap-12 sm:grid-cols-2 items-center">
-                        {/* Texto */}
                         <div>
                             <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
                                 Más de 25 años de experiencia
@@ -301,17 +485,10 @@ export default function SobrePage() {
                             </p>
                         </div>
 
-                        {/* Imagen */}
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
-                            <div className="overflow-hidden rounded-[2.5rem] border border-white/10">
-                                <img
-                                    src={SITE.founderImg}
-                                    alt="Fundador Alex Estética"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
+                        <GalleryHero
+                            images={SITE.galleryImages}
+                            brand={SITE.brand}
+                        />
                     </div>
                 </div>
             </section>
@@ -387,7 +564,6 @@ export default function SobrePage() {
                     />
                 </div>
 
-                {/* ✅ FINAL (2 botones) */}
                 <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
                     <div className="text-2xl font-semibold text-amber-100">
                         Te invitamos a conocernos
@@ -408,7 +584,6 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* FOOTER SIMPLE */}
             <footer className="border-t border-white/10">
                 <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
                     © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
