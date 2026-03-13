@@ -675,39 +675,9 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-4">
-            <HeroIcon title="Horario" subtitle={SITE.hours}>
-              <IconClockBig />
-            </HeroIcon>
-            <HeroIcon title="Ubicación" subtitle="Vecindario">
-              <IconStarBig />
-            </HeroIcon>
-            <HeroIcon title="Protocolos" subtitle="Seguros y personalizados">
-              <IconShieldBig />
-            </HeroIcon>
-            <HeroIcon title="Contacto" subtitle="WhatsApp directo">
-              <IconSparkBig />
-            </HeroIcon>
-          </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
-              <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
-            </div>
-            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
-              <div className="text-xs text-amber-100/60">Servicios</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">
-                Láser · Faciales · Corporales · Asesorías
-              </div>
-            </div>
-            <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 sm:backdrop-blur">
-              <div className="text-xs text-amber-100/60">Curso</div>
-              <div className="mt-2 text-sm font-semibold text-amber-100">
-                Presencial · {COURSE.hours} · {COURSE.breakdown}
-              </div>
-            </div>
-          </div>
+
+
         </div>
       </section>
 
