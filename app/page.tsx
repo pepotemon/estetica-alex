@@ -669,7 +669,7 @@ export default function Page() {
               className="h-full w-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.02),rgba(10,10,10,0.18))]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.35),rgba(10,10,10,0.58))]" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,rgba(201,168,76,0.08)_0%,transparent_70%)]" />
           </div>
 
