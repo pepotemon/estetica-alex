@@ -40,11 +40,11 @@ function Button({
     newTab?: boolean;
 }) {
     const base =
-        "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+        "inline-flex items-center justify-center rounded-full px-6 py-3 text-[12px] sm:text-sm font-semibold uppercase tracking-[0.08em] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-300/30";
     const styles =
         variant === "gold"
-            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110 shadow-[0_10px_30px_rgba(255,215,128,0.18)]"
-            : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
+            ? "bg-[linear-gradient(135deg,#f1d78f_0%,#ddb85a_30%,#c89f3f_55%,#f4e4b5_100%)] text-black shadow-[0_12px_34px_rgba(201,168,76,0.24)] hover:-translate-y-0.5 hover:brightness-105"
+            : "border border-[rgba(201,168,76,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.015)_100%)] text-amber-100 hover:border-[rgba(201,168,76,0.34)] hover:bg-white/10";
 
     const target = newTab ? "_blank" : undefined;
     const rel = newTab ? "noreferrer" : undefined;
@@ -74,7 +74,7 @@ function NavA({
         <a
             href={href}
             onClick={onClick}
-            className="text-sm font-medium text-amber-100/80 hover:text-amber-100 transition"
+            className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
         >
             {children}
         </a>
@@ -82,26 +82,35 @@ function NavA({
 }
 
 function Sep() {
-    return <span className="select-none text-amber-100/35">|</span>;
+    return <span className="select-none text-[#d7c6a7]/28">|</span>;
 }
 
 function SectionTitle({
     title,
     desc,
+    overline,
 }: {
     title: string;
     desc?: string;
+    overline?: string;
 }) {
     return (
-        <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-amber-100">
+        <div className="mb-10">
+            {overline ? (
+                <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#d9b861]/85">
+                    {overline}
+                </div>
+            ) : null}
+
+            <h2 className="font-[family:var(--font-cormorant)] text-4xl sm:text-5xl font-light leading-[1.04] text-[#fffaf2]">
                 {title}
             </h2>
-            {desc && (
-                <p className="mt-3 max-w-3xl text-amber-100/70 text-sm sm:text-base">
+
+            {desc ? (
+                <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-[#d7c6a7]/70">
                     {desc}
                 </p>
-            )}
+            ) : null}
         </div>
     );
 }
@@ -114,9 +123,12 @@ function ValueCard({
     desc: string;
 }) {
     return (
-        <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-            <div className="text-lg font-semibold text-amber-100">{title}</div>
-            <p className="mt-3 text-sm text-amber-100/70 leading-relaxed">{desc}</p>
+        <div className="rounded-[2rem] border border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(28,21,16,0.97)_0%,rgba(17,13,10,0.97)_100%)] p-7 shadow-[0_16px_42px_rgba(0,0,0,0.24)] backdrop-blur">
+            <div className="mb-4 h-px w-12 bg-gradient-to-r from-amber-300/80 to-transparent" />
+            <div className="font-[family:var(--font-cormorant)] text-[28px] leading-none font-light text-[#fffaf2]">
+                {title}
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-[#d7c6a7]/70">{desc}</p>
         </div>
     );
 }
@@ -199,14 +211,16 @@ function GalleryHero({
 
     return (
         <div className="relative">
-            <div className="absolute inset-0 bg-[radial-gradient(600px_400px_at_50%_50%,rgba(255,215,128,0.18),transparent_60%)]" />
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(640px_420px_at_50%_50%,rgba(201,168,76,0.16),transparent_60%)]" />
 
             <div
-                className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/20"
+                className="group relative overflow-hidden rounded-[2.5rem] border border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(18,14,10,0.88)_0%,rgba(9,7,5,0.95)_100%)] shadow-[0_24px_70px_rgba(0,0,0,0.34)]"
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
             >
+                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
+
                 <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full overflow-hidden">
                     <div
                         className="flex h-full w-full transition-transform duration-500 ease-out"
@@ -224,19 +238,19 @@ function GalleryHero({
                                     loading={index === 0 ? "eager" : "lazy"}
                                     draggable={false}
                                 />
-                                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),rgba(0,0,0,0.08),rgba(0,0,0,0.18))]" />
+                                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,6,5,0.68),rgba(8,6,5,0.12),rgba(8,6,5,0.20))]" />
                             </div>
                         ))}
                     </div>
 
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent)]" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-[linear-gradient(to_top,rgba(8,6,5,0.78),transparent)]" />
 
                     <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-                        <div className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-[11px] text-amber-100/80 backdrop-blur">
+                        <div className="rounded-full border border-white/10 bg-[rgba(12,9,7,0.56)] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-amber-100/80 backdrop-blur">
                             Espacio Alex Estética
                         </div>
 
-                        <div className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-[11px] text-amber-100/75 backdrop-blur">
+                        <div className="rounded-full border border-white/10 bg-[rgba(12,9,7,0.56)] px-3 py-1 text-[11px] tracking-[0.14em] text-amber-100/75 backdrop-blur">
                             {String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
                         </div>
                     </div>
@@ -247,7 +261,7 @@ function GalleryHero({
                                 type="button"
                                 onClick={goPrev}
                                 aria-label="Foto anterior"
-                                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-3 text-amber-100 backdrop-blur transition hover:bg-black/60"
+                                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-[rgba(12,9,7,0.58)] p-3 text-amber-100 backdrop-blur transition hover:bg-[rgba(12,9,7,0.78)]"
                             >
                                 <ChevronLeftIcon />
                             </button>
@@ -256,7 +270,7 @@ function GalleryHero({
                                 type="button"
                                 onClick={goNext}
                                 aria-label="Foto siguiente"
-                                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-3 text-amber-100 backdrop-blur transition hover:bg-black/60"
+                                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-[rgba(12,9,7,0.58)] p-3 text-amber-100 backdrop-blur transition hover:bg-[rgba(12,9,7,0.78)]"
                             >
                                 <ChevronRightIcon />
                             </button>
@@ -288,11 +302,11 @@ function GalleryHero({
             </div>
 
             <div className="mt-4 flex items-center justify-between gap-4">
-                <div className="text-xs text-amber-100/55">
+                <div className="text-xs text-[#d7c6a7]/52">
                     Desliza con el dedo o usa las flechas para recorrer la clínica.
                 </div>
 
-                <div className="hidden sm:flex items-center gap-2 text-xs text-amber-100/60">
+                <div className="hidden sm:flex items-center gap-2 text-xs text-[#d7c6a7]/56">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-300/80" />
                     Galería del espacio
                 </div>
@@ -309,17 +323,16 @@ export default function SobrePage() {
     );
 
     return (
-        <main className="min-h-screen bg-black text-white">
-            {/* Fondo luxury */}
+        <main className="min-h-screen bg-[#0b0806] text-white">
             <div className="pointer-events-none fixed inset-0 -z-10">
-                <div className="absolute inset-0 bg-[radial-gradient(900px_600px_at_20%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(900px_600px_at_80%_80%,rgba(255,215,128,0.12),transparent_60%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.95))]" />
+                <div className="absolute inset-0 bg-[radial-gradient(1000px_620px_at_18%_8%,rgba(201,168,76,0.14),transparent_58%),radial-gradient(900px_560px_at_82%_86%,rgba(201,168,76,0.10),transparent_56%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0a0705_0%,#120d09_42%,#0b0806_100%)]" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
             </div>
 
-            {/* HEADER */}
-            <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
+            <header className="sticky top-0 z-30 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
 
                     <a
                         href="/"
@@ -328,11 +341,11 @@ export default function SobrePage() {
                         aria-label="Ir al inicio"
                         title="Inicio"
                     >
-                        <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
+                        <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[1px]" />
                         <img
                             src={SITE.logoSrc}
                             alt="Alex Estética"
-                            className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]"
+                            className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(201,168,76,0.34)]"
                         />
                     </a>
 
@@ -357,7 +370,7 @@ export default function SobrePage() {
                                     href={SITE.instagramUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
+                                    className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10 sm:inline-flex"
                                     aria-label="Instagram"
                                     title="Instagram"
                                 >
@@ -394,20 +407,22 @@ export default function SobrePage() {
                             <img
                                 src={SITE.logoSrc}
                                 alt="Alex Estética"
-                                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
+                                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(201,168,76,0.35)]"
                             />
                             <div className="leading-tight">
-                                <div className="text-sm font-semibold tracking-wide text-amber-100">
+                                <div className="font-[family:var(--font-cormorant)] text-lg font-medium tracking-[0.04em] text-[#fff4df]">
                                     {SITE.brand}
                                 </div>
-                                <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
+                                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54">
+                                    {SITE.city}
+                                </div>
                             </div>
                         </a>
 
                         <div className="flex items-center gap-2">
                             <button
                                 type="button"
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10"
                                 onClick={() => setMenuOpen((v) => !v)}
                                 aria-label="Abrir menú"
                                 aria-expanded={menuOpen}
@@ -424,7 +439,7 @@ export default function SobrePage() {
                 </div>
 
                 {menuOpen ? (
-                    <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
+                    <div className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.76)] backdrop-blur-xl sm:hidden">
                         <div className="mx-auto max-w-6xl px-5 py-3">
                             <div className="flex flex-col gap-1">
                                 {[
@@ -437,7 +452,7 @@ export default function SobrePage() {
                                     <a
                                         key={x.href}
                                         href={x.href}
-                                        className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         {x.label}
@@ -449,7 +464,7 @@ export default function SobrePage() {
                                         href={SITE.instagramUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         Instagram
@@ -461,28 +476,36 @@ export default function SobrePage() {
                 ) : null}
             </header>
 
-            {/* HERO */}
-            <section className="relative isolate overflow-hidden border-b border-white/10">
+            <section className="relative isolate overflow-hidden border-b border-[rgba(201,168,76,0.10)]">
                 <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-                    <div className="grid gap-12 sm:grid-cols-2 items-center">
+                    <div className="grid items-center gap-12 sm:grid-cols-2">
                         <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(201,168,76,0.20)] bg-[rgba(16,12,9,0.48)] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-amber-100/82">
                                 Más de 25 años de experiencia
                             </div>
 
-                            <h1 className="mt-6 text-4xl sm:text-5xl font-semibold leading-tight text-amber-100">
+                            <h1 className="mt-6 font-[family:var(--font-cormorant)] text-5xl sm:text-6xl font-light leading-[0.98] text-[#fffaf2]">
                                 Trayectoria, ciencia y compromiso
-                                <span className="block text-amber-200/90">
+                                <span className="mt-2 block text-[0.82em] italic text-[#d9b861]">
                                     al servicio de tu recuperación
                                 </span>
                             </h1>
 
-                            <p className="mt-6 text-amber-100/70 leading-relaxed">
+                            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[#d7c6a7]/72">
                                 Con más de dos décadas dedicadas al bienestar corporal y la recuperación
                                 funcional, nuestro fundador ha acompañado a cientos de pacientes en
                                 procesos postquirúrgicos, combinando conocimiento técnico, experiencia
                                 clínica y una atención profundamente personalizada.
                             </p>
+
+                            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                                <Button href={whatsappGeneral} variant="gold">
+                                    Agendar valoración
+                                </Button>
+                                <Button href="/servicios" variant="outline" newTab={false}>
+                                    Ver tratamientos
+                                </Button>
+                            </div>
                         </div>
 
                         <GalleryHero
@@ -493,58 +516,73 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* PERFIL PROFESIONAL */}
             <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
                 <SectionTitle
-                    title="Perfil Profesional"
-                    desc="Formación técnica, experiencia práctica y una visión integral del cuerpo humano."
+                    overline="Perfil profesional"
+                    title="Experiencia real, técnica especializada y visión integral"
+                    desc="Formación técnica, experiencia práctica y una mirada profunda del cuerpo humano para acompañar cada proceso con precisión."
                 />
 
                 <div className="grid gap-8 sm:grid-cols-2">
-                    <div className="space-y-6 text-amber-100/70 text-sm sm:text-base leading-relaxed">
-                        <p>
-                            Especialista en masajes postoperatorios con más de 25 años de experiencia,
-                            ha desarrollado protocolos personalizados enfocados en acelerar la
-                            recuperación, mejorar la movilidad y optimizar los resultados estéticos
-                            tras intervenciones quirúrgicas.
-                        </p>
+                    <div className="rounded-[2rem] border border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(22,17,13,0.96)_0%,rgba(14,11,8,0.96)_100%)] p-8 shadow-[0_16px_44px_rgba(0,0,0,0.22)]">
+                        <div className="mb-4 h-px w-14 bg-gradient-to-r from-amber-300/80 to-transparent" />
 
-                        <p>
-                            Técnico en medicina estética, combina conocimientos anatómicos avanzados
-                            con técnicas manuales precisas y aparatología complementaria, garantizando
-                            seguridad y efectividad en cada sesión.
-                        </p>
+                        <div className="space-y-6 text-sm sm:text-base leading-relaxed text-[#d7c6a7]/72">
+                            <p>
+                                Especialista en masajes postoperatorios con más de 25 años de experiencia,
+                                ha desarrollado protocolos personalizados enfocados en acelerar la
+                                recuperación, mejorar la movilidad y optimizar los resultados estéticos
+                                tras intervenciones quirúrgicas.
+                            </p>
 
-                        <p>
-                            Su formación en nutrición deportiva y preparación física le permite
-                            ofrecer una visión integral del proceso de recuperación, entendiendo
-                            cómo el metabolismo, la alimentación y el movimiento influyen en
-                            los resultados finales del paciente.
-                        </p>
+                            <p>
+                                Técnico en medicina estética, combina conocimientos anatómicos avanzados
+                                con técnicas manuales precisas y aparatología complementaria, garantizando
+                                seguridad y efectividad en cada sesión.
+                            </p>
+
+                            <p>
+                                Su formación en nutrición deportiva y preparación física le permite
+                                ofrecer una visión integral del proceso de recuperación, entendiendo
+                                cómo el metabolismo, la alimentación y el movimiento influyen en
+                                los resultados finales del paciente.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
-                        <div className="text-amber-100 font-semibold text-lg">
+                    <div className="rounded-[2rem] border border-[rgba(201,168,76,0.16)] bg-[linear-gradient(180deg,rgba(28,21,16,0.98)_0%,rgba(18,14,10,0.96)_100%)] p-8 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
+                        <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82">
                             Especializaciones
                         </div>
 
-                        <ul className="mt-6 space-y-4 text-sm text-amber-100/70">
-                            <li>• Recuperación post-liposucción y abdominoplastia</li>
-                            <li>• Drenaje linfático manual avanzado</li>
-                            <li>• Terapia de compresión postquirúrgica</li>
-                            <li>• Nutrición aplicada a procesos de recuperación</li>
-                            <li>• Planificación física adaptada al postoperatorio</li>
-                            <li>• Protocolos personalizados por fases</li>
+                        <div className="mt-4 font-[family:var(--font-cormorant)] text-3xl font-light text-[#fffaf2]">
+                            Áreas de enfoque
+                        </div>
+
+                        <ul className="mt-7 space-y-4 text-sm leading-relaxed text-[#d7c6a7]/72">
+                            {[
+                                "Recuperación post-liposucción y abdominoplastia",
+                                "Drenaje linfático manual avanzado",
+                                "Terapia de compresión postquirúrgica",
+                                "Nutrición aplicada a procesos de recuperación",
+                                "Planificación física adaptada al postoperatorio",
+                                "Protocolos personalizados por fases",
+                            ].map((item) => (
+                                <li key={item} className="flex gap-3">
+                                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300/80" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
             </section>
 
-            {/* FILOSOFÍA */}
             <section className="mx-auto max-w-6xl px-5 pb-20">
                 <SectionTitle
-                    title="Nuestra Filosofía"
-                    desc="No se trata solo de estética, sino de acompañar procesos con responsabilidad."
+                    overline="Nuestra filosofía"
+                    title="La estética bien hecha nace de la responsabilidad"
+                    desc="No se trata solo de estética, sino de acompañar cada proceso con criterio, seguridad y atención personalizada."
                 />
 
                 <div className="grid gap-6 sm:grid-cols-3">
@@ -564,13 +602,20 @@ export default function SobrePage() {
                     />
                 </div>
 
-                <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/5 p-7 sm:p-10 backdrop-blur">
-                    <div className="text-2xl font-semibold text-amber-100">
+                <div className="mt-10 overflow-hidden rounded-[2.25rem] border border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(24,18,13,0.98)_0%,rgba(14,11,8,0.98)_100%)] p-7 sm:p-10 shadow-[0_22px_62px_rgba(0,0,0,0.26)] backdrop-blur">
+                    <div className="mb-6 h-px w-full bg-gradient-to-r from-transparent via-amber-300/22 to-transparent" />
+
+                    <div className="text-[10px] uppercase tracking-[0.30em] text-[#d9b861]/80">
+                        Atención premium
+                    </div>
+
+                    <div className="mt-3 font-[family:var(--font-cormorant)] text-4xl sm:text-5xl font-light leading-none text-[#fffaf2]">
                         Te invitamos a conocernos
                     </div>
-                    <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Cuéntanos tu objetivo y te orientamos sin compromiso. Atención premium, protocolos
-                        responsables y acompañamiento real durante tu proceso.
+
+                    <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-[#d7c6a7]/72">
+                        Cuéntanos tu objetivo y te orientamos sin compromiso. Atención premium,
+                        protocolos responsables y acompañamiento real durante tu proceso.
                     </p>
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -584,9 +629,22 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            <footer className="border-t border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
-                    © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+            <footer className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.45)]">
+                <div className="mx-auto max-w-6xl px-5 py-10">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <div className="font-[family:var(--font-cormorant)] text-2xl font-light tracking-[0.06em] text-amber-200">
+                                {SITE.brand}
+                            </div>
+                            <div className="mt-1 text-[11px] uppercase tracking-[0.22em] text-[#d7c6a7]/44">
+                                {SITE.city}
+                            </div>
+                        </div>
+
+                        <div className="text-sm text-[#d7c6a7]/54">
+                            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                        </div>
+                    </div>
                 </div>
             </footer>
         </main>

@@ -21,10 +21,27 @@ export default function QuizSection({
     onViewTreatments: () => void;
 }) {
     return (
-        <section className="quiz-section" id={id}>
-            <div className="quiz-inner">
+        <section className="quiz-section relative overflow-hidden" id={id}>
+
+            {/* HERO BACKGROUND */}
+            <div className="absolute inset-0 -z-10">
+                <img
+                    src="/images/hero-objetivo.jpg"
+                    alt=""
+                    className="w-full h-full object-cover blur-[1px] scale-105"
+                />
+
+                {/* overlay elegante */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/90" />
+            </div>
+
+            <div className="quiz-inner relative z-10">
                 <p className="quiz-sub">¿QUÉ QUIERES CONSEGUIR?</p>
-                <h2 className="quiz-title">Encuentra tu tratamiento ideal</h2>
+
+                <h2 className="quiz-title">
+                    Encuentra tu tratamiento ideal
+                </h2>
+
                 <p className="quiz-sub" style={{ marginTop: 6 }}>
                     Selecciona tu objetivo y te orientamos al momento
                 </p>
@@ -32,6 +49,7 @@ export default function QuizSection({
                 <div className="quiz-grid">
                     {(Object.keys(quizData) as QuizKey[]).map((key) => {
                         const q = quizData[key];
+
                         return (
                             <button
                                 key={key}
@@ -49,16 +67,26 @@ export default function QuizSection({
                 {activeQuiz ? (
                     <div className="quiz-result" id="objetivo">
                         <p>✦ {activeQuiz.text}</p>
+
                         <div className="quiz-links">
-                            <a href={activeQuiz.link} target="_blank" rel="noreferrer">
+                            <a
+                                href={activeQuiz.link}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
                                 → Consultar por WhatsApp
                             </a>
-                            <button type="button" onClick={onViewTreatments}>
+
+                            <button
+                                type="button"
+                                onClick={onViewTreatments}
+                            >
                                 → Ver tratamientos
                             </button>
                         </div>
                     </div>
                 ) : null}
+
             </div>
         </section>
     );

@@ -5,18 +5,11 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
-
-    // ✅ wa.me usa solo números (sin +, sin espacios)
-    phone: "34661026192",
-
     logoSrc: "/alex-logo.png",
-
-    // ✅ Hero del curso (ponlo en /public/curso-hero.jpg)
-    cursoHeroImg: "/curso-hero.jpg",
-
+    phone: "34661026192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
-
+    cursoHeroImg: "/curso-hero.jpg",
     addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
 };
 
@@ -29,25 +22,30 @@ function Button({
     children,
     variant = "gold",
     className = "",
+    newTab = true,
 }: {
     href: string;
     children: React.ReactNode;
     variant?: "gold" | "outline";
     className?: string;
+    newTab?: boolean;
 }) {
     const base =
-        "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+        "inline-flex items-center justify-center rounded-full px-6 py-3 text-[12px] sm:text-sm font-semibold uppercase tracking-[0.08em] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-300/30";
     const styles =
         variant === "gold"
-            ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
-            : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
+            ? "bg-[linear-gradient(135deg,#f1d78f_0%,#ddb85a_30%,#c89f3f_55%,#f4e4b5_100%)] text-black shadow-[0_12px_34px_rgba(201,168,76,0.24)] hover:-translate-y-0.5 hover:brightness-105"
+            : "border border-[rgba(201,168,76,0.22)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.015)_100%)] text-amber-100 hover:border-[rgba(201,168,76,0.34)] hover:bg-white/10";
+
+    const target = newTab ? "_blank" : undefined;
+    const rel = newTab ? "noreferrer" : undefined;
 
     return (
         <a
             href={href}
             className={`${base} ${styles} ${className}`}
-            target="_blank"
-            rel="noreferrer"
+            target={target}
+            rel={rel}
         >
             {children}
         </a>
@@ -57,19 +55,17 @@ function Button({
 function NavA({
     href,
     children,
-    active,
+    onClick,
 }: {
     href: string;
     children: React.ReactNode;
-    active?: boolean;
+    onClick?: () => void;
 }) {
     return (
         <a
             href={href}
-            className={[
-                "text-sm font-semibold transition",
-                active ? "text-amber-100" : "text-amber-100/80 hover:text-amber-100",
-            ].join(" ")}
+            onClick={onClick}
+            className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
         >
             {children}
         </a>
@@ -77,344 +73,246 @@ function NavA({
 }
 
 function Sep() {
-    return <span className="select-none text-amber-100/25">|</span>;
+    return <span className="select-none text-[#d7c6a7]/28">|</span>;
 }
 
-function SectionTitle({ title, desc }: { title: string; desc?: string }) {
-    return (
-        <div className="mb-7">
-            <div className="text-2xl font-semibold text-amber-100">{title}</div>
-            {desc ? <p className="mt-2 text-amber-100/70">{desc}</p> : null}
-        </div>
-    );
-}
-
-function OutlineDot({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="flex gap-3">
-            <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-300/90" />
-            <div className="text-sm text-amber-100/80">{children}</div>
-        </div>
-    );
-}
-
-/* ===== Iconos (estilo banner) ===== */
-function IconHand() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-            <path
-                d="M8 12V7.5a1.5 1.5 0 013 0V12"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-            <path
-                d="M11 12V6.5a1.5 1.5 0 013 0V12"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-            <path
-                d="M14 12V7.5a1.5 1.5 0 013 0V13"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-            <path
-                d="M7.7 12.2l-.8-.8a1.6 1.6 0 00-2.3 2.3l2.9 2.9c1 1 2.3 1.6 3.7 1.6h2.3c1.6 0 3-.7 4-1.9l1.4-1.8"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
-
-function IconClipboard() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-            <path
-                d="M9 4h6l1 2h3v16H5V6h3l1-2z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M9 4a3 3 0 006 0"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-            <path
-                d="M8 12h8M8 16h8"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-        </svg>
-    );
-}
-
-function IconWarning() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-            <path
-                d="M12 3l10 18H2L12 3z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M12 9v5"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-            <path
-                d="M12 17h.01"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-            />
-        </svg>
-    );
-}
-
-function IconJacket() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-            <path
-                d="M9 4l3 2 3-2 3 3-2 4v9H8v-9L6 7l3-3z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M12 6v14"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-            />
-        </svg>
-    );
-}
-
-function IconShield() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-            <path
-                d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-            />
-            <path
-                d="M9 12l2 2 4-5"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
-
-function IconSpark() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-            <path
-                d="M12 2l1.5 5 5 1.5-5 1.5-1.5 5-1.5-5-5-1.5 5-1.5L12 2z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M19 13l.9 3 3 .9-3 .9-.9 3-.9-3-3-.9 3-.9.9-3z"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
-
-function IconCheck() {
-    return (
-        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-            <path
-                d="M20 6L9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
-
-/* ✅ Tile estilo banner: icono arriba + texto dorado centrado */
-function FeatureTileBanner({
-    icon,
+function SectionTitle({
     title,
+    desc,
+    tag,
 }: {
-    icon: React.ReactNode;
     title: string;
+    desc?: string;
+    tag?: string;
+}) {
+    return (
+        <div className="mb-10">
+            {tag ? (
+                <span className="mb-4 block text-[10px] uppercase tracking-[0.35em] text-[#C9A84C]">
+                    {tag}
+                </span>
+            ) : null}
+
+            <h2 className="font-[family:var(--font-cormorant)] text-[34px] sm:text-[48px] font-light leading-[1.08] text-[#FAF8F3]">
+                {title}
+            </h2>
+
+            {desc ? (
+                <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#7A7168]">
+                    {desc}
+                </p>
+            ) : null}
+        </div>
+    );
+}
+
+function GlassCard({
+    children,
+    className = "",
+}: {
+    children: React.ReactNode;
+    className?: string;
 }) {
     return (
         <div
             className={[
-                "relative overflow-hidden rounded-[1.35rem] border border-amber-300/20 bg-black/35 px-5 py-6 backdrop-blur",
-                "shadow-[0_0_0_1px_rgba(255,215,128,0.06),0_18px_60px_rgba(0,0,0,0.55)]",
+                "rounded-[2rem] border border-[rgba(201,168,76,0.14)]",
+                "bg-[linear-gradient(180deg,rgba(24,18,13,0.42)_0%,rgba(15,12,9,0.22)_100%)]",
+                "backdrop-blur-[10px]",
+                "shadow-[0_10px_30px_rgba(0,0,0,0.22)]",
+                className,
             ].join(" ")}
         >
-            <div className="pointer-events-none absolute inset-0 opacity-70">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/35 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl border border-amber-300/25 bg-black/45">
-                    {icon}
-                </div>
-
-                <div className="mt-4 text-sm font-semibold tracking-wide text-amber-100">
-                    {title}
-                </div>
-            </div>
-        </div>
-    );
-}
-
-/* ===== Temario PRO ===== */
-function ModuleBadge({ n }: { n: number }) {
-    const label = String(n).padStart(2, "0");
-    return (
-        <div className="relative grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-amber-300/25 bg-black/45">
-            <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[0_0_0_1px_rgba(255,215,128,0.08),0_0_35px_rgba(255,215,128,0.08)]" />
-            <span className="font-serif text-sm tracking-[0.22em] text-amber-100">
-                {label}
-            </span>
-        </div>
-    );
-}
-
-function Chip({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-3 py-1 text-xs text-amber-100/85 backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-300/90" />
             {children}
         </div>
     );
 }
 
-function FancyDetails({
+function InfoCard({
+    title,
+    desc,
+    emoji,
+}: {
+    title: string;
+    desc: string;
+    emoji: string;
+}) {
+    return (
+        <GlassCard className="p-6 transition-colors hover:border-[rgba(201,168,76,0.28)]">
+            <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[18px]">
+                    {emoji}
+                </div>
+                <h3 className="font-[family:var(--font-cormorant)] text-[22px] font-normal text-[#FAF8F3]">
+                    {title}
+                </h3>
+            </div>
+            <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">{desc}</p>
+        </GlassCard>
+    );
+}
+
+function PointItem({
+    title,
+    desc,
+}: {
+    title: string;
+    desc: string;
+}) {
+    return (
+        <div className="flex gap-3">
+            <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-[#C9A84C]" />
+            <div>
+                <div className="text-[13px] font-medium tracking-[0.02em] text-[#D4C9B0]">
+                    {title}
+                </div>
+                <div className="mt-1 text-[13px] leading-[1.65] text-[#7A7168]">
+                    {desc}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function StatCard({
+    label,
+    value,
+    note,
+}: {
+    label: string;
+    value: string;
+    note: string;
+}) {
+    return (
+        <GlassCard className="p-5 text-center">
+            <span className="block text-[10px] uppercase tracking-[0.15em] text-[#7A7168]">
+                {label}
+            </span>
+            <div className="mt-2 font-[family:var(--font-cormorant)] text-[28px] font-light leading-none text-[#FAF8F3]">
+                {value}
+            </div>
+            <span className="mt-2 block text-[10px] text-[#7A7168]">{note}</span>
+        </GlassCard>
+    );
+}
+
+function AudienceCard({
+    title,
+    emoji,
+    items,
+}: {
+    title: string;
+    emoji: string;
+    items: string[];
+}) {
+    return (
+        <GlassCard className="p-7">
+            <div className="mb-5 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[18px]">
+                    {emoji}
+                </div>
+                <h3 className="font-[family:var(--font-cormorant)] text-[28px] font-normal text-[#FAF8F3]">
+                    {title}
+                </h3>
+            </div>
+
+            <div className="space-y-4">
+                {items.map((item) => (
+                    <div key={item} className="flex gap-3">
+                        <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#C9A84C]" />
+                        <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">{item}</p>
+                    </div>
+                ))}
+            </div>
+        </GlassCard>
+    );
+}
+
+function ModuleCard({
     index,
     title,
     summary,
     points,
     chips,
+    emoji,
 }: {
     index: number;
     title: string;
     summary: string;
     points: string[];
     chips: string[];
+    emoji: string;
 }) {
     return (
-        <details
-            className={[
-                "group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur",
-                "shadow-[0_0_0_1px_rgba(255,215,128,0.04),0_18px_65px_rgba(0,0,0,0.55)]",
-                "open:bg-white/7",
-            ].join(" ")}
-        >
-            {/* Glow/lines */}
-            <div className="pointer-events-none absolute inset-0 opacity-70">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/15 to-transparent" />
-                <div className="absolute -left-24 top-10 h-48 w-48 rounded-full bg-amber-300/10 blur-3xl" />
-                <div className="absolute -right-28 bottom-0 h-56 w-56 rounded-full bg-amber-300/8 blur-3xl" />
-            </div>
+        <details className="group overflow-hidden rounded-[2rem] border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(24,18,13,0.42)_0%,rgba(15,12,9,0.22)_100%)] backdrop-blur-[10px] open:border-[rgba(201,168,76,0.40)]">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[18px] sm:px-[22px]">
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[14px] font-medium text-[#C9A84C]">
+                        {String(index).padStart(2, "0")}
+                    </div>
 
-            <summary className="relative flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-6 sm:px-7">
-                <div className="flex min-w-0 items-center gap-4">
-                    <ModuleBadge n={index} />
                     <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-amber-100 sm:text-base">
+                            <span className="text-[17px]">{emoji}</span>
+                            <div className="font-[family:var(--font-cormorant)] text-[18px] sm:text-[20px] font-normal leading-[1.2] text-[#FAF8F3]">
                                 {title}
-                            </span>
-                            <span className="hidden sm:inline-flex">
-                                <IconSpark />
-                            </span>
+                            </div>
                         </div>
 
-                        <div className="mt-1 line-clamp-1 text-xs text-amber-100/60 sm:text-sm">
+                        <div className="mt-1 text-[11.5px] tracking-[0.04em] text-[#7A7168]">
                             {summary}
                         </div>
-
-                        <div className="mt-3 hidden flex-wrap gap-2 sm:flex">
-                            {chips.map((chip) => (
-                                <Chip key={chip}>{chip}</Chip>
-                            ))}
-                        </div>
                     </div>
                 </div>
 
-                <div className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-black/35">
-                    <svg
-                        viewBox="0 0 24 24"
-                        className="h-5 w-5 text-amber-200 transition duration-300 group-open:rotate-180"
-                        fill="none"
-                    >
-                        <path
-                            d="M6 9l6 6 6-6"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </div>
+                <span className="shrink-0 text-[14px] text-[#C9A84C] transition-transform duration-300 group-open:rotate-180">
+                    ▼
+                </span>
             </summary>
 
-            <div className="relative px-6 pb-7 sm:px-7">
-                <div className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <div className="grid max-h-0 grid-rows-[0fr] transition-all duration-500 group-open:max-h-[1200px] group-open:grid-rows-[1fr]">
+                <div className="overflow-hidden">
+                    <div className="border-t border-[rgba(201,168,76,0.10)] px-5 pb-6 pt-5 sm:px-[22px]">
+                        <div className="grid gap-6 sm:grid-cols-2">
+                            <div>
+                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C]">
+                                    Qué incluye este módulo
+                                </h4>
+                                <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">
+                                    {summary}
+                                </p>
 
-                <div className="grid gap-5 sm:grid-cols-12">
-                    <div className="sm:col-span-5">
-                        <div className="rounded-[1.6rem] border border-white/10 bg-black/35 p-5 backdrop-blur">
-                            <div className="flex items-center gap-2 text-sm font-semibold text-amber-100">
-                                <IconSpark />
-                                Resumen del módulo
-                            </div>
-                            <p className="mt-3 text-sm leading-relaxed text-amber-100/70">
-                                {summary}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="sm:col-span-7">
-                        <div className="grid gap-3">
-                            {points.map((p) => (
-                                <div
-                                    key={p}
-                                    className={[
-                                        "group/pt relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black/30 p-5",
-                                        "shadow-[0_0_0_1px_rgba(255,215,128,0.03)]",
-                                    ].join(" ")}
-                                >
-                                    <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover/pt:opacity-100">
-                                        <div className="absolute inset-0 bg-[radial-gradient(600px_220px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
-                                    </div>
-
-                                    <div className="relative flex gap-3">
-                                        <div className="mt-0.5 grid h-9 w-9 place-items-center rounded-2xl border border-amber-300/20 bg-black/40">
-                                            <IconCheck />
-                                        </div>
-                                        <div className="text-sm text-amber-100/80">{p}</div>
-                                    </div>
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {chips.map((chip) => (
+                                        <span
+                                            key={chip}
+                                            className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]"
+                                        >
+                                            {chip}
+                                        </span>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div>
+                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C]">
+                                    Puntos clave
+                                </h4>
+
+                                <div className="space-y-3">
+                                    {points.map((point) => (
+                                        <div
+                                            key={point}
+                                            className="flex gap-3 border border-[rgba(201,168,76,0.10)] bg-[rgba(201,168,76,0.03)] p-4"
+                                        >
+                                            <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#C9A84C]" />
+                                            <p className="text-[13.5px] leading-[1.65] text-[#D4C9B0]">
+                                                {point}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -442,55 +340,64 @@ export default function CursoPage() {
         `Hola Alex! ¿Me puedes enviar el temario completo del curso "${COURSE.nameTop} ${COURSE.nameBottom}" y requisitos?`
     );
 
-    // ✅ Temario con chips ÚNICOS por módulo (sin repetición)
+    const whatsappReserva = waLink(
+        `Hola Alex! Quiero reservar mi plaza para el curso "${COURSE.nameTop} ${COURSE.nameBottom}".`
+    );
+
     const modules = [
         {
+            emoji: "🫀",
             title: "Fundamentos Anatómicos y Fisiológicos",
             summary:
                 "Comprende qué ocurre en el cuerpo tras la cirugía: edema, drenaje, tejido y cicatrización, para tomar decisiones con más criterio.",
             chips: ["Anatomía aplicada", "Inflamación", "Cicatrización"],
             points: [
                 "Sistema linfático, edema, inflamación y cicatrización.",
-                "Cómo “leer” el tejido sin invadir lo clínico.",
+                "Cómo leer el tejido sin invadir lo clínico.",
                 "Señales normales vs. señales de alerta para derivación.",
             ],
         },
         {
+            emoji: "📋",
             title: "Tipos de Cirugías Estéticas y Protocolos",
             summary:
                 "Enfoque práctico por procedimientos frecuentes y objetivos: inflamación, confort, fibrosis y acompañamiento por fases.",
             chips: ["Lipoescultura", "Abdominoplastia", "Protocolos por fases"],
             points: [
-                "Fases: primeros días, semanas, mantenimiento.",
+                "Fases: primeros días, semanas y mantenimiento.",
                 "Objetivos por etapa y organización de sesiones.",
                 "Trabajo alineado a indicaciones del cirujano.",
             ],
         },
         {
+            emoji: "🛡️",
             title: "Seguridad, Ética y Marco Legal",
             summary:
                 "Aprende a trabajar con límites claros y comunicación profesional: higiene, consentimiento, documentación y responsabilidad.",
             chips: ["Higiene clínica", "Consentimiento", "Límites profesionales"],
             points: [
-                "Higiene y preparación de cabina (estándar premium).",
+                "Higiene y preparación de cabina con estándar premium.",
                 "Consentimiento informado y comunicación clara.",
-                "Cuándo NO intervenir y cuándo derivar.",
+                "Cuándo no intervenir y cuándo derivar.",
             ],
         },
         {
+            emoji: "🤲",
             title: "Drenaje Linfático Manual Postquirúrgico",
-            summary: "Técnica guiada: ritmo, presión, secuencias y corrección de errores.",
+            summary:
+                "Técnica guiada: ritmo, presión, secuencias y corrección de errores.",
             chips: ["Ritmo y presión", "Secuencias", "Control del edema"],
             points: [
                 "Principios técnicos y control de presión.",
                 "Secuencias adaptadas según evolución del caso.",
-                "Errores comunes que bajan resultados (y cómo evitarlos).",
+                "Errores comunes que bajan resultados y cómo evitarlos.",
             ],
         },
         {
+            emoji: "🩹",
             title: "Terapia de Compresión y Prendas",
             summary:
-                "Uso inteligente de compresión: tipos de prendas, ajuste, hábitos y educación al cliente para que el proceso sea más estable.",
+                "Uso inteligente de compresión: tipos de prendas, ajuste, hábitos y educación al cliente.",
             chips: ["Fajas postquirúrgicas", "Compresión adecuada", "Seguimiento"],
             points: [
                 "Qué revisar: ajuste, comodidad y seguridad.",
@@ -499,50 +406,55 @@ export default function CursoPage() {
             ],
         },
         {
+            emoji: "⚙️",
             title: "Técnicas Complementarias y Aparatología",
             summary:
-                "Aprende cuándo conviene (y cuándo no) usar técnicas/aparatos. Enfoque responsable: menos promesas, más criterio.",
+                "Aprende cuándo conviene y cuándo no usar técnicas o equipos. Menos promesas, más criterio.",
             chips: ["Ultrasonido", "Radiofrecuencia", "Fibrosis"],
             points: [
-                "Elección por objetivo: confort, textura, apoyo al proceso.",
+                "Elección por objetivo: confort, textura y apoyo al proceso.",
                 "Parámetros generales de seguridad y buenas prácticas.",
-                "Cómo explicar al cliente con lenguaje profesional.",
+                "Cómo explicarlo al cliente con lenguaje profesional.",
             ],
         },
         {
+            emoji: "🚨",
             title: "Manejo de Complicaciones y Emergencias",
             summary:
                 "Identifica señales de alarma y aplica un protocolo de acción responsable: prioridad absoluta a la salud del cliente.",
             chips: ["Seroma", "Signos de alarma", "Derivación médica"],
             points: [
-                "Signos de alerta: cuándo derivar de inmediato.",
+                "Signos de alerta y cuándo derivar de inmediato.",
                 "Cómo documentar y comunicar con profesionalismo.",
                 "Qué evitar para no empeorar una situación.",
             ],
         },
         {
+            emoji: "💧",
             title: "Nutrición y Hábitos en la Recuperación",
             summary:
-                "Acompañamiento educativo (no clínico): hidratación, descanso, hábitos y seguimiento sencillo que mejora adherencia.",
+                "Acompañamiento educativo: hidratación, descanso, hábitos y seguimiento sencillo.",
             chips: ["Hidratación", "Descanso", "Hábitos saludables"],
             points: [
-                "Hábitos que favorecen el proceso (de forma general).",
+                "Hábitos que favorecen el proceso de forma general.",
                 "Cómo orientar sin invadir áreas médicas.",
                 "Plan de seguimiento simple y sostenible.",
             ],
         },
         {
+            emoji: "✨",
             title: "Gestión de la Cabina Profesional",
             summary:
-                "Estandariza tu servicio para que se vea premium: agenda, experiencia, comunicación y fidelización sin presión.",
+                "Estandariza tu servicio para que se vea premium: agenda, experiencia, comunicación y fidelización.",
             chips: ["Experiencia cliente", "Agenda estratégica", "Fidelización"],
             points: [
                 "Estructura de sesiones y seguimiento por fases.",
-                "Experiencia del cliente: antes/durante/después.",
+                "Experiencia del cliente: antes, durante y después.",
                 "Retención: continuidad, confianza y recomendación.",
             ],
         },
         {
+            emoji: "🧠",
             title: "Protocolos Prácticos y Casos Clínicos",
             summary:
                 "Práctica con lógica real de cabina: valoración, plan por objetivos y toma de decisiones según evolución.",
@@ -554,48 +466,48 @@ export default function CursoPage() {
             ],
         },
         {
-            title: "Anexos (materiales descargables)",
+            emoji: "📦",
+            title: "Anexos y Material Descargable",
             summary:
                 "Recursos listos para usar: guías, plantillas y documentos para implementar el método desde el primer día.",
             chips: ["Plantillas", "Guías PDF", "Material descargable"],
             points: [
                 "Plantillas de control y seguimiento.",
                 "Guías de comunicación y post-tratamiento.",
-                "Material de apoyo (descargables).",
+                "Material de apoyo descargable.",
             ],
         },
     ];
 
     return (
-        <main className="min-h-screen bg-black text-white">
-            {/* Fondo general (muy sutil, para que el sitio siga “luxury”) */}
-            <div className="pointer-events-none fixed inset-0 -z-30">
-                <div className="absolute inset-0 bg-[radial-gradient(1000px_650px_at_20%_10%,rgba(255,215,128,0.10),transparent_60%),radial-gradient(900px_520px_at_80%_20%,rgba(255,215,128,0.06),transparent_55%),radial-gradient(900px_650px_at_50%_85%,rgba(255,215,128,0.05),transparent_60%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.96))]" />
+        <main className="min-h-screen bg-[#0b0806] text-white">
+            <div className="pointer-events-none fixed inset-0 -z-10">
+                <div className="absolute inset-0 bg-[radial-gradient(1000px_620px_at_18%_8%,rgba(201,168,76,0.14),transparent_58%),radial-gradient(900px_560px_at_82%_86%,rgba(201,168,76,0.10),transparent_56%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0a0705_0%,#120d09_42%,#0b0806_100%)]" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
             </div>
 
-            {/* Header EXACTO estilo referencia (igual a Tratamientos) */}
-            <header className="sticky top-0 z-30 bg-black/50 backdrop-blur">
+            {/* HEADER FIJO DE SIEMPRE */}
+            <header className="sticky top-0 z-30 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
 
                     <a
                         href="/"
                         onClick={() => setMenuOpen(false)}
-                        className="absolute left-1/2 top-0 z-40 hidden -translate-x-1/2 -translate-y-8 sm:block"
+                        className="hidden sm:block absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
                         aria-label="Ir al inicio"
                         title="Inicio"
                     >
-                        <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
-
+                        <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[1px]" />
                         <img
                             src={SITE.logoSrc}
                             alt="Alex Estética"
-                            className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]"
+                            className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(201,168,76,0.34)]"
                         />
                     </a>
 
-                    <div className="hidden h-full items-center justify-between sm:flex">
+                    <div className="hidden sm:flex h-full items-center justify-between">
                         <nav className="flex items-center gap-4">
                             <NavA href="/sobre">Sobre Nosotros</NavA>
                             <Sep />
@@ -608,34 +520,19 @@ export default function CursoPage() {
                             <nav className="flex items-center gap-4">
                                 <NavA href="/servicios">Tratamientos</NavA>
                                 <Sep />
-                                <NavA href="/curso" active>
-                                    Curso
-                                </NavA>
+                                <NavA href="/curso">Curso</NavA>
                             </nav>
-
-                            <a
-                                href={whatsappCurso}
-                                className="ml-2 rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-semibold text-black hover:brightness-110"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                Agende una consulta
-                            </a>
 
                             {SITE.instagramUrl ? (
                                 <a
                                     href={SITE.instagramUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
+                                    className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10 sm:inline-flex"
                                     aria-label="Instagram"
                                     title="Instagram"
                                 >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-5 w-5 text-amber-200"
-                                        fill="none"
-                                    >
+                                    <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
                                         <path
                                             d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
                                             stroke="currentColor"
@@ -658,7 +555,7 @@ export default function CursoPage() {
                         </div>
                     </div>
 
-                    <div className="flex h-full items-center justify-between sm:hidden">
+                    <div className="flex sm:hidden h-full items-center justify-between">
                         <a
                             href="/"
                             onClick={() => setMenuOpen(false)}
@@ -668,29 +565,22 @@ export default function CursoPage() {
                             <img
                                 src={SITE.logoSrc}
                                 alt="Alex Estética"
-                                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
+                                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(201,168,76,0.35)]"
                             />
                             <div className="leading-tight">
-                                <div className="text-sm font-semibold tracking-wide text-amber-100">
+                                <div className="font-[family:var(--font-cormorant)] text-lg font-medium tracking-[0.04em] text-[#fff4df]">
                                     {SITE.brand}
                                 </div>
-                                <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
+                                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54">
+                                    {SITE.city}
+                                </div>
                             </div>
                         </a>
 
                         <div className="flex items-center gap-2">
-                            <a
-                                href={whatsappCurso}
-                                className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-4 py-2 text-xs font-semibold text-black hover:brightness-110"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                Agendar
-                            </a>
-
                             <button
                                 type="button"
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10"
                                 onClick={() => setMenuOpen((v) => !v)}
                                 aria-label="Abrir menú"
                                 aria-expanded={menuOpen}
@@ -707,7 +597,7 @@ export default function CursoPage() {
                 </div>
 
                 {menuOpen ? (
-                    <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
+                    <div className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.76)] backdrop-blur-xl sm:hidden">
                         <div className="mx-auto max-w-6xl px-5 py-3">
                             <div className="flex flex-col gap-1">
                                 {[
@@ -720,7 +610,7 @@ export default function CursoPage() {
                                     <a
                                         key={x.href}
                                         href={x.href}
-                                        className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         {x.label}
@@ -732,7 +622,7 @@ export default function CursoPage() {
                                         href={SITE.instagramUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         Instagram
@@ -744,344 +634,292 @@ export default function CursoPage() {
                 ) : null}
             </header>
 
-            {/* ✅ HERO */}
-            <section className="relative isolate overflow-hidden border-b border-white/10">
-                <div className="absolute inset-0 -z-20 bg-black">
-                    <img
-                        src={SITE.cursoHeroImg}
-                        alt="Curso post-quirúrgico - Alex Estética"
-                        className="h-full w-full object-cover opacity-95"
-                        loading="eager"
-                    />
+            {/* HERO */}
+            <section
+                className="relative min-h-[58vh] sm:min-h-[62vh] overflow-hidden px-5 py-20 text-center sm:px-10 sm:py-24"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(to bottom, rgba(10,10,10,0.28), rgba(10,10,10,0.60)),
+                        radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%),
+                        url(${SITE.cursoHeroImg})
+                    `,
+                    backgroundSize: "cover, cover, cover",
+                    backgroundPosition: "center, center, center",
+                    backgroundRepeat: "no-repeat, no-repeat, no-repeat",
+                }}
+            >
+                <div className="mx-auto max-w-4xl">
+                    <span className="mb-5 inline-block text-[10.5px] font-normal uppercase tracking-[0.30em] text-[#C9A84C]">
+                        Formación Presencial · {SITE.city}
+                    </span>
 
-                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45),rgba(0,0,0,0.92))]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(1200px_650px_at_50%_15%,rgba(255,215,128,0.14),transparent_60%)]" />
+                    <h1 className="font-[family:var(--font-cormorant)] text-[42px] font-light leading-[1.1] text-[#FAF8F3] sm:text-[68px] drop-shadow-[0_8px_26px_rgba(0,0,0,0.28)]">
+                        {COURSE.nameTop}
+                        <br />
+                        <em className="font-normal italic text-[#C9A84C]">
+                            {COURSE.nameBottom}
+                        </em>
+                    </h1>
 
-                    <div
-                        className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-screen
-            bg-[radial-gradient(circle_at_12%_28%,rgba(255,215,128,0.28)_0,transparent_18%),
-                radial-gradient(circle_at_28%_20%,rgba(255,215,128,0.18)_0,transparent_22%),
-                radial-gradient(circle_at_72%_24%,rgba(255,215,128,0.16)_0,transparent_22%),
-                radial-gradient(circle_at_88%_34%,rgba(255,215,128,0.12)_0,transparent_22%),
-                radial-gradient(circle_at_25%_82%,rgba(255,215,128,0.10)_0,transparent_22%)]"
-                    />
-                </div>
+                    <p className="mx-auto mt-6 max-w-[560px] text-[15px] leading-[1.7] text-[#e7dcc5]">
+                        Aprende a acompañar procesos postquirúrgicos con más criterio,
+                        seguridad y estructura profesional. Técnica, observación y
+                        experiencia premium aplicadas a cabina real.
+                    </p>
 
-                <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-                    <div className="text-center">
-                        <h1 className="font-serif tracking-[0.06em]">
-                            <span
-                                className={[
-                                    "block text-[2.15rem] leading-[1.05] sm:text-[4.1rem]",
-                                    "text-transparent bg-clip-text",
-                                    "bg-[linear-gradient(90deg,rgba(255,232,170,0.92),rgba(255,208,120,0.98),rgba(255,232,170,0.90))]",
-                                    "drop-shadow-[0_0_26px_rgba(255,215,128,0.18)]",
-                                ].join(" ")}
-                            >
-                                {COURSE.nameTop}
-                            </span>
-
-                            <span
-                                className={[
-                                    "mt-4 block text-sm sm:text-lg",
-                                    "text-transparent bg-clip-text",
-                                    "bg-[linear-gradient(90deg,rgba(255,232,170,0.82),rgba(255,208,120,0.90),rgba(255,232,170,0.78))]",
-                                    "tracking-[0.38em]",
-                                ].join(" ")}
-                            >
-                                {COURSE.nameBottom}
-                            </span>
-                        </h1>
-                    </div>
-
-                    <div className="mt-10">
-                        <div className="mx-auto max-w-4xl rounded-[2rem] border border-white/10 bg-black/35 p-7 backdrop-blur sm:p-10">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/40 px-3 py-1 text-xs text-amber-100/80">
-                                <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
-                                El auge del post-quirúrgico
-                            </div>
-
-                            <h2 className="mt-5 text-2xl sm:text-3xl font-semibold text-amber-100">
-                                Una oportunidad real de especialización
-                            </h2>
-
-                            <p className="mt-4 text-sm sm:text-base leading-relaxed text-amber-100/75">
-                                En la actualidad, el sector del bienestar crece impulsado por el aumento
-                                de las cirugías estéticas. Procedimientos como la{" "}
-                                <span className="text-amber-100 font-semibold">
-                                    abdominoplastia
-                                </span>{" "}
-                                y la{" "}
-                                <span className="text-amber-100 font-semibold">
-                                    lipoescultura
-                                </span>{" "}
-                                se han consolidado como los más demandados, y con ello aparece una
-                                necesidad crítica en el mercado:{" "}
-                                <span className="text-amber-100 font-semibold">
-                                    profesionales capacitados en tratamientos post-operatorios
-                                </span>{" "}
-                                para acompañar una recuperación segura, responsable y con resultados.
-                            </p>
-
-                            <p className="mt-4 text-sm sm:text-base leading-relaxed text-amber-100/75">
-                                Este curso está diseñado para que domines el proceso{" "}
-                                <span className="text-amber-100 font-semibold">
-                                    de principio a fin
-                                </span>
-                                : desde entender qué ocurre en el tejido y el sistema linfático, hasta
-                                aplicar protocolos por fases, trabajar con compresión, usar aparatología
-                                con criterio y saber reconocer señales de alerta.
-                            </p>
-
-                            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
-                                    <div className="text-xs text-amber-100/60">Lo que consigues</div>
-                                    <div className="mt-2 text-sm font-semibold text-amber-100">
-                                        Criterio + técnica
-                                    </div>
-                                    <div className="mt-2 text-sm text-amber-100/70">
-                                        Saber qué hacer, cuándo hacerlo y cuándo derivar.
-                                    </div>
-                                </div>
-
-                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
-                                    <div className="text-xs text-amber-100/60">Enfoque</div>
-                                    <div className="mt-2 text-sm font-semibold text-amber-100">
-                                        Protocolos por fases
-                                    </div>
-                                    <div className="mt-2 text-sm text-amber-100/70">
-                                        Edema → fibrosis → recuperación estable y resultados.
-                                    </div>
-                                </div>
-
-                                <div className="rounded-[1.6rem] border border-white/10 bg-black/30 p-5">
-                                    <div className="text-xs text-amber-100/60">Salida</div>
-                                    <div className="mt-2 text-sm font-semibold text-amber-100">
-                                        Servicio premium
-                                    </div>
-                                    <div className="mt-2 text-sm text-amber-100/70">
-                                        Cabina profesional, comunicación y fidelización.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs text-amber-100/80">
-                                    <span className="h-2 w-2 rounded-full bg-amber-300/90" />
-                                    Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-12">
-                        <div className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-2 sm:hidden">
-                            <div className="min-w-[220px]">
-                                <FeatureTileBanner
-                                    icon={<IconHand />}
-                                    title="DRENAJE LINFÁTICO MANUAL POSTQUIRÚRGICO"
-                                />
-                            </div>
-                            <div className="min-w-[220px]">
-                                <FeatureTileBanner
-                                    icon={<IconClipboard />}
-                                    title="TIPOS DE CIRUGÍAS Y PROTOCOLOS"
-                                />
-                            </div>
-                            <div className="min-w-[220px]">
-                                <FeatureTileBanner
-                                    icon={<IconWarning />}
-                                    title="MANEJO DE COMPLICACIONES"
-                                />
-                            </div>
-                            <div className="min-w-[220px]">
-                                <FeatureTileBanner
-                                    icon={<IconJacket />}
-                                    title="TERAPIA DE COMPRESIÓN Y APARATOLOGÍA"
-                                />
-                            </div>
-                            <div className="min-w-[220px]">
-                                <FeatureTileBanner
-                                    icon={<IconShield />}
-                                    title="SEGURIDAD & ÉTICA PROFESIONAL"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="hidden grid-cols-5 gap-4 sm:grid">
-                            <FeatureTileBanner
-                                icon={<IconHand />}
-                                title="DRENAJE LINFÁTICO MANUAL POSTQUIRÚRGICO"
-                            />
-                            <FeatureTileBanner
-                                icon={<IconClipboard />}
-                                title="TIPOS DE CIRUGÍAS Y PROTOCOLOS"
-                            />
-                            <FeatureTileBanner
-                                icon={<IconWarning />}
-                                title="MANEJO DE COMPLICACIONES"
-                            />
-                            <FeatureTileBanner
-                                icon={<IconJacket />}
-                                title="TERAPIA DE COMPRESIÓN Y APARATOLOGÍA"
-                            />
-                            <FeatureTileBanner
-                                icon={<IconShield />}
-                                title="SEGURIDAD & ÉTICA PROFESIONAL"
-                            />
-                        </div>
+                    <div className="mt-9 flex flex-wrap justify-center gap-[14px]">
+                        <Button href={whatsappReserva} variant="gold">
+                            📲 Reservar mi plaza
+                        </Button>
+                        <Button
+                            href={whatsappTemario}
+                            variant="outline"
+                            className="bg-[rgba(10,10,10,0.18)] backdrop-blur-[3px]"
+                        >
+                            Ver temario
+                        </Button>
                     </div>
                 </div>
             </section>
 
-            <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+            <section className="border-y border-[rgba(201,168,76,0.10)] bg-transparent px-5 py-12 sm:px-10">
+                <div className="mx-auto max-w-6xl">
+                    <p className="text-center text-[13px] uppercase tracking-[0.04em] text-[#7A7168]">
+                        VISTA RÁPIDA DEL CURSO
+                    </p>
+                    <h2 className="mt-2 text-center font-[family:var(--font-cormorant)] text-[26px] font-normal text-[#FAF8F3]">
+                        Todo lo importante de un vistazo
+                    </h2>
+                    <p className="mx-auto mt-2 max-w-[620px] text-center text-[13px] leading-[1.7] text-[#7A7168]">
+                        Antes de entrar al temario completo, aquí tienes una visión clara
+                        de la formación, su enfoque y lo que te llevarás al terminarla.
+                    </p>
+
+                    <div className="mt-8 grid gap-[10px] sm:grid-cols-2 lg:grid-cols-4">
+                        <StatCard label="Modalidad" value="Presencial" note="Aprendizaje guiado y práctica real" />
+                        <StatCard label="Duración" value="40h" note="20h teoría · 20h práctica" />
+                        <StatCard label="Enfoque" value="Premium" note="Cabina, seguridad y estructura" />
+                        <StatCard label="Salida" value="Real" note="Aplicación desde el primer día" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-5 py-[72px] sm:px-10">
                 <SectionTitle
-                    title="Qué vas a dominar"
-                    desc="Formación práctica + criterio profesional. Todo estructurado para aplicar desde el primer día."
+                    tag="Para quién es"
+                    title="Una formación con salida real"
+                    desc="Ideal tanto si ya trabajas en estética como si quieres especializarte en una de las áreas con mayor crecimiento del sector."
                 />
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-                        <div className="text-lg font-semibold text-amber-100">
-                            Método claro y seguro
-                        </div>
-                        <div className="mt-4 space-y-3">
-                            <OutlineDot>
-                                Fundamentos aplicados para entender el proceso post-quirúrgico.
-                            </OutlineDot>
-                            <OutlineDot>
-                                Higiene, ética y límites: actuar con responsabilidad y confianza.
-                            </OutlineDot>
-                            <OutlineDot>
-                                Protocolos por fases: qué hacer primero, qué sigue y cómo mantener.
-                            </OutlineDot>
-                        </div>
-                    </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                    <AudienceCard
+                        emoji="💼"
+                        title="Si ya trabajas en estética"
+                        items={[
+                            "Quieres elevar tu nivel técnico y trabajar con más seguridad.",
+                            "Buscas ofrecer un servicio más premium y mejor estructurado.",
+                            "Necesitas criterio para organizar protocolos por fases.",
+                            "Quieres comunicar mejor tu trabajo y fidelizar más.",
+                        ]}
+                    />
 
-                    <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 backdrop-blur">
-                        <div className="text-lg font-semibold text-amber-100">
-                            Técnica + resultados premium
-                        </div>
-                        <div className="mt-4 space-y-3">
-                            <OutlineDot>
-                                Drenaje linfático manual con secuencias y corrección de errores.
-                            </OutlineDot>
-                            <OutlineDot>
-                                Compresión, aparatología y complementarias: uso con criterio.
-                            </OutlineDot>
-                            <OutlineDot>
-                                Comunicación y seguimiento: continuidad, confianza y fidelización.
-                            </OutlineDot>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="mt-8 rounded-[2rem] border border-white/10 bg-black/30 p-7">
-                    <div className="text-sm font-semibold text-amber-100">
-                        Nota importante (estilo profesional)
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-amber-100/70">
-                        Esta formación es estética y se trabaja respetando siempre las
-                        indicaciones del cirujano. Aprenderás a identificar señales de alerta
-                        y a derivar cuando corresponda, priorizando la seguridad del cliente.
-                    </p>
+                    <AudienceCard
+                        emoji="🚀"
+                        title="Si quieres especializarte"
+                        items={[
+                            "Te interesa entrar en el postquirúrgico con una base sólida.",
+                            "Quieres aprender una metodología clara y aplicable.",
+                            "Buscas diferenciarte con una formación seria y elegante.",
+                            "Quieres sentirte preparada antes de atender estos casos.",
+                        ]}
+                    />
                 </div>
             </section>
 
-            <section className="mx-auto max-w-6xl px-5 pb-14 sm:pb-16">
-                <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/5 p-7 backdrop-blur sm:p-10">
-                    <div className="pointer-events-none absolute inset-0">
-                        <div className="absolute -left-28 -top-28 h-72 w-72 rounded-full bg-amber-300/10 blur-3xl" />
-                        <div className="absolute -right-36 -bottom-36 h-96 w-96 rounded-full bg-amber-300/8 blur-3xl" />
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
-                        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/15 to-transparent" />
+            <section className="mx-auto max-w-6xl px-5 pb-[72px] sm:px-10">
+                <GlassCard className="p-7 sm:p-8">
+                    <SectionTitle
+                        tag="Qué vas a dominar"
+                        title="No es solo hacer maniobras"
+                        desc="La diferencia entre una profesional correcta y una profesional premium está en el criterio, la observación y la manera de acompañar cada fase."
+                    />
+
+                    <div className="grid gap-6 md:grid-cols-2">
+                        <div className="space-y-5">
+                            <PointItem
+                                title="Entender lo que ocurre en el cuerpo"
+                                desc="Aprenderás a leer edema, inflamación, tejido, fibrosis y cicatrización con lógica clara."
+                            />
+                            <PointItem
+                                title="Aplicar protocolos con estructura"
+                                desc="Sabrás organizar sesiones según la etapa de recuperación, sin improvisar."
+                            />
+                            <PointItem
+                                title="Trabajar con más seguridad"
+                                desc="Identificarás señales normales, señales de alerta y límites de actuación."
+                            />
+                        </div>
+
+                        <div className="space-y-5">
+                            <PointItem
+                                title="Explicar mejor al cliente"
+                                desc="Aprenderás a comunicar qué haces, por qué lo haces y qué puede esperar realmente."
+                            />
+                            <PointItem
+                                title="Elevar la experiencia de cabina"
+                                desc="Desde higiene y orden hasta seguimiento y fidelización."
+                            />
+                            <PointItem
+                                title="Tener materiales listos"
+                                desc="Contarás con plantillas, guías y apoyo descargable para implementar el sistema."
+                            />
+                        </div>
                     </div>
 
-                    <div className="relative">
-                        <SectionTitle
-                            title="Temario"
-                            desc="Cada módulo está pensado para que trabajes con criterio profesional. Abre cada bloque para ver los puntos clave."
+                    <div className="mt-7 border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.04)] p-[14px_18px]">
+                        <p className="text-[13px] leading-[1.7] text-[#7A7168]">
+                            ⚠️ <strong className="font-medium text-[#C9A84C]">Importante:</strong> Esta formación está enfocada al trabajo estético y al acompañamiento responsable del cliente.
+                        </p>
+                    </div>
+                </GlassCard>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-5 pb-[72px] sm:px-10">
+                <GlassCard className="p-7 sm:p-8">
+                    <SectionTitle
+                        tag="Metodología"
+                        title="Cómo se vive esta formación"
+                        desc="La idea no es que salgas con teoría bonita, sino con una estructura clara para aplicar en casos reales."
+                    />
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        <InfoCard emoji="1️⃣" title="Comprender" desc="Primero entiendes la lógica del proceso y el porqué de cada fase." />
+                        <InfoCard emoji="2️⃣" title="Observar" desc="Aprendes a valorar tejidos, evolución, alertas y necesidades reales." />
+                        <InfoCard emoji="3️⃣" title="Aplicar" desc="Pasas a secuencias, protocolos, compresión y estructura de sesión." />
+                        <InfoCard emoji="4️⃣" title="Elevar" desc="Trabajas imagen, seguimiento y experiencia premium del cliente." />
+                    </div>
+                </GlassCard>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-5 pb-[100px] sm:px-10">
+                <SectionTitle
+                    tag="Programa completo"
+                    title="Temario del curso"
+                    desc="Abre cada módulo para ver exactamente qué trabajarás dentro de la formación."
+                />
+
+                <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="inline-flex flex-wrap gap-2">
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                            {COURSE.modality}
+                        </span>
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                            {COURSE.hours}
+                        </span>
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                            {COURSE.breakdown}
+                        </span>
+                    </div>
+
+                    <Button href={whatsappTemario} variant="outline" className="w-full sm:w-auto">
+                        📩 Pedir info del temario
+                    </Button>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    {modules.map((m, idx) => (
+                        <ModuleCard
+                            key={m.title}
+                            index={idx + 1}
+                            title={m.title}
+                            summary={m.summary}
+                            points={m.points}
+                            chips={m.chips}
+                            emoji={m.emoji}
                         />
-
-                        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/35 px-4 py-2 text-xs text-amber-100/80 backdrop-blur">
-                                <span className="h-2 w-2 rounded-full bg-amber-300/90" />
-                                Curso {COURSE.modality} · {COURSE.hours} · {COURSE.breakdown}
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            {modules.map((m, idx) => (
-                                <FancyDetails
-                                    key={m.title}
-                                    index={idx + 1}
-                                    title={m.title}
-                                    summary={m.summary}
-                                    points={m.points}
-                                    chips={m.chips}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
-            <section className="mx-auto max-w-6xl px-5 pb-16">
-                <div className="rounded-[2rem] border border-amber-300/15 bg-white/5 p-8 backdrop-blur sm:p-10">
-                    <div className="text-2xl font-semibold text-amber-100">
-                        ¿Quieres reservar tu cupo?
-                    </div>
-                    <p className="mt-2 max-w-3xl text-amber-100/70">
-                        Escríbenos por WhatsApp y te enviamos precio, próximas fechas, cupos
-                        disponibles y requisitos. Si tienes experiencia previa o estás
-                        empezando, también te orientamos para que sepas si este curso encaja
-                        contigo.
+            <section className="border-t border-[rgba(201,168,76,0.10)] bg-transparent px-5 py-16 sm:px-10">
+                <div className="mx-auto max-w-6xl">
+                    <h2 className="text-center font-[family:var(--font-cormorant)] text-[38px] font-light text-[#FAF8F3]">
+                        Lo que te llevarás al finalizar
+                    </h2>
+                    <p className="mt-2 text-center text-[13px] tracking-[0.04em] text-[#7A7168]">
+                        Formación diseñada para aplicar, comunicar y diferenciarte
                     </p>
 
-                    <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                        <Button href={whatsappCurso} variant="gold">
-                            Hablar por WhatsApp ahora
-                        </Button>
-                        {SITE.instagramUrl ? (
-                            <Button href={SITE.instagramUrl} variant="outline">
-                                Ver Instagram
-                            </Button>
-                        ) : null}
-                    </div>
+                    <div className="mt-10 grid gap-5 md:grid-cols-3">
+                        <GlassCard className="p-6">
+                            <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
+                            <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más seguridad</h3>
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                                Sabrás cómo actuar con lógica, límites y criterio profesional.
+                            </p>
+                        </GlassCard>
 
-                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-3xl border border-white/10 bg-black/30 p-6">
-                            <div className="text-xs text-amber-100/60">Dirección</div>
-                            <div className="mt-2 text-sm font-semibold text-amber-100">
-                                {SITE.addressLine}
-                            </div>
-                            <div className="mt-3 text-sm text-amber-100/70">{SITE.city}</div>
-                        </div>
+                        <GlassCard className="p-6">
+                            <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
+                            <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más estructura</h3>
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                                Tendrás una metodología clara para organizar fases, sesiones y seguimiento.
+                            </p>
+                        </GlassCard>
 
-                        <div className="rounded-3xl border border-white/10 bg-black/30 p-6">
-                            <div className="text-xs text-amber-100/60">Contacto directo</div>
-                            <div className="mt-2 text-sm font-semibold text-amber-100">
-                                WhatsApp: +34 661 026 192
-                            </div>
-
-                            {SITE.instagramUrl ? (
-                                <a
-                                    href={SITE.instagramUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="mt-3 inline-flex text-sm font-semibold text-amber-200 hover:text-amber-100"
-                                >
-                                    Instagram → @alex_postquirurgicoscanarias
-                                </a>
-                            ) : null}
-                        </div>
+                        <GlassCard className="p-6">
+                            <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
+                            <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más valor</h3>
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                                Elevarás tu imagen, tu experiencia de cabina y la percepción premium de tu trabajo.
+                            </p>
+                        </GlassCard>
                     </div>
                 </div>
             </section>
 
-            <footer className="border-t border-white/10">
-                <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-amber-100/60">
-                    © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+            <section className="relative overflow-hidden bg-transparent px-5 py-[72px] text-center sm:px-10">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(201,168,76,0.05)_0%,transparent_70%)]" />
+                <div className="relative mx-auto max-w-4xl">
+                    <h2 className="font-[family:var(--font-cormorant)] text-[38px] sm:text-[54px] font-light leading-[1.1] text-[#FAF8F3]">
+                        ¿Lista para llevar tu nivel
+                        <br />
+                        <em className="italic text-[#C9A84C]">al siguiente punto?</em>
+                    </h2>
+
+                    <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#7A7168]">
+                        Escríbenos por WhatsApp y te enviamos precio, próximas fechas,
+                        requisitos y disponibilidad.
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap justify-center gap-[14px]">
+                        <Button href={whatsappReserva} variant="gold">
+                            📲 Reservar mi cupo
+                        </Button>
+                        <Button href={whatsappCurso} variant="outline">
+                            Consultar información
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* FOOTER COMO EL DE TU REFERENCIA */}
+            <footer className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.45)]">
+                <div className="mx-auto max-w-6xl px-5 py-10">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <div className="font-[family:var(--font-cormorant)] text-2xl font-light tracking-[0.06em] text-amber-200">
+                                {SITE.brand}
+                            </div>
+                            <div className="mt-1 text-[11px] uppercase tracking-[0.22em] text-[#d7c6a7]/44">
+                                {SITE.city}
+                            </div>
+                        </div>
+
+                        <div className="text-sm text-[#d7c6a7]/54">
+                            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                        </div>
+                    </div>
                 </div>
             </footer>
         </main>

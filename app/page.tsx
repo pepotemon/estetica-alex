@@ -29,10 +29,6 @@ function waLink(text: string) {
   return `https://wa.me/${SITE.phone}?text=${encodeURIComponent(text)}`;
 }
 
-/** ✅ Botón reutilizable:
- *  - Por defecto abre nueva pestaña (ideal para WhatsApp / Instagram)
- *  - Para navegación interna usa: newTab={false}
- */
 function Button({
   href,
   children,
@@ -47,21 +43,18 @@ function Button({
   newTab?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+    "inline-flex items-center justify-center gap-2 px-7 py-3 text-[12.5px] tracking-[0.10em] uppercase transition-all duration-200";
   const styles =
     variant === "gold"
-      ? "bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 text-black hover:brightness-110"
-      : "border border-amber-300/30 bg-white/5 text-amber-100 hover:bg-white/10";
-
-  const target = newTab ? "_blank" : undefined;
-  const rel = newTab ? "noreferrer" : undefined;
+      ? "bg-[#C9A84C] text-black hover:bg-[#E2C47A] hover:-translate-y-[2px]"
+      : "border border-[rgba(201,168,76,0.40)] text-[#C9A84C] hover:border-[#C9A84C] hover:bg-[rgba(201,168,76,0.06)]";
 
   return (
     <a
       href={href}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noreferrer" : undefined}
       className={`${base} ${styles} ${className}`}
-      target={target}
-      rel={rel}
     >
       {children}
     </a>
@@ -81,27 +74,117 @@ function NavLink({
     <a
       href={href}
       onClick={onClick}
-      className="text-sm font-medium text-amber-100/80 hover:text-amber-100 transition"
+      className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
     >
       {children}
     </a>
   );
 }
 
+function Sep() {
+  return <span className="select-none text-[#d7c6a7]/28">|</span>;
+}
+
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/80 backdrop-blur sm:backdrop-blur">
+    <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.20)] bg-[rgba(18,14,10,0.45)] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-amber-100/82 backdrop-blur-[6px]">
       <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
       {children}
     </span>
   );
 }
 
-function SectionTitle({ title, desc }: { title: string; desc?: string }) {
+function SectionTitle({
+  title,
+  desc,
+  overline,
+}: {
+  title: string;
+  desc?: string;
+  overline?: string;
+}) {
   return (
-    <div className="mb-7">
-      <div className="text-2xl font-semibold text-amber-100">{title}</div>
-      {desc ? <p className="mt-2 text-amber-100/70">{desc}</p> : null}
+    <div className="mb-10 text-center sm:text-left">
+      {overline ? (
+        <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#d9b861]/85">
+          {overline}
+        </div>
+      ) : null}
+
+      <h2 className="font-[family:var(--font-cormorant)] text-[34px] sm:text-[48px] font-light leading-[1.08] text-[#FAF8F3]">
+        {title}
+      </h2>
+
+      {desc ? (
+        <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#b8a78b] sm:text-[14px]">
+          {desc}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function GlassCard({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={[
+        "border border-[rgba(201,168,76,0.14)]",
+        "bg-[linear-gradient(180deg,rgba(24,18,13,0.74)_0%,rgba(15,12,9,0.52)_100%)]",
+        "backdrop-blur-[10px]",
+        "shadow-[0_10px_30px_rgba(0,0,0,0.22)]",
+        className,
+      ].join(" ")}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ValueCard({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <GlassCard className="p-6 transition-colors hover:border-[rgba(201,168,76,0.28)]">
+      <div className="mb-4 flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[#E2C47A]">
+          {icon}
+        </div>
+        <h3 className="font-[family:var(--font-cormorant)] text-[24px] font-normal text-[#FAF8F3]">
+          {title}
+        </h3>
+      </div>
+      <p className="text-[13.5px] leading-[1.7] text-[#b8a78b]">{desc}</p>
+    </GlassCard>
+  );
+}
+
+function CheckItem({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span className="mt-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-[rgba(201,168,76,0.25)] bg-[rgba(201,168,76,0.10)]">
+        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-amber-200" fill="none">
+          <path
+            d="M6 12l4 4 8-9"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      <div className="text-sm leading-relaxed text-[#b8a78b]">{children}</div>
     </div>
   );
 }
@@ -109,7 +192,7 @@ function SectionTitle({ title, desc }: { title: string; desc?: string }) {
 function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
   if (name === "shield") {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
         <path
           d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"
           stroke="currentColor"
@@ -127,7 +210,7 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
   }
   if (name === "spark") {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
         <path
           d="M12 2l1.6 6.2L20 10l-6.4 1.8L12 18l-1.6-6.2L4 10l6.4-1.8L12 2z"
           stroke="currentColor"
@@ -139,7 +222,7 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
   }
   if (name === "star") {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
         <path
           d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z"
           stroke="currentColor"
@@ -150,7 +233,7 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
     );
   }
   return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
       <path
         d="M12 7v5l3 2"
         stroke="currentColor"
@@ -166,117 +249,6 @@ function Icon({ name }: { name: "shield" | "spark" | "star" | "clock" }) {
     </svg>
   );
 }
-
-function HeroIcon({
-  children,
-  title,
-  subtitle,
-}: {
-  children: React.ReactNode;
-  title: string;
-  subtitle: string;
-}) {
-  return (
-    <div className="rounded-[1.6rem] border border-amber-300/15 bg-black/35 p-5 sm:backdrop-blur">
-      <div className="flex items-center gap-3">
-        <div className="grid h-12 w-12 place-items-center rounded-2xl border border-amber-300/20 bg-black/40">
-          {children}
-        </div>
-        <div className="min-w-0">
-          <div className="text-sm font-semibold text-amber-100">{title}</div>
-          <div className="mt-1 text-xs text-amber-100/60">{subtitle}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IconShieldBig() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-      <path
-        d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M9 12l2 2 4-5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconSparkBig() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-      <path
-        d="M12 2l1.6 6.2L20 10l-6.4 1.8L12 18l-1.6-6.2L4 10l6.4-1.8L12 2z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconStarBig() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-      <path
-        d="M12 3l2.7 5.6 6.1.9-4.4 4.2 1 6.1L12 17.8 6.6 19.8l1-6.1-4.4-4.2 6.1-.9L12 3z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconClockBig() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7 text-amber-200" fill="none">
-      <path
-        d="M12 7v5l3 2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-    </svg>
-  );
-}
-
-function CheckItem({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-start gap-3">
-      <span className="mt-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-amber-300/25 bg-amber-300/10">
-        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-amber-200" fill="none">
-          <path
-            d="M6 12l4 4 8-9"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      <div className="text-sm text-amber-100/75">{children}</div>
-    </div>
-  );
-}
-
-/* ===========================
-   Instagram (cards)
-=========================== */
 
 type InstaItem = {
   url: string;
@@ -285,9 +257,21 @@ type InstaItem = {
 };
 
 const INSTAGRAM_ITEMS: InstaItem[] = [
-  { url: "https://www.instagram.com/reel/DSdeBkKiOfg/", thumb: "/instagram/reel-1.jpg", label: "Reel" },
-  { url: "https://www.instagram.com/reel/DIi9gWiqLHJ/", thumb: "/instagram/reel-2.jpg", label: "Reel" },
-  { url: "https://www.instagram.com/reel/DSIS3NmitnY/", thumb: "/instagram/reel-3.jpg", label: "Reel" },
+  {
+    url: "https://www.instagram.com/reel/DSdeBkKiOfg/",
+    thumb: "/instagram/reel-1.jpg",
+    label: "Reel",
+  },
+  {
+    url: "https://www.instagram.com/reel/DIi9gWiqLHJ/",
+    thumb: "/instagram/reel-2.jpg",
+    label: "Reel",
+  },
+  {
+    url: "https://www.instagram.com/reel/DSIS3NmitnY/",
+    thumb: "/instagram/reel-3.jpg",
+    label: "Reel",
+  },
 ];
 
 function InstagramCard({ item }: { item: InstaItem }) {
@@ -296,7 +280,7 @@ function InstagramCard({ item }: { item: InstaItem }) {
       href={item.url}
       target="_blank"
       rel="noreferrer"
-      className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5"
+      className="group relative overflow-hidden border border-[rgba(201,168,76,0.14)] bg-[rgba(20,15,11,0.48)] shadow-[0_16px_44px_rgba(0,0,0,0.24)]"
       aria-label="Ver reel en Instagram"
       title="Ver reel en Instagram"
     >
@@ -307,21 +291,21 @@ function InstagramCard({ item }: { item: InstaItem }) {
           className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-[1.02]"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,6,5,0.82),transparent_60%)]" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-xs font-semibold text-amber-100/90">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-100/88">
               {item.label ?? "Instagram"}
             </div>
-            <div className="mt-1 text-[11px] text-amber-100/60 truncate">
+            <div className="mt-1 text-[11px] text-[#b8a78b] truncate">
               Ver en Instagram
             </div>
           </div>
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/25 bg-black/40 px-4 py-2 text-xs font-semibold text-amber-100/90">
+          <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.22)] bg-[rgba(12,9,7,0.55)] px-4 py-2 text-xs font-semibold text-amber-100/90">
             <svg viewBox="0 0 24 24" className="h-4 w-4 text-amber-200" fill="none">
               <path d="M8 5l11 7-11 7V5z" fill="currentColor" opacity="0.9" />
             </svg>
@@ -333,24 +317,75 @@ function InstagramCard({ item }: { item: InstaItem }) {
   );
 }
 
-/* ===========================
-   Reviews
-=========================== */
-
 type Review = { name: string; when: string; stars: 5 | 4; text: string };
 
 const REVIEWS: Review[] = [
-  { name: "María C.", when: "Hace 2 semanas", stars: 5, text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión." },
-  { name: "Laura G.", when: "Hace 1 mes", stars: 5, text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré." },
-  { name: "Ana P.", when: "Hace 3 semanas", stars: 5, text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp." },
-  { name: "Diana R.", when: "Hace 5 días", stars: 5, text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado." },
-  { name: "Sofía M.", when: "Hace 2 meses", stars: 5, text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!" },
-  { name: "Valentina S.", when: "Hace 1 semana", stars: 5, text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso." },
-  { name: "Carolina T.", when: "Hace 3 meses", stars: 5, text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real." },
-  { name: "Paula N.", when: "Hace 4 semanas", stars: 5, text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita." },
-  { name: "Daniela V.", when: "Hace 6 días", stars: 5, text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación." },
-  { name: "Isabel A.", when: "Hace 2 meses", stars: 4, text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena." },
-  { name: "Natalia F.", when: "Hace 1 mes", stars: 5, text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti." },
+  {
+    name: "María C.",
+    when: "Hace 2 semanas",
+    stars: 5,
+    text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión.",
+  },
+  {
+    name: "Laura G.",
+    when: "Hace 1 mes",
+    stars: 5,
+    text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré.",
+  },
+  {
+    name: "Ana P.",
+    when: "Hace 3 semanas",
+    stars: 5,
+    text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp.",
+  },
+  {
+    name: "Diana R.",
+    when: "Hace 5 días",
+    stars: 5,
+    text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado.",
+  },
+  {
+    name: "Sofía M.",
+    when: "Hace 2 meses",
+    stars: 5,
+    text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!",
+  },
+  {
+    name: "Valentina S.",
+    when: "Hace 1 semana",
+    stars: 5,
+    text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso.",
+  },
+  {
+    name: "Carolina T.",
+    when: "Hace 3 meses",
+    stars: 5,
+    text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real.",
+  },
+  {
+    name: "Paula N.",
+    when: "Hace 4 semanas",
+    stars: 5,
+    text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita.",
+  },
+  {
+    name: "Daniela V.",
+    when: "Hace 6 días",
+    stars: 5,
+    text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación.",
+  },
+  {
+    name: "Isabel A.",
+    when: "Hace 2 meses",
+    stars: 4,
+    text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena.",
+  },
+  {
+    name: "Natalia F.",
+    when: "Hace 1 mes",
+    stars: 5,
+    text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti.",
+  },
 ];
 
 function StarRow({ value }: { value: number }) {
@@ -384,27 +419,33 @@ function ReviewsPanel() {
   const visible = expanded ? REVIEWS : REVIEWS.slice(0, 3);
 
   const avg =
-    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) / 10;
+    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) /
+    10;
 
   return (
     <div className="mt-10">
-      <div className="rounded-[2.2rem] border border-white/10 bg-white/5 p-7 sm:backdrop-blur sm:p-8">
+      <GlassCard className="p-7 sm:p-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-sm font-semibold text-amber-100">Opiniones de clientes</div>
-            <div className="mt-2 flex items-center gap-3">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82">
+              Opiniones
+            </div>
+            <div className="mt-3 font-[family:var(--font-cormorant)] text-3xl font-light text-[#fffaf2]">
+              Lo que dicen nuestras clientas
+            </div>
+            <div className="mt-3 flex items-center gap-3">
               <StarRow value={avg} />
-              <div className="text-sm text-amber-100/70">
+              <div className="text-sm text-[#b8a78b]">
                 {avg} / 5 · {REVIEWS.length} reseñas
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="rounded-full border border-amber-300/20 bg-black/30 px-3 py-1 text-xs text-amber-100/70">
+            <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-amber-100/70">
               Verificadas
             </span>
-            <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-amber-100/60">
+            <span className="border border-white/10 bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-[#b8a78b]">
               Experiencia premium
             </span>
           </div>
@@ -414,15 +455,17 @@ function ReviewsPanel() {
           {visible.map((r, idx) => (
             <div
               key={`${r.name}-${idx}`}
-              className="rounded-2xl border border-white/10 bg-black/30 p-5"
+              className="border border-[rgba(201,168,76,0.12)] bg-[rgba(20,15,11,0.40)] p-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="text-sm font-semibold text-amber-100">{r.name}</div>
-                    <div className="text-xs text-amber-100/50">{r.when}</div>
+                    <div className="font-[family:var(--font-cormorant)] text-[24px] leading-none font-light text-[#fffaf2]">
+                      {r.name}
+                    </div>
+                    <div className="text-xs text-[#b8a78b]">{r.when}</div>
                   </div>
-                  <div className="mt-2 text-sm text-amber-100/70 leading-relaxed">
+                  <div className="mt-3 text-sm leading-relaxed text-[#b8a78b]">
                     {r.text}
                   </div>
                 </div>
@@ -440,13 +483,13 @@ function ReviewsPanel() {
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center justify-center rounded-full border border-amber-300/25 bg-black/30 px-5 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-300/10 hover:text-amber-100 transition"
+              className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100"
             >
               {expanded ? "Ocultar comentarios" : "Mostrar más comentarios"}
             </button>
           </div>
         ) : null}
-      </div>
+      </GlassCard>
     </div>
   );
 }
@@ -462,20 +505,18 @@ export default function Page() {
     `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
-  React.useEffect(() => { }, []);
-
   return (
-    <main className="relative min-h-screen bg-black text-white">
+    <main className="relative min-h-screen overflow-x-hidden bg-[#0A0A0A] text-white">
       <Script src="https://www.instagram.com/embed.js" strategy="lazyOnload" />
 
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(1000px_600px_at_15%_10%,rgba(255,215,128,0.18),transparent_60%),radial-gradient(900px_500px_at_85%_20%,rgba(255,215,128,0.12),transparent_55%),radial-gradient(900px_600px_at_50%_85%,rgba(255,215,128,0.10),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.92))]" />
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.06)_0%,transparent_34%),linear-gradient(180deg,#0b0806_0%,#120d09_42%,#0d0907_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
       </div>
 
-      <header className="sticky top-0 z-30 bg-black/60 sm:bg-black/50 sm:backdrop-blur">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
 
           <a
             href="/"
@@ -484,105 +525,88 @@ export default function Page() {
             aria-label="Ir al inicio"
             title="Inicio"
           >
-            <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
+            <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[1px]" />
             <img
               src={SITE.logoSrc}
               alt="Alex Estética"
-              className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]"
+              className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(201,168,76,0.34)]"
             />
           </a>
 
           <div className="hidden sm:flex h-full items-center justify-between">
-            {(() => {
-              const Sep = () => <span className="select-none text-amber-100/35">|</span>;
-              return (
-                <>
-                  <nav className="flex items-center gap-4">
-                    {/* ✅ CAMBIO: ahora va a /sobre */}
-                    <NavLink href="/sobre">Sobre Nosotros</NavLink>
-                    <Sep />
-                    <NavLink href="/#contacto">Contacto</NavLink>
-                  </nav>
+            <nav className="flex items-center gap-4">
+              <NavLink href="/sobre">Sobre Nosotros</NavLink>
+              <Sep />
+              <NavLink href="/#contacto">Contacto</NavLink>
+            </nav>
 
-                  <div className="w-[180px]" />
+            <div className="w-[180px]" />
 
-                  <div className="flex items-center gap-2">
-                    <nav className="flex items-center gap-4">
-                      <NavLink href="/servicios">Tratamientos</NavLink>
-                      <Sep />
-                      <NavLink href="/curso">Curso</NavLink>
-                    </nav>
+            <div className="flex items-center gap-2">
+              <nav className="flex items-center gap-4">
+                <NavLink href="/servicios">Tratamientos</NavLink>
+                <Sep />
+                <NavLink href="/curso">Curso</NavLink>
+              </nav>
 
-                    <a
-                      href={whatsappGeneral}
-                      className="ml-2 rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-semibold text-black hover:brightness-110"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Agende una consulta
-                    </a>
-
-                    {SITE.instagramUrl ? (
-                      <a
-                        href={SITE.instagramUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hidden h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 sm:inline-flex"
-                        aria-label="Instagram"
-                        title="Instagram"
-                      >
-                        <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-                          <path
-                            d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
-                            stroke="currentColor"
-                            strokeWidth="1.6"
-                          />
-                          <path
-                            d="M12 16a4 4 0 100-8 4 4 0 000 8z"
-                            stroke="currentColor"
-                            strokeWidth="1.6"
-                          />
-                          <path
-                            d="M17.5 6.5h.01"
-                            stroke="currentColor"
-                            strokeWidth="2.2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </a>
-                    ) : null}
-                  </div>
-                </>
-              );
-            })()}
+              {SITE.instagramUrl ? (
+                <a
+                  href={SITE.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10 sm:inline-flex"
+                  aria-label="Instagram"
+                  title="Instagram"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
+                    <path
+                      d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                    />
+                    <path
+                      d="M12 16a4 4 0 100-8 4 4 0 000 8z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                    />
+                    <path
+                      d="M17.5 6.5h.01"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </a>
+              ) : null}
+            </div>
           </div>
 
           <div className="flex sm:hidden h-full items-center justify-between">
-            <a href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
+            <a
+              href="/"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2"
+              aria-label="Ir al inicio"
+            >
               <img
                 src={SITE.logoSrc}
                 alt="Alex Estética"
-                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
+                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(201,168,76,0.35)]"
               />
               <div className="leading-tight">
-                <div className="text-sm font-semibold tracking-wide text-amber-100">{SITE.brand}</div>
-                <div className="text-[11px] text-amber-100/60">{SITE.city}</div>
+                <div className="font-[family:var(--font-cormorant)] text-lg font-medium tracking-[0.04em] text-[#fff4df]">
+                  {SITE.brand}
+                </div>
+                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54">
+                  {SITE.city}
+                </div>
               </div>
             </a>
 
             <div className="flex items-center gap-2">
-              <a
-                href={whatsappGeneral}
-                className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-4 py-2 text-xs font-semibold text-black hover:brightness-110"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Agendar
-              </a>
-
               <button
                 type="button"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10"
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label="Abrir menú"
                 aria-expanded={menuOpen}
@@ -599,22 +623,20 @@ export default function Page() {
         </div>
 
         {menuOpen ? (
-          <div className="border-t border-white/10 bg-black/70 sm:hidden">
+          <div className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.76)] backdrop-blur-xl sm:hidden">
             <div className="mx-auto max-w-6xl px-5 py-3">
               <div className="flex flex-col gap-1">
                 {[
                   { href: "/", label: "Inicio" },
                   { href: "/servicios", label: "Tratamientos" },
                   { href: "/curso", label: "Curso" },
-                  // ✅ CAMBIO: ahora va a /sobre
                   { href: "/sobre", label: "Sobre Nosotros" },
                   { href: "/#contacto", label: "Contacto" },
-
                 ].map((x) => (
                   <a
                     key={x.href}
                     href={x.href}
-                    className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                    className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                     onClick={() => setMenuOpen(false)}
                   >
                     {x.label}
@@ -626,7 +648,7 @@ export default function Page() {
                     href={SITE.instagramUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                    className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
                     onClick={() => setMenuOpen(false)}
                   >
                     Instagram
@@ -638,289 +660,353 @@ export default function Page() {
         ) : null}
       </header>
 
-      <section className="relative isolate overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 -z-20 bg-black">
-          <img
-            src={SITE.hero}
-            alt={`${SITE.brand} - ${SITE.city}`}
-            className="h-full w-full object-cover opacity-90"
-            loading="eager"
+      <div className="pt-20">
+        <section className="relative isolate overflow-hidden border-b border-[rgba(201,168,76,0.10)]">
+          <div className="absolute inset-0 -z-20">
+            <img
+              src={SITE.hero}
+              alt={`${SITE.brand} - ${SITE.city}`}
+              className="h-full w-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.02),rgba(10,10,10,0.18))]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,rgba(201,168,76,0.08)_0%,transparent_70%)]" />
+          </div>
+
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
+            <div className="max-w-3xl">
+              <Pill>{SITE.city} · Atención con cita previa</Pill>
+
+              <h1 className="mt-6 font-[family:var(--font-cormorant)] text-[44px] sm:text-[76px] font-light leading-[1.02] text-[#FAF8F3]">
+                Estética avanzada
+                <span className="block italic text-[#C9A84C]">con enfoque premium</span>
+              </h1>
+
+              <p className="mt-5 max-w-[560px] text-[15px] leading-[1.7] text-[#e8dcc3]">
+                Tratamientos faciales, corporales y depilación láser con protocolos seguros,
+                una atención cálida y resultados que se construyen con criterio.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-[14px]">
+                <Button href={whatsappGeneral} variant="gold">
+                  📲 Agendar por WhatsApp
+                </Button>
+                <Button href="/servicios" variant="outline" newTab={false}>
+                  Ver tratamientos
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+          <SectionTitle
+            overline="Por qué elegirnos"
+            title="Seguridad, técnica y acompañamiento"
+            desc="Cuidamos la experiencia completa: desde la valoración inicial hasta el seguimiento, con una estética más limpia, cercana y profesional."
           />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.30),rgba(0,0,0,0.86))]" />
-          <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_20%_20%,rgba(255,215,128,0.10),transparent_60%)]" />
-        </div>
 
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-          <div className="max-w-3xl">
-            <Pill>{SITE.city} · Atención con cita previa</Pill>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: "shield" as const,
+                t: "Seguridad",
+                d: "Protocolos claros y responsables en cada tratamiento.",
+              },
+              {
+                icon: "spark" as const,
+                t: "Calidad",
+                d: "Tecnología, técnica y detalle en cada sesión.",
+              },
+              {
+                icon: "star" as const,
+                t: "Resultados",
+                d: "Un enfoque realista, progresivo y personalizado.",
+              },
+              {
+                icon: "clock" as const,
+                t: "Atención",
+                d: "Puntualidad, seguimiento y trato premium.",
+              },
+            ].map((x) => (
+              <ValueCard
+                key={x.t}
+                icon={
+                  <span className="text-amber-200">
+                    <Icon name={x.icon} />
+                  </span>
+                }
+                title={x.t}
+                desc={x.d}
+              />
+            ))}
+          </div>
+        </section>
 
-            <h1 className="mt-6 text-4xl font-semibold leading-tight text-amber-100 sm:text-6xl">
-              Estética avanzada
-              <span className="block text-amber-200/90">con enfoque premium</span>
-            </h1>
+        <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
+          <SectionTitle
+            overline="Nuestro trabajo"
+            title="Una muestra real del centro"
+            desc="Contenido auténtico, tratamientos reales y una imagen cuidada que refleja cómo trabajamos."
+          />
 
-            <p className="mt-5 max-w-2xl text-amber-100/70 sm:text-lg">
-              Tratamientos faciales, corporales y depilación láser con protocolos seguros.
-              Además, formación profesional en post-quirúrgico.
+          <div className="grid gap-4 sm:grid-cols-3">
+            {INSTAGRAM_ITEMS.map((item) => (
+              <InstagramCard key={item.url} item={item} />
+            ))}
+          </div>
+
+          {SITE.instagramUrl ? (
+            <div className="mt-6">
+              <Button href={SITE.instagramUrl} variant="outline">
+                Ver Instagram @alex_postquirurgicoscanarias
+              </Button>
+            </div>
+          ) : null}
+
+          <ReviewsPanel />
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+          <GlassCard className="relative overflow-hidden p-8 sm:p-10">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_20%,rgba(201,168,76,0.14),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_420px_at_20%_70%,rgba(201,168,76,0.08),transparent_60%)]" />
+
+            <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-3xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Pill>Curso {COURSE.modality}</Pill>
+                  <span className="text-xs uppercase tracking-[0.14em] text-[#b8a78b]">
+                    {COURSE.city} · {COURSE.hours} · {COURSE.breakdown}
+                  </span>
+                </div>
+
+                <h2 className="mt-5 font-[family:var(--font-cormorant)] text-[38px] sm:text-[54px] font-light leading-[1.04] text-[#FAF8F3]">
+                  {COURSE.name}
+                </h2>
+
+                <p className="mt-4 max-w-2xl text-[14px] leading-[1.7] text-[#b8a78b]">
+                  Formación intensiva diseñada para profesionales que desean dominar el
+                  acompañamiento estético post-quirúrgico con criterio técnico, seguridad
+                  y enfoque premium de cabina.
+                </p>
+              </div>
+
+              <div className="sm:mt-2">
+                <a
+                  href="/curso"
+                  className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.08em] text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100"
+                >
+                  Ver página del curso
+                </a>
+              </div>
+            </div>
+
+            <div className="relative mt-8 grid gap-8 sm:grid-cols-2">
+              <GlassCard className="p-7">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82">
+                  Qué aprenderás
+                </div>
+                <div className="mt-6 space-y-5">
+                  <CheckItem>
+                    Drenaje linfático manual: técnica correcta, control de presión y secuencias.
+                  </CheckItem>
+                  <CheckItem>
+                    Organización por fases del post-quirúrgico y planificación de sesiones.
+                  </CheckItem>
+                  <CheckItem>
+                    Señales de alerta, límites profesionales y derivación responsable.
+                  </CheckItem>
+                  <CheckItem>
+                    Comunicación con el cliente y posicionamiento profesional premium.
+                  </CheckItem>
+                </div>
+              </GlassCard>
+
+              <GlassCard className="p-8">
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                    Inscripciones abiertas
+                  </div>
+                  <div className="mt-3 font-[family:var(--font-cormorant)] text-[34px] font-light text-[#FAF8F3]">
+                    ¿Quieres reservar tu cupo?
+                  </div>
+                  <p className="mt-4 text-[14px] leading-[1.7] text-[#b8a78b]">
+                    Escríbenos por WhatsApp y te enviaremos toda la información sobre
+                    próximas fechas, inversión y disponibilidad.
+                  </p>
+                </div>
+
+                <div className="mt-8">
+                  <Button href={whatsappCurso} variant="gold">
+                    📲 Reservar mi cupo
+                  </Button>
+                </div>
+              </GlassCard>
+            </div>
+          </GlassCard>
+        </section>
+
+        <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+          <SectionTitle
+            overline="Ubicación & contacto"
+            title="Estamos en Vecindario"
+            desc="Escríbenos directamente por WhatsApp o visítanos en nuestro centro."
+          />
+
+          <div className="grid gap-8 sm:grid-cols-2">
+            <GlassCard className="p-8">
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                  Dirección
+                </div>
+                <div className="mt-3 font-[family:var(--font-cormorant)] text-[30px] font-light leading-[1.1] text-[#FAF8F3]">
+                  {SITE.addressLine}
+                </div>
+                <div className="mt-2 text-sm text-[#b8a78b]">{SITE.city}</div>
+              </div>
+
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                  Horario
+                </div>
+                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b]">{SITE.hours}</div>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3">
+                <Button href={whatsappGeneral} variant="gold">
+                  📲 Escribir por WhatsApp
+                </Button>
+
+                {SITE.instagramUrl ? (
+                  <Button href={SITE.instagramUrl} variant="outline">
+                    Ver Instagram
+                  </Button>
+                ) : null}
+              </div>
+
+              <div className="mt-8 text-xs uppercase tracking-[0.12em] text-[#b8a78b]">
+                Atención con cita previa recomendada.
+              </div>
+            </GlassCard>
+
+            <GlassCard className="overflow-hidden p-0">
+              <iframe
+                title="Mapa"
+                src={SITE.mapsEmbedSrc}
+                className="h-[420px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </GlassCard>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden px-5 py-[72px] text-center">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(201,168,76,0.05)_0%,transparent_70%)]" />
+          <div className="relative mx-auto max-w-4xl">
+            <h2 className="font-[family:var(--font-cormorant)] text-[38px] sm:text-[58px] font-light leading-[1.08] text-[#FAF8F3]">
+              ¿No sabes
+              <br />
+              <em className="italic text-[#C9A84C]">por dónde empezar?</em>
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#b8a78b]">
+              Te orientamos sin compromiso para que encuentres el tratamiento o la
+              formación que mejor encaja contigo.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-wrap justify-center gap-[14px]">
               <Button href={whatsappGeneral} variant="gold">
-                Agendar por WhatsApp
+                📲 Valoración por WhatsApp
               </Button>
-
-              <Button href="/servicios" variant="outline" newTab={false}>
-                Consultar tratamientos
+              <Button href={`tel:+${SITE.phone}`} variant="outline" newTab={false}>
+                📞 661 026 192
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle
-          title="Por qué elegirnos"
-          desc="Seguridad, técnica y acompañamiento con atención premium."
-        />
-        <div className="grid gap-4 sm:grid-cols-4">
-          {[
-            { icon: "shield" as const, t: "Seguridad", d: "Protocolos claros y responsables" },
-            { icon: "spark" as const, t: "Calidad", d: "Técnica y cuidado en cada sesión" },
-            { icon: "star" as const, t: "Resultados", d: "Enfoque realista y progresivo" },
-            { icon: "clock" as const, t: "Atención", d: "Puntual y personalizada" },
-          ].map((x) => (
-            <div
-              key={x.t}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:backdrop-blur"
-            >
-              <div className="flex items-center gap-2">
-                <Icon name={x.icon} />
-                <div className="text-sm font-semibold text-amber-100">{x.t}</div>
-              </div>
-              <div className="mt-2 text-sm text-amber-100/70">{x.d}</div>
+      <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[linear-gradient(180deg,rgba(19,14,10,0.55)_0%,rgba(12,9,7,0.78)_100%)] px-5 py-10 sm:px-10">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
+          <div>
+            <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#C9A84C]">
+              ALEX ESTÉTICA
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        <SectionTitle title="Nuestro trabajo" desc="Una muestra real de nuestros tratamientos y resultados." />
-
-        <div className="grid gap-4 sm:grid-cols-3">
-          {INSTAGRAM_ITEMS.map((item) => (
-            <InstagramCard key={item.url} item={item} />
-          ))}
-        </div>
-
-        {SITE.instagramUrl ? (
-          <div className="mt-6">
-            <Button href={SITE.instagramUrl} variant="outline">
-              Ver Instagram @alex_postquirurgicoscanarias
-            </Button>
+            <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b]">
+              {SITE.addressLine}
+              <br />
+              {SITE.city}
+              <br />
+              <br />
+              Tel.: 661 026 192
+              <br />
+              Lun–Sáb: atención con cita previa
+            </p>
           </div>
-        ) : null}
 
-        <ReviewsPanel />
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-        <div className="relative overflow-hidden rounded-[2.2rem] border border-amber-300/15 bg-white/5 p-8 sm:backdrop-blur sm:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_20%,rgba(255,215,128,0.14),transparent_60%)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_420px_at_20%_70%,rgba(255,215,128,0.08),transparent_60%)]" />
-
-          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="max-w-3xl">
-              <div className="flex flex-wrap items-center gap-2">
-                <Pill>Curso {COURSE.modality}</Pill>
-                <span className="text-xs text-amber-100/60">
-                  {COURSE.city} · {COURSE.hours} · {COURSE.breakdown}
-                </span>
-              </div>
-
-              <h2 className="mt-5 text-3xl font-semibold leading-tight text-amber-100 sm:text-4xl">
-                {COURSE.name}
-              </h2>
-
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-amber-100/70 sm:text-base">
-                Formación intensiva diseñada para profesionales que desean dominar el
-                acompañamiento estético post-quirúrgico con criterio técnico, seguridad y enfoque premium de cabina.
-              </p>
-            </div>
-
-            <div className="sm:mt-2">
+          <div>
+            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#C9A84C]">
+              Información
+            </h5>
+            <div className="space-y-2">
+              <a href="/sobre" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
+                Sobre Nosotros
+              </a>
               <a
-                href="/curso"
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-black/30 px-5 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-300/10 hover:text-amber-100 transition"
+                href="/servicios"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
               >
-                Ver página del curso
+                Tratamientos
+              </a>
+              <a
+                href="#resultados"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+              >
+                Nuestro trabajo
+              </a>
+              <a href="/curso" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
+                Curso
+              </a>
+              <a
+                href="#contacto"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+              >
+                Contacto
               </a>
             </div>
           </div>
 
-          <div className="relative mt-8 grid gap-8 sm:grid-cols-2">
-            <div className="rounded-[2rem] border border-white/10 bg-black/30 p-7">
-              <div className="text-sm font-semibold text-amber-100">Qué aprenderás</div>
-              <div className="mt-6 space-y-5">
-                <CheckItem>Drenaje linfático manual: técnica correcta, control de presión y secuencias.</CheckItem>
-                <CheckItem>Organización por fases del post-quirúrgico y planificación de sesiones.</CheckItem>
-                <CheckItem>Señales de alerta, límites profesionales y derivación responsable.</CheckItem>
-                <CheckItem>Comunicación con el cliente y posicionamiento profesional premium.</CheckItem>
-              </div>
-            </div>
-
-            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 flex flex-col justify-between sm:backdrop-blur">
-              <div>
-                <div className="text-xs text-amber-100/60">Inscripciones abiertas</div>
-                <div className="mt-2 text-lg font-semibold text-amber-100">
-                  ¿Quieres reservar tu cupo?
-                </div>
-                <p className="mt-3 text-sm text-amber-100/70">
-                  Escríbenos por WhatsApp y te enviaremos toda la información sobre próximas fechas,
-                  inversión y disponibilidad.
-                </p>
-              </div>
-
-              <div className="mt-8">
-                <Button href={whatsappCurso} variant="gold">
-                  Reservar mi cupo por WhatsApp
-                </Button>
-              </div>
+          <div>
+            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#C9A84C]">
+              Legal
+            </h5>
+            <div className="space-y-2">
+              <a href="/cookies" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
+                Cookies
+              </a>
+              <a
+                href="/privacidad"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+              >
+                Privacidad
+              </a>
+              <a
+                href="/aviso-legal"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+              >
+                Aviso legal
+              </a>
             </div>
           </div>
         </div>
-      </section>
 
-      <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-        <SectionTitle
-          title="Ubicación & Contacto"
-          desc="Estamos en Vecindario. Escríbenos directamente por WhatsApp o visítanos en nuestro centro."
-        />
-
-        <div className="grid gap-8 sm:grid-cols-2">
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 sm:backdrop-blur">
-            <div className="mb-6">
-              <div className="text-xs text-amber-100/60">Dirección</div>
-              <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.addressLine}</div>
-              <div className="mt-1 text-xs text-amber-100/60">{SITE.city}</div>
-            </div>
-
-            <div className="mb-6">
-              <div className="text-xs text-amber-100/60">Horario</div>
-              <div className="mt-1 text-sm font-semibold text-amber-100">{SITE.hours}</div>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <Button href={whatsappGeneral} variant="gold">
-                Escribir por WhatsApp
-              </Button>
-
-              {SITE.instagramUrl ? (
-                <Button href={SITE.instagramUrl} variant="outline">
-                  Ver Instagram
-                </Button>
-              ) : null}
-            </div>
-
-            <div className="mt-8 text-xs text-amber-100/50">Atención con cita previa recomendada.</div>
-          </div>
-
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
-            <iframe
-              title="Mapa"
-              src={SITE.mapsEmbedSrc}
-              className="h-[420px] w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-5 py-10">
-          <div className="grid gap-8 sm:grid-cols-3">
-            <div>
-              <div className="text-sm font-semibold text-amber-100">{SITE.brand}</div>
-              <div className="mt-2 text-sm text-amber-100/60">{SITE.city}</div>
-
-              <div className="mt-4 flex items-center gap-3">
-                <a
-                  href={whatsappGeneral}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-amber-100 hover:bg-white/10"
-                >
-                  WhatsApp
-                </a>
-
-                {SITE.instagramUrl ? (
-                  <a
-                    href={SITE.instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
-                    aria-label="Instagram"
-                    title="Instagram"
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-                      <path
-                        d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      />
-                      <path
-                        d="M12 16a4 4 0 100-8 4 4 0 000 8z"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      />
-                      <path
-                        d="M17.5 6.5h.01"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </a>
-                ) : null}
-              </div>
-            </div>
-
-            <div>
-              <div className="text-sm font-semibold text-amber-100">Información</div>
-              <div className="mt-3 flex flex-col gap-2 text-sm text-amber-100/70">
-                <a className="hover:text-amber-100" href="/sobre">
-                  Sobre Nosotros
-                </a>
-                <a className="hover:text-amber-100" href="/servicios">
-                  Tratamientos
-                </a>
-                <a className="hover:text-amber-100" href="#resultados">
-                  Nuestro trabajo
-                </a>
-                <a className="hover:text-amber-100" href="/curso">
-                  Curso
-                </a>
-                <a className="hover:text-amber-100" href="#contacto">
-                  Contacto
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <div className="text-sm font-semibold text-amber-100">Legal</div>
-              <div className="mt-3 flex flex-col gap-2 text-sm text-amber-100/70">
-                <a href="/cookies" className="text-amber-100/70 hover:text-amber-100">Cookies</a>
-                <a href="/privacidad" className="text-amber-100/70 hover:text-amber-100">Privacidad</a>
-                <a href="/aviso-legal" className="text-amber-100/70 hover:text-amber-100">Aviso legal</a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-sm text-amber-100/60">
-              © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
-            </div>
-          </div>
+        <div className="mx-auto mt-7 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-[rgba(201,168,76,0.08)] pt-5 text-[11.5px] text-[#b8a78b]">
+          <span>
+            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+          </span>
+          <span>Diseñado con ♥ en Vecindario</span>
         </div>
       </footer>
     </main>

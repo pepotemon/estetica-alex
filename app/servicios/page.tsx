@@ -7,7 +7,7 @@ import "./servicios.css";
 
 import Header from "@/components/servicios/Header";
 import PromoBar from "@/components/servicios/PromoBar";
-
+import Hero from "@/components/servicios/Hero";
 import QuizSection from "@/components/servicios/QuizSection";
 import CatalogSection from "@/components/servicios/CatalogSection";
 import TestimonialsSection from "@/components/servicios/TestimonialsSection";
@@ -91,7 +91,7 @@ export default function ServiciosPage() {
                 />
             </div>
 
-
+            <Hero site={SITE} />
 
             <QuizSection
                 id="quiz"

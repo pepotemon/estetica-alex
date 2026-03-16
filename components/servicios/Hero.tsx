@@ -1,160 +1,44 @@
-import React from "react";
 import type { SiteConfig } from "./types";
 
-function NavA({
-    href,
-    children,
-    onClick,
-}: {
-    href: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-}) {
+export default function Hero({ site }: { site: SiteConfig }) {
     return (
-        <a
-            href={href}
-            onClick={onClick}
-            className="header-link text-sm font-medium text-amber-100/80 hover:text-amber-100 transition"
-        >
-            {children}
-        </a>
-    );
-}
+        <section className="relative overflow-hidden border-b border-white/10 py-32 md:py-36">
 
-function Sep() {
-    return <span className="select-none text-amber-100/35">|</span>;
-}
+            {/* BACKGROUND IMAGE */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src="/hero-tratamientos.jpg"
+                    alt="Tratamientos estéticos"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
 
-export default function Header({
-    site,
-    menuOpen,
-    setMenuOpen,
-    whatsappGeneral,
-}: {
-    site: SiteConfig;
-    menuOpen: boolean;
-    setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    whatsappGeneral: string;
-}) {
-    return (
-        <header className="bg-black/75 backdrop-blur border-b border-white/10">
-            <div className="relative mx-auto h-20 max-w-6xl px-5">
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/25 to-transparent" />
+                {/* overlay oscuro */}
+                <div className="absolute inset-0 bg-black/70" />
 
-                <a
-                    href="/"
-                    onClick={() => setMenuOpen(false)}
-                    className="hidden sm:block absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
-                    aria-label="Ir al inicio"
-                    title="Inicio"
-                >
-                    <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
-                    <img
-                        src={site.logoSrc}
-                        alt="Alex Estética"
-                        className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(255,215,128,0.35)]"
-                    />
-                </a>
-
-                <div className="hidden sm:flex h-full items-center justify-between">
-                    <nav className="flex items-center gap-4">
-                        <NavA href="/sobre">Sobre Nosotros</NavA>
-                        <Sep />
-                        <NavA href="/#contacto">Contacto</NavA>
-                    </nav>
-
-                    <div className="w-[180px]" />
-
-                    <div className="flex items-center gap-2">
-                        <nav className="flex items-center gap-4">
-                            <NavA href="/servicios">Tratamientos</NavA>
-                            <Sep />
-                            <NavA href="/curso">Curso</NavA>
-                        </nav>
-
-                        <a
-                            href={whatsappGeneral}
-                            className="ml-2 rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-5 py-2 text-sm font-medium tracking-[0.08em] text-black hover:brightness-110"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            {site.ctaLabel}
-                        </a>
-                    </div>
-                </div>
-
-                <div className="flex sm:hidden h-full items-center justify-between">
-                    <a
-                        href="/"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2"
-                        aria-label="Ir al inicio"
-                    >
-                        <img
-                            src={site.logoSrc}
-                            alt="Alex Estética"
-                            className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(255,215,128,0.35)]"
-                        />
-                        <div className="leading-tight">
-                            <div className="text-sm font-medium tracking-[0.05em] text-amber-100">
-                                {site.brand}
-                            </div>
-                            <div className="text-[11px] text-amber-100/60">{site.city}</div>
-                        </div>
-                    </a>
-
-                    <div className="flex items-center gap-2">
-                        <a
-                            href={whatsappGeneral}
-                            className="rounded-full border border-amber-300/25 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 px-4 py-2 text-xs font-medium tracking-[0.08em] text-black hover:brightness-110"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            WhatsApp
-                        </a>
-
-                        <button
-                            type="button"
-                            className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10"
-                            onClick={() => setMenuOpen((v) => !v)}
-                            aria-label="Abrir menú"
-                            aria-expanded={menuOpen}
-                        >
-                            <span className="sr-only">Menú</span>
-                            <span className="flex flex-col gap-1">
-                                <span className="h-0.5 w-5 rounded bg-amber-200" />
-                                <span className="h-0.5 w-5 rounded bg-amber-200" />
-                                <span className="h-0.5 w-5 rounded bg-amber-200" />
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                {/* glow dorado */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,168,76,0.15),transparent_65%)]" />
             </div>
 
-            {menuOpen ? (
-                <div className="border-t border-white/10 bg-black/60 backdrop-blur sm:hidden">
-                    <div className="mx-auto max-w-6xl px-5 py-3">
-                        <div className="flex flex-col gap-1">
-                            {[
-                                { href: "/", label: "Inicio" },
-                                { href: "/sobre", label: "Sobre Nosotros" },
-                                { href: "/servicios", label: "Tratamientos" },
-                                { href: "/curso", label: "Curso" },
-                                { href: "/#contacto", label: "Contacto" },
-                            ].map((x) => (
-                                <a
-                                    key={x.href}
-                                    href={x.href}
-                                    className="rounded-xl px-3 py-2 text-sm font-medium tracking-[0.04em] text-amber-100/90 hover:bg-white/5"
-                                    onClick={() => setMenuOpen(false)}
-                                >
-                                    {x.label}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            ) : null}
-        </header>
+            {/* CONTENIDO */}
+            <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+
+                <span className="text-amber-200 text-sm tracking-[0.25em] uppercase">
+                    Tratamientos Estéticos
+                </span>
+
+                <h1 className="mt-6 text-5xl md:text-6xl font-[var(--font-cormorant)] text-amber-100 leading-tight">
+                    Resultados reales
+                    <br />
+                    belleza natural
+                </h1>
+
+                <p className="mt-6 text-amber-100/70 text-lg max-w-2xl mx-auto">
+                    Tecnología avanzada y protocolos personalizados para
+                    ayudarte a conseguir tu mejor versión.
+                </p>
+
+            </div>
+
+        </section>
     );
 }

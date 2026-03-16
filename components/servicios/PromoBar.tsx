@@ -10,8 +10,7 @@ export default function PromoBar({
             {promoText}
             <span>·</span>
             Plazas limitadas
-            <span>·</span>
-            Llámanos al {displayPhone}
+
         </div>
     );
 }
