@@ -5,12 +5,17 @@ import React from "react";
 const SITE = {
     brand: "Alex Estética",
     city: "Gran Canaria",
+    locality: "Vecindario",
     logoSrc: "/alex-logo.png",
     phone: "34661026192",
+    phoneDisplay: "661 026 192",
     instagramUrl:
         "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
     cursoHeroImg: "/curso-hero.jpg",
     addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
+    hours: "Lun–Vier · 9:00–13:00 y 16:00–20:00 | Sab · 9:00–13:00",
+    mapsUrl:
+        "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario",
 };
 
 function waLink(text: string) {
@@ -31,7 +36,7 @@ function Button({
     newTab?: boolean;
 }) {
     const base =
-        "inline-flex items-center justify-center rounded-full px-6 py-3 text-[12px] sm:text-sm font-semibold uppercase tracking-[0.08em] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-300/30";
+        "inline-flex items-center justify-center rounded-full px-6 py-3 text-[12px] sm:text-sm font-semibold uppercase tracking-[0.08em] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-300/30 font-[family:var(--font-dm-sans)]";
     const styles =
         variant === "gold"
             ? "bg-[linear-gradient(135deg,#f1d78f_0%,#ddb85a_30%,#c89f3f_55%,#f4e4b5_100%)] text-black shadow-[0_12px_34px_rgba(201,168,76,0.24)] hover:-translate-y-0.5 hover:brightness-105"
@@ -65,7 +70,7 @@ function NavA({
         <a
             href={href}
             onClick={onClick}
-            className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
+            className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df] font-[family:var(--font-dm-sans)]"
         >
             {children}
         </a>
@@ -88,7 +93,7 @@ function SectionTitle({
     return (
         <div className="mb-10">
             {tag ? (
-                <span className="mb-4 block text-[10px] uppercase tracking-[0.35em] text-[#C9A84C]">
+                <span className="mb-4 block text-[10px] uppercase tracking-[0.35em] text-[#C9A84C] font-[family:var(--font-dm-sans)]">
                     {tag}
                 </span>
             ) : null}
@@ -98,7 +103,7 @@ function SectionTitle({
             </h2>
 
             {desc ? (
-                <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#7A7168]">
+                <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                     {desc}
                 </p>
             ) : null}
@@ -147,7 +152,9 @@ function InfoCard({
                     {title}
                 </h3>
             </div>
-            <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">{desc}</p>
+            <p className="text-[13.5px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
+                {desc}
+            </p>
         </GlassCard>
     );
 }
@@ -163,10 +170,10 @@ function PointItem({
         <div className="flex gap-3">
             <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-[#C9A84C]" />
             <div>
-                <div className="text-[13px] font-medium tracking-[0.02em] text-[#D4C9B0]">
+                <div className="text-[13px] font-medium tracking-[0.02em] text-[#D4C9B0] font-[family:var(--font-dm-sans)]">
                     {title}
                 </div>
-                <div className="mt-1 text-[13px] leading-[1.65] text-[#7A7168]">
+                <div className="mt-1 text-[13px] leading-[1.65] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                     {desc}
                 </div>
             </div>
@@ -185,13 +192,15 @@ function StatCard({
 }) {
     return (
         <GlassCard className="p-5 text-center">
-            <span className="block text-[10px] uppercase tracking-[0.15em] text-[#7A7168]">
+            <span className="block text-[10px] uppercase tracking-[0.15em] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                 {label}
             </span>
             <div className="mt-2 font-[family:var(--font-cormorant)] text-[28px] font-light leading-none text-[#FAF8F3]">
                 {value}
             </div>
-            <span className="mt-2 block text-[10px] text-[#7A7168]">{note}</span>
+            <span className="mt-2 block text-[10px] text-[#7A7168] font-[family:var(--font-dm-sans)]">
+                {note}
+            </span>
         </GlassCard>
     );
 }
@@ -220,7 +229,9 @@ function AudienceCard({
                 {items.map((item) => (
                     <div key={item} className="flex gap-3">
                         <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#C9A84C]" />
-                        <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">{item}</p>
+                        <p className="text-[13.5px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
+                            {item}
+                        </p>
                     </div>
                 ))}
             </div>
@@ -247,7 +258,7 @@ function ModuleCard({
         <details className="group overflow-hidden rounded-[2rem] border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(24,18,13,0.42)_0%,rgba(15,12,9,0.22)_100%)] backdrop-blur-[10px] open:border-[rgba(201,168,76,0.40)]">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-[18px] sm:px-[22px]">
                 <div className="flex min-w-0 flex-1 items-center gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[14px] font-medium text-[#C9A84C]">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[rgba(201,168,76,0.08)] text-[14px] font-medium text-[#C9A84C] font-[family:var(--font-dm-sans)]">
                         {String(index).padStart(2, "0")}
                     </div>
 
@@ -259,7 +270,7 @@ function ModuleCard({
                             </div>
                         </div>
 
-                        <div className="mt-1 text-[11.5px] tracking-[0.04em] text-[#7A7168]">
+                        <div className="mt-1 text-[11.5px] tracking-[0.04em] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                             {summary}
                         </div>
                     </div>
@@ -275,10 +286,10 @@ function ModuleCard({
                     <div className="border-t border-[rgba(201,168,76,0.10)] px-5 pb-6 pt-5 sm:px-[22px]">
                         <div className="grid gap-6 sm:grid-cols-2">
                             <div>
-                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C]">
+                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C] font-[family:var(--font-dm-sans)]">
                                     Qué incluye este módulo
                                 </h4>
-                                <p className="text-[13.5px] leading-[1.7] text-[#7A7168]">
+                                <p className="text-[13.5px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                                     {summary}
                                 </p>
 
@@ -286,7 +297,7 @@ function ModuleCard({
                                     {chips.map((chip) => (
                                         <span
                                             key={chip}
-                                            className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]"
+                                            className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168] font-[family:var(--font-dm-sans)]"
                                         >
                                             {chip}
                                         </span>
@@ -295,7 +306,7 @@ function ModuleCard({
                             </div>
 
                             <div>
-                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C]">
+                                <h4 className="mb-3 text-[10px] font-medium uppercase tracking-[0.25em] text-[#C9A84C] font-[family:var(--font-dm-sans)]">
                                     Puntos clave
                                 </h4>
 
@@ -306,7 +317,7 @@ function ModuleCard({
                                             className="flex gap-3 border border-[rgba(201,168,76,0.10)] bg-[rgba(201,168,76,0.03)] p-4"
                                         >
                                             <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rounded-full bg-[#C9A84C]" />
-                                            <p className="text-[13.5px] leading-[1.65] text-[#D4C9B0]">
+                                            <p className="text-[13.5px] leading-[1.65] text-[#D4C9B0] font-[family:var(--font-dm-sans)]">
                                                 {point}
                                             </p>
                                         </div>
@@ -487,7 +498,6 @@ export default function CursoPage() {
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
             </div>
 
-            {/* HEADER FIJO DE SIEMPRE */}
             <header className="sticky top-0 z-30 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
                 <div className="relative mx-auto h-20 max-w-6xl px-5">
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
@@ -571,7 +581,7 @@ export default function CursoPage() {
                                 <div className="font-[family:var(--font-cormorant)] text-lg font-medium tracking-[0.04em] text-[#fff4df]">
                                     {SITE.brand}
                                 </div>
-                                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54">
+                                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54 font-[family:var(--font-dm-sans)]">
                                     {SITE.city}
                                 </div>
                             </div>
@@ -610,7 +620,7 @@ export default function CursoPage() {
                                     <a
                                         key={x.href}
                                         href={x.href}
-                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5 font-[family:var(--font-dm-sans)]"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         {x.label}
@@ -622,7 +632,7 @@ export default function CursoPage() {
                                         href={SITE.instagramUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
+                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5 font-[family:var(--font-dm-sans)]"
                                         onClick={() => setMenuOpen(false)}
                                     >
                                         Instagram
@@ -634,7 +644,6 @@ export default function CursoPage() {
                 ) : null}
             </header>
 
-            {/* HERO */}
             <section
                 className="relative min-h-[58vh] sm:min-h-[62vh] overflow-hidden px-5 py-20 text-center sm:px-10 sm:py-24"
                 style={{
@@ -649,7 +658,7 @@ export default function CursoPage() {
                 }}
             >
                 <div className="mx-auto max-w-4xl">
-                    <span className="mb-5 inline-block text-[10.5px] font-normal uppercase tracking-[0.30em] text-[#C9A84C]">
+                    <span className="mb-5 inline-block text-[10.5px] font-normal uppercase tracking-[0.30em] text-[#C9A84C] font-[family:var(--font-dm-sans)]">
                         Formación Presencial · {SITE.city}
                     </span>
 
@@ -661,7 +670,7 @@ export default function CursoPage() {
                         </em>
                     </h1>
 
-                    <p className="mx-auto mt-6 max-w-[560px] text-[15px] leading-[1.7] text-[#e7dcc5]">
+                    <p className="mx-auto mt-6 max-w-[560px] text-[15px] leading-[1.7] text-[#e7dcc5] font-[family:var(--font-dm-sans)]">
                         Aprende a acompañar procesos postquirúrgicos con más criterio,
                         seguridad y estructura profesional. Técnica, observación y
                         experiencia premium aplicadas a cabina real.
@@ -684,13 +693,13 @@ export default function CursoPage() {
 
             <section className="border-y border-[rgba(201,168,76,0.10)] bg-transparent px-5 py-12 sm:px-10">
                 <div className="mx-auto max-w-6xl">
-                    <p className="text-center text-[13px] uppercase tracking-[0.04em] text-[#7A7168]">
+                    <p className="text-center text-[13px] uppercase tracking-[0.04em] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                         VISTA RÁPIDA DEL CURSO
                     </p>
                     <h2 className="mt-2 text-center font-[family:var(--font-cormorant)] text-[26px] font-normal text-[#FAF8F3]">
                         Todo lo importante de un vistazo
                     </h2>
-                    <p className="mx-auto mt-2 max-w-[620px] text-center text-[13px] leading-[1.7] text-[#7A7168]">
+                    <p className="mx-auto mt-2 max-w-[620px] text-center text-[13px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                         Antes de entrar al temario completo, aquí tienes una visión clara
                         de la formación, su enfoque y lo que te llevarás al terminarla.
                     </p>
@@ -777,7 +786,7 @@ export default function CursoPage() {
                     </div>
 
                     <div className="mt-7 border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.04)] p-[14px_18px]">
-                        <p className="text-[13px] leading-[1.7] text-[#7A7168]">
+                        <p className="text-[13px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                             ⚠️ <strong className="font-medium text-[#C9A84C]">Importante:</strong> Esta formación está enfocada al trabajo estético y al acompañamiento responsable del cliente.
                         </p>
                     </div>
@@ -810,13 +819,13 @@ export default function CursoPage() {
 
                 <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div className="inline-flex flex-wrap gap-2">
-                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                             {COURSE.modality}
                         </span>
-                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                             {COURSE.hours}
                         </span>
-                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168]">
+                        <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11.5px] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                             {COURSE.breakdown}
                         </span>
                     </div>
@@ -846,7 +855,7 @@ export default function CursoPage() {
                     <h2 className="text-center font-[family:var(--font-cormorant)] text-[38px] font-light text-[#FAF8F3]">
                         Lo que te llevarás al finalizar
                     </h2>
-                    <p className="mt-2 text-center text-[13px] tracking-[0.04em] text-[#7A7168]">
+                    <p className="mt-2 text-center text-[13px] tracking-[0.04em] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                         Formación diseñada para aplicar, comunicar y diferenciarte
                     </p>
 
@@ -854,7 +863,7 @@ export default function CursoPage() {
                         <GlassCard className="p-6">
                             <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
                             <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más seguridad</h3>
-                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                                 Sabrás cómo actuar con lógica, límites y criterio profesional.
                             </p>
                         </GlassCard>
@@ -862,7 +871,7 @@ export default function CursoPage() {
                         <GlassCard className="p-6">
                             <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
                             <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más estructura</h3>
-                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                                 Tendrás una metodología clara para organizar fases, sesiones y seguimiento.
                             </p>
                         </GlassCard>
@@ -870,7 +879,7 @@ export default function CursoPage() {
                         <GlassCard className="p-6">
                             <div className="mb-3 text-[14px] text-[#C9A84C]">✦</div>
                             <h3 className="font-[family:var(--font-cormorant)] text-[24px] text-[#FAF8F3]">Más valor</h3>
-                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168]">
+                            <p className="mt-3 text-[14px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                                 Elevarás tu imagen, tu experiencia de cabina y la percepción premium de tu trabajo.
                             </p>
                         </GlassCard>
@@ -887,7 +896,7 @@ export default function CursoPage() {
                         <em className="italic text-[#C9A84C]">al siguiente punto?</em>
                     </h2>
 
-                    <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#7A7168]">
+                    <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#7A7168] font-[family:var(--font-dm-sans)]">
                         Escríbenos por WhatsApp y te enviamos precio, próximas fechas,
                         requisitos y disponibilidad.
                     </p>
@@ -903,23 +912,114 @@ export default function CursoPage() {
                 </div>
             </section>
 
-            {/* FOOTER COMO EL DE TU REFERENCIA */}
-            <footer className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.45)]">
-                <div className="mx-auto max-w-6xl px-5 py-10">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            <div className="font-[family:var(--font-cormorant)] text-2xl font-light tracking-[0.06em] text-amber-200">
-                                {SITE.brand}
-                            </div>
-                            <div className="mt-1 text-[11px] uppercase tracking-[0.22em] text-[#d7c6a7]/44">
-                                {SITE.city}
-                            </div>
+            <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[linear-gradient(180deg,rgba(19,14,10,0.98)_0%,rgba(12,9,7,1)_100%)] px-5 py-10 sm:px-10">
+                <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
+                    <div>
+                        <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#E2C47A]">
+                            {SITE.brand}
                         </div>
+                        <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                            {SITE.addressLine}
+                            <br />
+                            {SITE.city}
+                            <br />
+                            <br />
+                            Tel.: {SITE.phoneDisplay}
+                            <br />
+                            {SITE.hours}
+                        </p>
+                    </div>
 
-                        <div className="text-sm text-[#d7c6a7]/54">
-                            © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                    <div>
+                        <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
+                            Información
+                        </h5>
+                        <div className="space-y-2">
+                            <a
+                                href="/sobre"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Sobre Nosotros
+                            </a>
+                            <a
+                                href="/servicios"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Tratamientos
+                            </a>
+                            <a
+                                href="/curso"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Curso
+                            </a>
+                            <a
+                                href={whatsappTemario}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Ver temario
+                            </a>
+                            <a
+                                href={whatsappReserva}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Reservar plaza
+                            </a>
                         </div>
                     </div>
+
+                    <div>
+                        <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
+                            Centro
+                        </h5>
+                        <div className="space-y-2">
+                            <a
+                                href="/sobre"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Sobre Nosotros
+                            </a>
+                            <a
+                                href={waLink("Hola! Quiero información sobre el curso.")}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                WhatsApp
+                            </a>
+                            <a
+                                href={SITE.mapsUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Google Maps
+                            </a>
+                            <a
+                                href="/privacidad"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Política de privacidad
+                            </a>
+                            <a
+                                href="/aviso-legal"
+                                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                            >
+                                Aviso legal
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mx-auto mt-7 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-[rgba(201,168,76,0.08)] pt-5 text-[11.5px] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                    <span>
+                        © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
+                    </span>
+                    <span>Diseñado con ♥ en {SITE.locality}</span>
                 </div>
             </footer>
         </main>

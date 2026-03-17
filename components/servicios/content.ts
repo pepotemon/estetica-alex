@@ -13,9 +13,11 @@ export const SITE: SiteConfig = {
     tratamientosHeroImg: "/tratamientos-hero.jpg",
     catalogoHeroImg: "/hero-catalogo.jpg",
     ctaLabel: "Agendar Cita por WhatsApp",
-    address: "Av. Canarias 450, Bloq. B, Local 3",
-    locality: "Vecindario, Gran Canaria",
-    mapsUrl: "https://g.page/r/alexestetica",
+    address: "Av. Canarias 450, Bloque B, Local 3",
+    locality: "Vecindario",
+    mapsUrl:
+        "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario",
+    hours: "Lun–Vier · 9:00–13:00 y 16:00–20:00 | Sab · 9:00–13:00",
 };
 
 export function waLink(text: string) {

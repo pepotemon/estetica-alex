@@ -14,7 +14,7 @@ export default function Footer({
         <footer className="footer-lux">
             <div className="footer-inner">
                 <div className="footer-brand">
-                    <div className="logo">ALEX ESTÉTICA</div>
+                    <div className="logo">{site.brand}</div>
                     <p>
                         {site.address}
                         <br />
@@ -23,7 +23,7 @@ export default function Footer({
                         <br />
                         Tel.: {site.displayPhone}
                         <br />
-                        Lun–Sáb: 9:00–20:00
+                        {site.hours}
                     </p>
                 </div>
 
@@ -38,21 +38,32 @@ export default function Footer({
 
                 <div className="footer-links">
                     <h5>Centro</h5>
+
                     <a href="/sobre">Sobre Nosotros</a>
-                    <a href={waLink("Hola! Quiero información sobre tratamientos.")} target="_blank" rel="noreferrer">
+
+                    <a
+                        href={waLink("Hola! Quiero información sobre tratamientos.")}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         WhatsApp
                     </a>
+
                     <a href={site.mapsUrl} target="_blank" rel="noreferrer">
                         Google Maps
                     </a>
-                    <a href="#">Política de privacidad</a>
-                    <a href="#">Aviso legal</a>
+
+                    <a href="/privacidad">Política de privacidad</a>
+
+                    <a href="/aviso-legal">Aviso legal</a>
                 </div>
             </div>
 
             <div className="footer-bottom">
-                <span>© {new Date().getFullYear()} Alex Estética · Gran Canaria</span>
-                <span>Diseñado con ♥ en Vecindario</span>
+                <span>
+                    © {new Date().getFullYear()} {site.brand} · {site.city}
+                </span>
+                <span>Diseñado con ♥ en {site.locality}</span>
             </div>
         </footer>
     );

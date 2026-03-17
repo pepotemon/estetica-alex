@@ -54,13 +54,22 @@ export type TabConfig = {
 export type SiteConfig = {
     brand: string;
     city: string;
+
     phone: string;
     displayPhone: string;
+
     logoSrc: string;
+
     tratamientosHeroImg: string;
     catalogoHeroImg: string;
+
     ctaLabel: string;
+
     address: string;
     locality: string;
+
     mapsUrl: string;
+
+    // 🔹 añadido para sincronizar footer, contacto y otras páginas
+    hours: string;
 };

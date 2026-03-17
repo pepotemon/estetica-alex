@@ -1,8 +1,23 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
 import CookieBanner from "./components/analytics/CookieBanner";
 import Analytics from "./components/analytics/analytics";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://alexesteticanarias.com"),
@@ -71,8 +86,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body>
+    <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body className="min-h-screen bg-[#0A0A0A] text-white antialiased [font-family:var(--font-dm-sans)]">
         {children}
         <CookieBanner />
         <Analytics />

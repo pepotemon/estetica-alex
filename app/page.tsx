@@ -2,6 +2,19 @@
 
 import React from "react";
 import Script from "next/script";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  variable: "--font-cormorant",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-dm-sans",
+});
 
 const SITE = {
   brand: "Alex Estética",
@@ -11,9 +24,12 @@ const SITE = {
   instagramUrl:
     "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
   addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
+  locality: "Vecindario",
   hours: "Lun–Vier · 9:00–13:00 y 16:00–20:00 | Sab · 9:00–13:00",
   logoSrc: "/alex-logo.png",
   hero: "/hero.jpg",
+  mapsUrl:
+    "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario",
   mapsEmbedSrc:
     "https://www.google.com/maps?q=Av.%20Canarias%20450,%20Bloque%20B,%20Local%203,%20Vecindario&output=embed",
 };
@@ -44,7 +60,7 @@ function Button({
   newTab?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 px-7 py-3 text-[12.5px] tracking-[0.10em] uppercase transition-all duration-200";
+    "inline-flex items-center justify-center gap-2 px-7 py-3 text-[12px] sm:text-[12.5px] tracking-[0.10em] uppercase transition-all duration-200 font-[family:var(--font-dm-sans)]";
   const styles =
     variant === "gold"
       ? "bg-[#C9A84C] text-black hover:bg-[#E2C47A] hover:-translate-y-[2px]"
@@ -75,7 +91,7 @@ function NavLink({
     <a
       href={href}
       onClick={onClick}
-      className="text-[13px] font-medium tracking-[0.06em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
+      className="text-[13px] font-[family:var(--font-dm-sans)] font-medium tracking-[0.04em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
     >
       {children}
     </a>
@@ -88,7 +104,7 @@ function Sep() {
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.20)] bg-[rgba(18,14,10,0.45)] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-amber-100/82 backdrop-blur-[6px]">
+    <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.20)] bg-[rgba(18,14,10,0.45)] px-3 py-1 text-[10.5px] uppercase tracking-[0.16em] text-amber-100/82 backdrop-blur-[6px] font-[family:var(--font-dm-sans)]">
       <span className="inline-block h-2 w-2 rounded-full bg-amber-300" />
       {children}
     </span>
@@ -107,7 +123,7 @@ function SectionTitle({
   return (
     <div className="mb-10 text-center sm:text-left">
       {overline ? (
-        <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#d9b861]/85">
+        <div className="mb-3 text-[10px] font-[family:var(--font-dm-sans)] font-medium uppercase tracking-[0.34em] text-[#d9b861]/85">
           {overline}
         </div>
       ) : null}
@@ -117,7 +133,7 @@ function SectionTitle({
       </h2>
 
       {desc ? (
-        <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#b8a78b] sm:text-[14px]">
+        <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.7] text-[#b8a78b] sm:text-[14px] font-[family:var(--font-dm-sans)]">
           {desc}
         </p>
       ) : null}
@@ -136,7 +152,7 @@ function GlassCard({
     <div
       className={[
         "border border-[rgba(201,168,76,0.14)]",
-        "bg-[linear-gradient(180deg,rgba(24,18,13,0.74)_0%,rgba(15,12,9,0.52)_100%)]",
+        "bg-[linear-gradient(180deg,rgba(24,18,13,0.92)_0%,rgba(15,12,9,0.88)_100%)]",
         "backdrop-blur-[10px]",
         "shadow-[0_10px_30px_rgba(0,0,0,0.22)]",
         className,
@@ -166,7 +182,9 @@ function ValueCard({
           {title}
         </h3>
       </div>
-      <p className="text-[13.5px] leading-[1.7] text-[#b8a78b]">{desc}</p>
+      <p className="text-[13.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+        {desc}
+      </p>
     </GlassCard>
   );
 }
@@ -185,7 +203,9 @@ function CheckItem({ children }: { children: React.ReactNode }) {
           />
         </svg>
       </span>
-      <div className="text-sm leading-relaxed text-[#b8a78b]">{children}</div>
+      <div className="text-[13.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+        {children}
+      </div>
     </div>
   );
 }
@@ -298,15 +318,15 @@ function InstagramCard({ item }: { item: InstaItem }) {
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-100/88">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-100/88 font-[family:var(--font-dm-sans)]">
               {item.label ?? "Instagram"}
             </div>
-            <div className="mt-1 text-[11px] text-[#b8a78b] truncate">
+            <div className="mt-1 text-[11px] text-[#b8a78b] truncate font-[family:var(--font-dm-sans)]">
               Ver en Instagram
             </div>
           </div>
 
-          <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.22)] bg-[rgba(12,9,7,0.55)] px-4 py-2 text-xs font-semibold text-amber-100/90">
+          <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.22)] bg-[rgba(12,9,7,0.55)] px-4 py-2 text-xs font-semibold text-amber-100/90 font-[family:var(--font-dm-sans)]">
             <svg viewBox="0 0 24 24" className="h-4 w-4 text-amber-200" fill="none">
               <path d="M8 5l11 7-11 7V5z" fill="currentColor" opacity="0.9" />
             </svg>
@@ -427,7 +447,7 @@ function ReviewsPanel() {
       <GlassCard className="p-7 sm:p-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82 font-[family:var(--font-dm-sans)]">
               Opiniones
             </div>
             <div className="mt-3 font-[family:var(--font-cormorant)] text-3xl font-light text-[#fffaf2]">
@@ -435,17 +455,17 @@ function ReviewsPanel() {
             </div>
             <div className="mt-3 flex items-center gap-3">
               <StarRow value={avg} />
-              <div className="text-sm text-[#b8a78b]">
+              <div className="text-sm text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                 {avg} / 5 · {REVIEWS.length} reseñas
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-amber-100/70">
+            <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-amber-100/70 font-[family:var(--font-dm-sans)]">
               Verificadas
             </span>
-            <span className="border border-white/10 bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-[#b8a78b]">
+            <span className="border border-white/10 bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
               Atención cuidada
             </span>
           </div>
@@ -463,9 +483,11 @@ function ReviewsPanel() {
                     <div className="font-[family:var(--font-cormorant)] text-[24px] leading-none font-light text-[#fffaf2]">
                       {r.name}
                     </div>
-                    <div className="text-xs text-[#b8a78b]">{r.when}</div>
+                    <div className="text-xs text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                      {r.when}
+                    </div>
                   </div>
-                  <div className="mt-3 text-sm leading-relaxed text-[#b8a78b]">
+                  <div className="mt-3 text-[13.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                     {r.text}
                   </div>
                 </div>
@@ -483,7 +505,7 @@ function ReviewsPanel() {
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100"
+              className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100 font-[family:var(--font-dm-sans)]"
             >
               {expanded ? "Ocultar comentarios" : "Mostrar más comentarios"}
             </button>
@@ -519,7 +541,7 @@ function FloatingWhatsApp({ href }: { href: string }) {
         </svg>
       </span>
 
-      <span className="hidden sm:flex flex-col leading-none">
+      <span className="hidden sm:flex flex-col leading-none font-[family:var(--font-dm-sans)]">
         <span className="text-[10px] uppercase tracking-[0.16em] text-black/60">
           Contacto directo
         </span>
@@ -543,7 +565,9 @@ export default function Page() {
   );
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-[#0A0A0A] text-white">
+    <main
+      className={`${cormorant.variable} ${dmSans.variable} relative min-h-screen overflow-x-hidden bg-[#0A0A0A] text-white [font-family:var(--font-dm-sans)]`}
+    >
       <Script src="https://www.instagram.com/embed.js" strategy="lazyOnload" />
 
       <div className="pointer-events-none fixed inset-0 -z-10">
@@ -719,16 +743,13 @@ export default function Page() {
                 <span className="block italic text-[#C9A84C]">con técnica y delicadeza</span>
               </h1>
 
-              <p className="mt-5 max-w-[560px] text-[15px] leading-[1.7] text-[#e8dcc3]">
-                Tratamientos faciales, corporales y depilación láser en un espacio pensado
-                para cuidar cada detalle, con protocolos responsables y una atención cercana.
+              <p className="mt-5 max-w-[560px] text-[15px] leading-[1.7] text-[#e8dcc3] font-[family:var(--font-dm-sans)]">
+                Más que tratamientos, ofrecemos una experiencia de cuidado y bienestar para tu
+                piel y tu cuerpo.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-[14px]">
-                <Button href={whatsappGeneral} variant="gold">
-                  📲 Agendar por WhatsApp
-                </Button>
-                <Button href="/servicios" variant="outline" newTab={false}>
+                <Button href="/servicios" variant="gold" newTab={false}>
                   Ver tratamientos
                 </Button>
               </div>
@@ -813,7 +834,7 @@ export default function Page() {
               <div className="max-w-3xl">
                 <div className="flex flex-wrap items-center gap-2">
                   <Pill>Curso {COURSE.modality}</Pill>
-                  <span className="text-xs uppercase tracking-[0.14em] text-[#b8a78b]">
+                  <span className="text-xs uppercase tracking-[0.14em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                     {COURSE.city} · {COURSE.hours} · {COURSE.breakdown}
                   </span>
                 </div>
@@ -822,17 +843,17 @@ export default function Page() {
                   {COURSE.name}
                 </h2>
 
-                <p className="mt-4 max-w-2xl text-[14px] leading-[1.7] text-[#b8a78b]">
+                <p className="mt-4 max-w-2xl text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                   Formación intensiva diseñada para profesionales que desean dominar el
-                  acompañamiento estético post-quirúrgico con criterio técnico, seguridad
-                  y práctica real de cabina.
+                  acompañamiento estético post-quirúrgico con criterio técnico, seguridad y
+                  práctica real de cabina.
                 </p>
               </div>
 
               <div className="sm:mt-2">
                 <a
                   href="/curso"
-                  className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.08em] text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100"
+                  className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.08em] text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100 font-[family:var(--font-dm-sans)]"
                 >
                   Ver página del curso
                 </a>
@@ -841,7 +862,7 @@ export default function Page() {
 
             <div className="relative mt-8 grid gap-8 sm:grid-cols-2">
               <GlassCard className="p-7">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82 font-[family:var(--font-dm-sans)]">
                   Qué aprenderás
                 </div>
                 <div className="mt-6 space-y-5">
@@ -862,15 +883,15 @@ export default function Page() {
 
               <GlassCard className="p-8">
                 <div>
-                  <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                  <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80 font-[family:var(--font-dm-sans)]">
                     Inscripciones abiertas
                   </div>
                   <div className="mt-3 font-[family:var(--font-cormorant)] text-[34px] font-light text-[#FAF8F3]">
                     ¿Quieres reservar tu cupo?
                   </div>
-                  <p className="mt-4 text-[14px] leading-[1.7] text-[#b8a78b]">
-                    Escríbenos por WhatsApp y te enviaremos toda la información sobre
-                    próximas fechas, inversión y disponibilidad.
+                  <p className="mt-4 text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                    Escríbenos por WhatsApp y te enviaremos toda la información sobre próximas
+                    fechas, inversión y disponibilidad.
                   </p>
                 </div>
 
@@ -894,27 +915,31 @@ export default function Page() {
           <div className="grid gap-8 sm:grid-cols-2">
             <GlassCard className="p-8">
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80 font-[family:var(--font-dm-sans)]">
                   Dirección
                 </div>
                 <div className="mt-3 font-[family:var(--font-cormorant)] text-[30px] font-light leading-[1.1] text-[#FAF8F3]">
                   {SITE.addressLine}
                 </div>
-                <div className="mt-2 text-sm text-[#b8a78b]">{SITE.city}</div>
+                <div className="mt-2 text-sm text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                  {SITE.city}
+                </div>
               </div>
 
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80 font-[family:var(--font-dm-sans)]">
                   Horario
                 </div>
-                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b]">{SITE.hours}</div>
+                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+                  {SITE.hours}
+                </div>
               </div>
 
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80 font-[family:var(--font-dm-sans)]">
                   Teléfono
                 </div>
-                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b]">
+                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                   {SITE.phoneDisplay}
                 </div>
               </div>
@@ -931,7 +956,7 @@ export default function Page() {
                 ) : null}
               </div>
 
-              <div className="mt-8 text-xs uppercase tracking-[0.12em] text-[#b8a78b]">
+              <div className="mt-8 text-xs uppercase tracking-[0.12em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
                 Atención con cita previa recomendada.
               </div>
             </GlassCard>
@@ -957,9 +982,9 @@ export default function Page() {
               <em className="italic text-[#C9A84C]">por dónde empezar?</em>
             </h2>
 
-            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#b8a78b]">
-              Te orientamos sin compromiso para que encuentres el tratamiento o la
-              formación que mejor encaja contigo.
+            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+              Te orientamos sin compromiso para que encuentres el tratamiento o la formación que
+              mejor encaja contigo.
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-[14px]">
@@ -974,13 +999,13 @@ export default function Page() {
         </section>
       </div>
 
-      <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[linear-gradient(180deg,rgba(19,14,10,0.55)_0%,rgba(12,9,7,0.78)_100%)] px-5 py-10 sm:px-10">
+      <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[linear-gradient(180deg,rgba(19,14,10,0.98)_0%,rgba(12,9,7,1)_100%)] px-5 py-10 sm:px-10">
         <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
           <div>
-            <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#C9A84C]">
-              {SITE.brand.toUpperCase()}
+            <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#E2C47A]">
+              {SITE.brand}
             </div>
-            <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b]">
+            <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
               {SITE.addressLine}
               <br />
               {SITE.city}
@@ -993,31 +1018,37 @@ export default function Page() {
           </div>
 
           <div>
-            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#C9A84C]">
+            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
               Información
             </h5>
             <div className="space-y-2">
-              <a href="/sobre" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
+              <a
+                href="/sobre"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+              >
                 Sobre Nosotros
               </a>
               <a
                 href="/servicios"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
               >
                 Tratamientos
               </a>
               <a
                 href="#resultados"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
               >
                 Nuestro trabajo
               </a>
-              <a href="/curso" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
+              <a
+                href="/curso"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+              >
                 Curso
               </a>
               <a
                 href="#contacto"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
               >
                 Contacto
               </a>
@@ -1025,22 +1056,41 @@ export default function Page() {
           </div>
 
           <div>
-            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#C9A84C]">
-              Legal
+            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
+              Centro
             </h5>
             <div className="space-y-2">
-              <a href="/cookies" className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]">
-                Cookies
+              <a
+                href="/sobre"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+              >
+                Sobre Nosotros
+              </a>
+              <a
+                href={waLink("Hola! Quiero información sobre tratamientos.")}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={SITE.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+              >
+                Google Maps
               </a>
               <a
                 href="/privacidad"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
               >
-                Privacidad
+                Política de privacidad
               </a>
               <a
                 href="/aviso-legal"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#C9A84C]"
+                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
               >
                 Aviso legal
               </a>
@@ -1048,11 +1098,11 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="mx-auto mt-7 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-[rgba(201,168,76,0.08)] pt-5 text-[11.5px] text-[#b8a78b]">
+        <div className="mx-auto mt-7 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-[rgba(201,168,76,0.08)] pt-5 text-[11.5px] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
           <span>
             © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
           </span>
-          <span>Diseñado con ♥ en Vecindario</span>
+          <span>Diseñado con ♥ en {SITE.locality}</span>
         </div>
       </footer>
 
