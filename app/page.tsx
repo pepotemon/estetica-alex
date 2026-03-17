@@ -7,10 +7,11 @@ const SITE = {
   brand: "Alex Estética",
   city: "Gran Canaria",
   phone: "34661026192",
+  phoneDisplay: "661 026 192",
   instagramUrl:
     "https://www.instagram.com/alex_postquirurgicoscanarias?igsh=MTg3Y2NibWMwYTl5ZQ==",
   addressLine: "Av. Canarias 450, Bloque B, Local 3 · Vecindario",
-  hours: "Lun–Vier · 9:00–13:00 y 16:00-20:00 | Sab · 9:00–13:00",
+  hours: "Lun–Vier · 9:00–13:00 y 16:00–20:00 | Sab · 9:00–13:00",
   logoSrc: "/alex-logo.png",
   hero: "/hero.jpg",
   mapsEmbedSrc:
@@ -354,7 +355,7 @@ const REVIEWS: Review[] = [
     name: "Valentina S.",
     when: "Hace 1 semana",
     stars: 5,
-    text: "Atención premium de verdad: puntualidad, higiene y resultados. El lugar es precioso.",
+    text: "Puntualidad, higiene y resultados. El lugar es precioso.",
   },
   {
     name: "Carolina T.",
@@ -419,8 +420,7 @@ function ReviewsPanel() {
   const visible = expanded ? REVIEWS : REVIEWS.slice(0, 3);
 
   const avg =
-    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) /
-    10;
+    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) / 10;
 
   return (
     <div className="mt-10">
@@ -446,7 +446,7 @@ function ReviewsPanel() {
               Verificadas
             </span>
             <span className="border border-white/10 bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-[#b8a78b]">
-              Experiencia premium
+              Atención cuidada
             </span>
           </div>
         </div>
@@ -491,6 +491,43 @@ function ReviewsPanel() {
         ) : null}
       </GlassCard>
     </div>
+  );
+}
+
+function FloatingWhatsApp({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Abrir WhatsApp"
+      title="Escríbenos por WhatsApp"
+      className={[
+        "group fixed bottom-5 right-4 z-[70] sm:bottom-7 sm:right-7",
+        "inline-flex items-center gap-3 rounded-full",
+        "border border-[rgba(201,168,76,0.35)]",
+        "bg-[linear-gradient(180deg,rgba(214,184,96,0.98)_0%,rgba(201,168,76,0.96)_100%)]",
+        "px-3 py-3 sm:px-4",
+        "text-black shadow-[0_18px_40px_rgba(0,0,0,0.35)]",
+        "transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_22px_50px_rgba(0,0,0,0.42)]",
+      ].join(" ")}
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black/10 ring-1 ring-black/10">
+        <svg viewBox="0 0 32 32" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M19.11 17.34c-.27-.14-1.58-.78-1.82-.87-.24-.09-.42-.14-.6.14-.18.27-.69.87-.84 1.05-.16.18-.31.2-.58.07-.27-.14-1.12-.41-2.14-1.31-.79-.71-1.33-1.58-1.49-1.85-.16-.27-.02-.42.12-.56.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.04-.34-.02-.47-.07-.14-.6-1.45-.82-1.98-.22-.53-.44-.46-.6-.47h-.51c-.18 0-.47.07-.71.34-.24.27-.93.91-.93 2.23 0 1.31.96 2.58 1.09 2.76.14.18 1.89 2.88 4.57 4.04.64.27 1.14.43 1.53.55.64.2 1.22.17 1.68.1.51-.08 1.58-.65 1.8-1.28.22-.63.22-1.17.15-1.28-.07-.11-.25-.18-.52-.31Z" />
+          <path d="M16.02 3.2c-7.08 0-12.82 5.73-12.82 12.8 0 2.24.59 4.43 1.71 6.35L3.2 28.8l6.6-1.69a12.8 12.8 0 0 0 6.22 1.6h.01c7.07 0 12.8-5.74 12.8-12.81 0-3.42-1.33-6.63-3.75-9.05A12.73 12.73 0 0 0 16.02 3.2Zm0 23.35h-.01a10.5 10.5 0 0 1-5.35-1.47l-.38-.22-3.92 1 1.05-3.82-.25-.39a10.48 10.48 0 0 1-1.62-5.62c0-5.79 4.71-10.5 10.5-10.5 2.8 0 5.43 1.09 7.41 3.08a10.4 10.4 0 0 1 3.08 7.41c0 5.79-4.71 10.5-10.5 10.5Z" />
+        </svg>
+      </span>
+
+      <span className="hidden sm:flex flex-col leading-none">
+        <span className="text-[10px] uppercase tracking-[0.16em] text-black/60">
+          Contacto directo
+        </span>
+        <span className="mt-1 text-[13px] font-semibold tracking-[0.02em]">
+          WhatsApp
+        </span>
+      </span>
+    </a>
   );
 }
 
@@ -669,7 +706,7 @@ export default function Page() {
               className="h-full w-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.40),rgba(8,6,5,0.62))]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.42),rgba(8,6,5,0.68))]" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,rgba(201,168,76,0.08)_0%,transparent_70%)]" />
           </div>
 
@@ -678,13 +715,13 @@ export default function Page() {
               <Pill>{SITE.city} · Atención con cita previa</Pill>
 
               <h1 className="mt-6 font-[family:var(--font-cormorant)] text-[44px] sm:text-[76px] font-light leading-[1.02] text-[#FAF8F3]">
-                Estética avanzada
-                <span className="block italic text-[#C9A84C]">con enfoque premium</span>
+                Cuidado estético
+                <span className="block italic text-[#C9A84C]">con técnica y delicadeza</span>
               </h1>
 
               <p className="mt-5 max-w-[560px] text-[15px] leading-[1.7] text-[#e8dcc3]">
-                Tratamientos faciales, corporales y depilación láser con protocolos seguros,
-                una atención cálida y resultados que se construyen con criterio.
+                Tratamientos faciales, corporales y depilación láser en un espacio pensado
+                para cuidar cada detalle, con protocolos responsables y una atención cercana.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-[14px]">
@@ -726,7 +763,7 @@ export default function Page() {
               {
                 icon: "clock" as const,
                 t: "Atención",
-                d: "Puntualidad, seguimiento y trato premium.",
+                d: "Puntualidad, seguimiento y trato cuidado.",
               },
             ].map((x) => (
               <ValueCard
@@ -788,7 +825,7 @@ export default function Page() {
                 <p className="mt-4 max-w-2xl text-[14px] leading-[1.7] text-[#b8a78b]">
                   Formación intensiva diseñada para profesionales que desean dominar el
                   acompañamiento estético post-quirúrgico con criterio técnico, seguridad
-                  y enfoque premium de cabina.
+                  y práctica real de cabina.
                 </p>
               </div>
 
@@ -818,7 +855,7 @@ export default function Page() {
                     Señales de alerta, límites profesionales y derivación responsable.
                   </CheckItem>
                   <CheckItem>
-                    Comunicación con el cliente y posicionamiento profesional premium.
+                    Comunicación con el cliente y posicionamiento profesional de alto nivel.
                   </CheckItem>
                 </div>
               </GlassCard>
@@ -873,6 +910,15 @@ export default function Page() {
                 <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b]">{SITE.hours}</div>
               </div>
 
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80">
+                  Teléfono
+                </div>
+                <div className="mt-3 text-[14px] leading-[1.7] text-[#b8a78b]">
+                  {SITE.phoneDisplay}
+                </div>
+              </div>
+
               <div className="mt-6 flex flex-col gap-3">
                 <Button href={whatsappGeneral} variant="gold">
                   📲 Escribir por WhatsApp
@@ -921,7 +967,7 @@ export default function Page() {
                 📲 Valoración por WhatsApp
               </Button>
               <Button href={`tel:+${SITE.phone}`} variant="outline" newTab={false}>
-                📞 661 026 192
+                📞 {SITE.phoneDisplay}
               </Button>
             </div>
           </div>
@@ -932,7 +978,7 @@ export default function Page() {
         <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
           <div>
             <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#C9A84C]">
-              ALEX ESTÉTICA
+              {SITE.brand.toUpperCase()}
             </div>
             <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b]">
               {SITE.addressLine}
@@ -940,9 +986,9 @@ export default function Page() {
               {SITE.city}
               <br />
               <br />
-              Tel.: 661 026 192
+              Tel.: {SITE.phoneDisplay}
               <br />
-              Lun–Sáb: atención con cita previa
+              {SITE.hours}
             </p>
           </div>
 
@@ -1009,6 +1055,8 @@ export default function Page() {
           <span>Diseñado con ♥ en Vecindario</span>
         </div>
       </footer>
+
+      <FloatingWhatsApp href={whatsappGeneral} />
     </main>
   );
 }
