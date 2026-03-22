@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import Button from "./Button";
 import type { PriceCard, Treatment } from "./types";
 
@@ -25,34 +28,51 @@ function PriceTable({ prices }: { prices?: PriceCard[] }) {
     );
 }
 
-function TreatmentGallery({ treatment }: { treatment: Treatment }) {
-    if (!treatment.gallery?.length) return null;
+function TreatmentGallery({
+    treatmentId,
+    gallery,
+}: {
+    treatmentId: string;
+    gallery?: { src: string; alt?: string }[];
+}) {
+    const [visibleImages, setVisibleImages] = React.useState(gallery ?? []);
+
+    React.useEffect(() => {
+        setVisibleImages(gallery ?? []);
+    }, [gallery, treatmentId]);
+
+    if (!visibleImages.length) return null;
 
     return (
         <div className="treatment-gallery-wrap">
             <div className="treatment-gallery-head">
-                <h4>Imágenes reales</h4>
-                <span>Referencia visual del tratamiento</span>
+                <h4>Galería del tratamiento</h4>
+                <span>Imágenes reales</span>
             </div>
 
             <div className="treatment-gallery">
-                {treatment.gallery.map((item, index) => (
+                {visibleImages.map((image, index) => (
                     <a
-                        key={`${treatment.id}-${item.src}-${index}`}
-                        href={item.src}
+                        key={`${treatmentId}-${image.src}-${index}`}
+                        href={image.src}
                         target="_blank"
                         rel="noreferrer"
                         className="treatment-gallery-card"
-                        aria-label={item.alt || `${treatment.name} imagen ${index + 1}`}
-                        title={item.alt || `${treatment.name} imagen ${index + 1}`}
                     >
                         <img
-                            src={item.src}
-                            alt={item.alt || treatment.name}
+                            src={image.src}
+                            alt={image.alt ?? `Imagen ${index + 1}`}
                             className="treatment-gallery-img"
                             loading="lazy"
+                            onError={() => {
+                                setVisibleImages((prev) =>
+                                    prev.filter((item) => item.src !== image.src)
+                                );
+                            }}
                         />
-                        <span className="treatment-gallery-overlay">Ver foto</span>
+                        <span className="treatment-gallery-overlay">
+                            Ver imagen
+                        </span>
                     </a>
                 ))}
             </div>
@@ -125,7 +145,10 @@ export default function TreatmentCard({
                         </div>
                     ) : null}
 
-                    <TreatmentGallery treatment={treatment} />
+                    <TreatmentGallery
+                        treatmentId={treatment.id}
+                        gallery={treatment.gallery}
+                    />
 
                     {treatment.tags?.length ? (
                         <div className="body-tags">

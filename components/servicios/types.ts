@@ -36,7 +36,7 @@ export type Treatment = {
     ctaPrimary?: { label: string; href: string };
     etapas?: { num: string; title: string; text: string }[];
     introText?: string;
-    gallery?: TreatmentGalleryItem[];
+    gallery?: { src: string; alt?: string }[];
 };
 
 export type TabId =
