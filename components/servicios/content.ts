@@ -4,6 +4,15 @@ import type {
     TabConfig,
 } from "./types";
 
+function galleryFor(treatmentId: string, label: string) {
+    return [
+        { src: `/tratamientos/${treatmentId}/1.jpg`, alt: `${label} · imagen 1` },
+        { src: `/tratamientos/${treatmentId}/2.jpg`, alt: `${label} · imagen 2` },
+        { src: `/tratamientos/${treatmentId}/3.jpg`, alt: `${label} · imagen 3` },
+        { src: `/tratamientos/${treatmentId}/4.jpg`, alt: `${label} · imagen 4` },
+    ];
+}
+
 export const SITE: SiteConfig = {
     brand: "Alex Estética",
     city: "Gran Canaria",
@@ -132,6 +141,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Moldea, activa la circulación y reafirma la piel desde dentro",
                 badge: "⭐ Popular",
                 badgeType: "pop",
+                gallery: galleryFor("masaje-rf", "Masaje Moldeador con Radiofrecuencia"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -155,19 +165,8 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€40", per: "por sesión" },
-                    {
-                        label: "Bono 5 sesiones",
-                        amount: "€175",
-                        per: "€35 / sesión",
-                        save: "Ahorras €25",
-                    },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€290",
-                        per: "€29 / sesión",
-                        save: "Ahorras €110",
-                        featured: true,
-                    },
+                    { label: "Bono 5 sesiones", amount: "€175", per: "€35 / sesión", save: "Ahorras €25" },
+                    { label: "Bono 10 sesiones", amount: "€290", per: "€29 / sesión", save: "Ahorras €110", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -181,6 +180,7 @@ export const TABS: TabConfig[] = [
                 tagline: "La tecnología más avanzada para reducir volumen en profundidad",
                 badge: "🏆 Premium",
                 badgeType: "pop",
+                gallery: galleryFor("masaje-indiba", "Masaje Moldeador con Diatermia Indiba"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -204,19 +204,8 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€50", per: "por sesión" },
-                    {
-                        label: "Bono 5 sesiones",
-                        amount: "€200",
-                        per: "€40 / sesión",
-                        save: "Ahorras €50",
-                    },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€340",
-                        per: "€34 / sesión",
-                        save: "Ahorras €160",
-                        featured: true,
-                    },
+                    { label: "Bono 5 sesiones", amount: "€200", per: "€40 / sesión", save: "Ahorras €50" },
+                    { label: "Bono 10 sesiones", amount: "€340", per: "€34 / sesión", save: "Ahorras €160", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -230,6 +219,7 @@ export const TABS: TabConfig[] = [
                 tagline: "El protocolo más completo para moldear el cuerpo en una sola sesión",
                 badge: "🔥 Más completo",
                 badgeType: "pop",
+                gallery: galleryFor("combo-4", "Masaje Moldeador + Cavitación + Radiofrecuencia + Vacumterapia"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -249,25 +239,12 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€35", per: "por sesión" },
-                    {
-                        label: "Bono 5 sesiones",
-                        amount: "€150",
-                        per: "€30 / sesión",
-                        save: "Ahorras €25",
-                    },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€290",
-                        per: "€29 / sesión",
-                        save: "Ahorras €60",
-                        featured: true,
-                    },
+                    { label: "Bono 5 sesiones", amount: "€150", per: "€30 / sesión", save: "Ahorras €25" },
+                    { label: "Bono 10 sesiones", amount: "€290", per: "€29 / sesión", save: "Ahorras €60", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink(
-                        "Hola! Quiero información del tratamiento combinado Cavitación + RF + Vacumterapia."
-                    ),
+                    href: waLink("Hola! Quiero información del tratamiento combinado Cavitación + RF + Vacumterapia."),
                 },
             },
             {
@@ -277,6 +254,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Elimina la grasa localizada para siempre con frío controlado. Sin cirugía.",
                 badge: "⭐ Top ventas",
                 badgeType: "pop",
+                gallery: galleryFor("criolipolisis", "Criolipólisis"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -298,19 +276,8 @@ export const TABS: TabConfig[] = [
                     "⚠️ Importante: El tratamiento se aplica con 2 cabezales por zona para cubrir toda el área de forma homogénea. El precio de cabezal único (zonas pequeñas): €40.",
                 prices: [
                     { label: "1 zona (2 cabezales)", amount: "€90", per: "por sesión" },
-                    {
-                        label: "2 zonas (mismo día)",
-                        amount: "€150",
-                        per: "€75 / zona",
-                        save: "Ahorras €30",
-                        featured: true,
-                    },
-                    {
-                        label: "Bono 3 sesiones (misma zona)",
-                        amount: "€210",
-                        per: "€70 / sesión",
-                        save: "Ahorras €60",
-                    },
+                    { label: "2 zonas (mismo día)", amount: "€150", per: "€75 / zona", save: "Ahorras €30", featured: true },
+                    { label: "Bono 3 sesiones (misma zona)", amount: "€210", per: "€70 / sesión", save: "Ahorras €60" },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -324,6 +291,7 @@ export const TABS: TabConfig[] = [
                 tagline: "20.000 contracciones en 30 minutos. Define músculo mientras elimina grasa.",
                 badge: "🚀 Alta tecnología",
                 badgeType: "new",
+                gallery: galleryFor("ems-sculpt", "EMS Sculpt"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -343,18 +311,8 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€30", per: "por sesión / zona" },
-                    {
-                        label: "6 sesiones",
-                        amount: "€150",
-                        per: "€25 / sesión",
-                        save: "Ahorras €30",
-                        featured: true,
-                    },
-                    {
-                        label: "10 sesiones",
-                        amount: "Consultar",
-                        per: "precio especial",
-                    },
+                    { label: "6 sesiones", amount: "€150", per: "€25 / sesión", save: "Ahorras €30", featured: true },
+                    { label: "10 sesiones", amount: "Consultar", per: "precio especial" },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -368,6 +326,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Protocolo anticelulítico y remodelador de alta intensidad en 50 minutos",
                 badge: "⭐ Más demandado",
                 badgeType: "pop",
+                gallery: galleryFor("vacum-rotation", "Masaje Manual + Vacum Rotation + Cavitación o Radiofrecuencia"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué hace en tu cuerpo?",
@@ -387,25 +346,12 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€50", per: "por sesión" },
-                    {
-                        label: "Bono 5 sesiones",
-                        amount: "€200",
-                        per: "€40 / sesión",
-                        save: "Ahorras €50",
-                    },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€340",
-                        per: "€34 / sesión",
-                        save: "Ahorras €160",
-                        featured: true,
-                    },
+                    { label: "Bono 5 sesiones", amount: "€200", per: "€40 / sesión", save: "Ahorras €50" },
+                    { label: "Bono 10 sesiones", amount: "€340", per: "€34 / sesión", save: "Ahorras €160", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink(
-                        "Hola! Quiero información del Masaje Manual con Vacum Rotation y Cavitación."
-                    ),
+                    href: waLink("Hola! Quiero información del Masaje Manual con Vacum Rotation y Cavitación."),
                 },
             },
         ],
@@ -426,6 +372,7 @@ export const TABS: TabConfig[] = [
                     "Prepara tu piel y tus tejidos antes de la cirugía para mejores resultados y recuperación más rápida",
                 badge: "✦ Preoperatorio",
                 badgeType: "new",
+                gallery: galleryFor("preoperatorio", "Tratamiento Preoperatorio"),
                 descriptionBlocks: [
                     {
                         title: "¿Por qué preparar la piel antes de operar?",
@@ -445,13 +392,7 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sesión individual", amount: "€40", per: "por sesión" },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€300",
-                        per: "€30 / sesión",
-                        save: "Ahorras €100",
-                        featured: true,
-                    },
+                    { label: "Bono 10 sesiones", amount: "€300", per: "€30 / sesión", save: "Ahorras €100", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -466,6 +407,7 @@ export const TABS: TabConfig[] = [
                     "¿Has pasado por una cirugía estética? Te acompañamos en cada fase hasta el resultado definitivo",
                 badge: "🌿 Postoperatorio",
                 badgeType: "pop",
+                gallery: galleryFor("postoperatorio", "Tratamiento Postoperatorio"),
                 introText:
                     "¿Has pasado por una cirugía estética? Estas sesiones están especialmente diseñadas para acompañarte en cada fase de recuperación y optimizar tus resultados. Cada etapa se adapta a tu pauta médica y evolución personal.",
                 etapas: [
@@ -491,26 +433,14 @@ export const TABS: TabConfig[] = [
                     },
                 ],
                 prices: [
-                    {
-                        label: "Sesión mantenimiento",
-                        amount: "€35",
-                        per: "por sesión",
-                    },
-                    {
-                        label: "Bono 10 sesiones",
-                        amount: "€280",
-                        per: "€28 / sesión",
-                        save: "Ahorras €70",
-                        featured: true,
-                    },
+                    { label: "Sesión mantenimiento", amount: "€35", per: "por sesión" },
+                    { label: "Bono 10 sesiones", amount: "€280", per: "€28 / sesión", save: "Ahorras €70", featured: true },
                 ],
                 note:
                     "⚠️ Importante: Los precios de las etapas 1, 2 y 3 se establecen de forma personalizada según tu tipo de cirugía y evolución. El precio de mantenimiento indicado aplica al protocolo post-3 meses.",
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink(
-                        "Hola! Acabo de operarme y necesito información sobre el tratamiento postquirúrgico."
-                    ),
+                    href: waLink("Hola! Acabo de operarme y necesito información sobre el tratamiento postquirúrgico."),
                 },
             },
         ],
@@ -528,6 +458,7 @@ export const TABS: TabConfig[] = [
                 icon: "✨",
                 name: "Limpieza Facial Profunda",
                 tagline: "Limpieza completa en profundidad para una piel revitalizada y luminosa",
+                gallery: galleryFor("limpieza-facial", "Limpieza Facial Profunda"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -544,6 +475,7 @@ export const TABS: TabConfig[] = [
                 icon: "💎",
                 name: "Microdermoabrasión / Punta de Diamante",
                 tagline: "Exfoliación mecánica que renueva la textura de la piel",
+                gallery: galleryFor("microdermoabrasion", "Microdermoabrasión / Punta de Diamante"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -560,6 +492,7 @@ export const TABS: TabConfig[] = [
                 icon: "💧",
                 name: "Dermapem + Punta de Diamante + Ácido Hialurónico",
                 tagline: "Hidratación profunda con efecto relleno natural",
+                gallery: galleryFor("dermapen-hialuronico", "Dermapem + Punta de Diamante + Ácido Hialurónico"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -576,6 +509,7 @@ export const TABS: TabConfig[] = [
                 icon: "🍊",
                 name: "Dermapem + Punta de Diamante + Vitamina C",
                 tagline: "Iluminación y antioxidación para combatir manchas",
+                gallery: galleryFor("dermapen-vitamina-c", "Dermapem + Punta de Diamante + Vitamina C"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -592,6 +526,7 @@ export const TABS: TabConfig[] = [
                 icon: "🌟",
                 name: "Dermapem + Punta de Diamante + Cóctel de Vitaminas",
                 tagline: "Nutrición intensiva para revitalizar la piel apagada",
+                gallery: galleryFor("dermapen-vitaminas", "Dermapem + Punta de Diamante + Cóctel de Vitaminas"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -608,6 +543,7 @@ export const TABS: TabConfig[] = [
                 icon: "🧬",
                 name: "Dermapem + Punta de Diamante + Exosomas",
                 tagline: "Regeneración celular avanzada",
+                gallery: galleryFor("dermapen-exosomas", "Dermapem + Punta de Diamante + Exosomas"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -624,6 +560,7 @@ export const TABS: TabConfig[] = [
                 icon: "🖤",
                 name: "Carbón Peel",
                 tagline: "Reduce poros, controla grasa y unifica el tono",
+                gallery: galleryFor("carbon-peel", "Carbón Peel"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -640,6 +577,7 @@ export const TABS: TabConfig[] = [
                 icon: "⚡",
                 name: "Radiofrecuencia Indiba Facial + Punta de Diamante",
                 tagline: "Reafirmación y rejuvenecimiento profundo",
+                gallery: galleryFor("indiba-facial", "Radiofrecuencia Indiba Facial + Punta de Diamante"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -657,6 +595,7 @@ export const TABS: TabConfig[] = [
                 name: "Radiofrecuencia Indiba Facial — Bono 6 sesiones",
                 tagline: "Programa intensivo para resultados duraderos",
                 tags: ["Bono 6"],
+                gallery: galleryFor("indiba-facial-bono", "Radiofrecuencia Indiba Facial — Bono 6 sesiones"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -673,6 +612,7 @@ export const TABS: TabConfig[] = [
                 icon: "🎯",
                 name: "Radiofrecuencia Fraccionada con Nano Agujas",
                 tagline: "Última generación con microagujas",
+                gallery: galleryFor("rf-fraccionada", "Radiofrecuencia Fraccionada con Nano Agujas"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
@@ -701,6 +641,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Eliminación de tatuajes con tecnología picosegundo · Especializado en tinta negra",
                 badge: "🔬 Picosegundo",
                 badgeType: "pop",
+                gallery: galleryFor("laser-picosegundo", "Eliminación de Tatuajes con Láser Picosegundo"),
                 descriptionBlocks: [
                     {
                         title: "¿Cómo funciona?",
@@ -751,6 +692,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Cistamina + TGA + Keratina: mirada abierta, sana y duradera en solo 30 minutos",
                 badge: "❤️ Favorito",
                 badgeType: "pop",
+                gallery: galleryFor("lifting-coreano", "Lifting de Pestañas — Técnica Coreana"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué lo hace diferente?",
@@ -769,12 +711,7 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Lifting solo", amount: "€28" },
-                    {
-                        label: "Lifting + Tinte (Keratina)",
-                        amount: "€32",
-                        save: "Mirada más intensa",
-                        featured: true,
-                    },
+                    { label: "Lifting + Tinte (Keratina)", amount: "€32", save: "Mirada más intensa", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -786,6 +723,7 @@ export const TABS: TabConfig[] = [
                 icon: "〜",
                 name: "Depilación con Hilo — Visagismo",
                 tagline: "Depilación de precisión milimétrica + ácido hialurónico: cejas perfectas adaptadas a tu rostro",
+                gallery: galleryFor("hilo-visagismo", "Depilación con Hilo — Visagismo"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué incluye?",
@@ -812,6 +750,7 @@ export const TABS: TabConfig[] = [
                 icon: "🎨",
                 name: "Depilación con Hilo + Tinte Híbrido",
                 tagline: "El tinte que actúa sobre el vello y la piel: rellena huecos, da forma y volumen. Dura 7–14 días.",
+                gallery: galleryFor("hilo-tinte", "Depilación con Hilo + Tinte Híbrido"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué lo hace diferente?",
@@ -828,13 +767,7 @@ export const TABS: TabConfig[] = [
                     "✅ Apto para canas",
                     "🎨 Rellena huecos y da volumen",
                 ],
-                prices: [
-                    {
-                        label: "Depilación + Tinte Híbrido",
-                        amount: "€15",
-                        featured: true,
-                    },
-                ],
+                prices: [{ label: "Depilación + Tinte Híbrido", amount: "€15", featured: true }],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
                     href: waLink("Hola! Quiero información sobre depilación con tinte híbrido."),
@@ -847,6 +780,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Visagismo + Depilación + Tinte Híbrido: las cejas más voluminosas y definidas que hayas tenido",
                 badge: "✨ Completo",
                 badgeType: "new",
+                gallery: galleryFor("laminado-cejas", "Laminado de Cejas — Técnica Coreana"),
                 descriptionBlocks: [
                     {
                         title: "¿Qué incluye?",
@@ -865,12 +799,7 @@ export const TABS: TabConfig[] = [
                 ],
                 prices: [
                     { label: "Sin tinte", amount: "€25" },
-                    {
-                        label: "Con tinte híbrido",
-                        amount: "€30",
-                        save: "Resultado máximo",
-                        featured: true,
-                    },
+                    { label: "Con tinte híbrido", amount: "€30", save: "Resultado máximo", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -884,6 +813,7 @@ export const TABS: TabConfig[] = [
                 tagline: "Lifting de pestañas + Laminado de cejas con tinte híbrido + Depilación — todo en una cita",
                 badge: "🔥 Pack estrella",
                 badgeType: "pop",
+                gallery: galleryFor("pack-mirada", "Pack Mirada Completa"),
                 introText:
                     "El pack definitivo para resaltar tu mirada al máximo: cejas perfectas con volumen y color (laminado + tinte híbrido + depilación) y pestañas rizadas y levantadas con la técnica coreana. Todo en una sola cita. Sin maquillaje, sin esfuerzo diario.",
                 tags: [
@@ -893,12 +823,7 @@ export const TABS: TabConfig[] = [
                     "⭐ Depilación incluida",
                 ],
                 prices: [
-                    {
-                        label: "Pack completo",
-                        amount: "€55",
-                        save: "Todo incluido en 1 cita",
-                        featured: true,
-                    },
+                    { label: "Pack completo", amount: "€55", save: "Todo incluido en 1 cita", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",

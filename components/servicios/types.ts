@@ -17,6 +17,11 @@ export type PriceCard = {
     featured?: boolean;
 };
 
+export type TreatmentGalleryItem = {
+    src: string;
+    alt?: string;
+};
+
 export type Treatment = {
     id: string;
     icon: string;
@@ -31,6 +36,7 @@ export type Treatment = {
     ctaPrimary?: { label: string; href: string };
     etapas?: { num: string; title: string; text: string }[];
     introText?: string;
+    gallery?: TreatmentGalleryItem[];
 };
 
 export type TabId =
@@ -70,6 +76,5 @@ export type SiteConfig = {
 
     mapsUrl: string;
 
-    // 🔹 añadido para sincronizar footer, contacto y otras páginas
     hours: string;
 };

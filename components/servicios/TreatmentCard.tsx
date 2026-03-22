@@ -25,6 +25,41 @@ function PriceTable({ prices }: { prices?: PriceCard[] }) {
     );
 }
 
+function TreatmentGallery({ treatment }: { treatment: Treatment }) {
+    if (!treatment.gallery?.length) return null;
+
+    return (
+        <div className="treatment-gallery-wrap">
+            <div className="treatment-gallery-head">
+                <h4>Imágenes reales</h4>
+                <span>Referencia visual del tratamiento</span>
+            </div>
+
+            <div className="treatment-gallery">
+                {treatment.gallery.map((item, index) => (
+                    <a
+                        key={`${treatment.id}-${item.src}-${index}`}
+                        href={item.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="treatment-gallery-card"
+                        aria-label={item.alt || `${treatment.name} imagen ${index + 1}`}
+                        title={item.alt || `${treatment.name} imagen ${index + 1}`}
+                    >
+                        <img
+                            src={item.src}
+                            alt={item.alt || treatment.name}
+                            className="treatment-gallery-img"
+                            loading="lazy"
+                        />
+                        <span className="treatment-gallery-overlay">Ver foto</span>
+                    </a>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default function TreatmentCard({
     treatment,
     isOpen,
@@ -89,6 +124,8 @@ export default function TreatmentCard({
                             ))}
                         </div>
                     ) : null}
+
+                    <TreatmentGallery treatment={treatment} />
 
                     {treatment.tags?.length ? (
                         <div className="body-tags">
