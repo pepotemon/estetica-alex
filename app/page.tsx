@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -541,7 +542,6 @@ export default function Page() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.04)_0%,transparent_30%),linear-gradient(180deg,#080808_0%,#111111_45%,#080808_100%)]" />
       </div>
 
-      {/* HEADER ORIGINAL FIJO */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
@@ -689,7 +689,6 @@ export default function Page() {
       </header>
 
       <div className="pt-20">
-        {/* HERO ESTILO REFERENCIA */}
         <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_70%_30%,rgba(201,168,76,0.06)_0%,transparent_60%),radial-gradient(ellipse_50%_40%_at_20%_80%,rgba(201,168,76,0.04)_0%,transparent_50%),#080808]" />
           <div className="absolute inset-0">
@@ -791,7 +790,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* BLOQUES PROTAGONISTAS */}
         <section className="mx-auto max-w-[1300px] px-5 py-[90px] sm:px-10">
           <SectionLabel>Nuestras especialidades</SectionLabel>
           <h2 className="font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[60px]">
@@ -799,18 +797,18 @@ export default function Page() {
           </h2>
 
           <div className="mt-14 grid gap-[2px] lg:grid-cols-2">
-            <div className="group relative min-h-[520px] overflow-hidden bg-[#141414]">
+            <div className="group relative min-h-[700px] overflow-hidden bg-[#141414] sm:min-h-[660px] lg:min-h-[580px]">
               <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(201,168,76,0.12)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_60%_20%,rgba(201,168,76,0.1)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
-              <div className="absolute right-8 top-8 h-20 w-20 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)]" />
-              <div className="absolute right-[47px] top-[47px] h-[50px] w-[50px] rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)]" />
+              <div className="absolute right-5 top-5 h-14 w-14 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)] sm:right-8 sm:top-8 sm:h-20 sm:w-20" />
+              <div className="absolute right-[31px] top-[31px] h-8 w-8 rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)] sm:right-[47px] sm:top-[47px] sm:h-[50px] sm:w-[50px]" />
 
-              <div className="absolute inset-0 z-[3] flex flex-col justify-end p-10 sm:p-12">
-                <span className="mb-4 text-[42px]">⚡</span>
-                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9.5px] uppercase tracking-[0.2em] text-[#C9A84C]">
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-24 sm:p-12">
+                <span className="mb-4 text-[34px] sm:text-[42px]">⚡</span>
+                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-[#C9A84C] sm:text-[9.5px]">
                   Protagonista · Tecnología de élite
                 </span>
 
-                <h3 className="font-[family:var(--font-cormorant)] text-[30px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[42px]">
+                <h3 className="font-[family:var(--font-cormorant)] text-[28px] font-semibold leading-[1.08] text-[#F5F0E8] sm:text-[42px]">
                   Depilación Láser
                   <br />
                   <em className="italic text-[#C9A84C]">Soprano Ice Trionda</em>
@@ -848,18 +846,18 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="group relative min-h-[520px] overflow-hidden bg-[#141414]">
+            <div className="group relative min-h-[700px] overflow-hidden bg-[#141414] sm:min-h-[660px] lg:min-h-[580px]">
               <div className="absolute inset-0 bg-[linear-gradient(225deg,rgba(201,168,76,0.08)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_40%_20%,rgba(120,100,60,0.08)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
-              <div className="absolute right-8 top-8 h-20 w-20 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)]" />
-              <div className="absolute right-[47px] top-[47px] h-[50px] w-[50px] rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)]" />
+              <div className="absolute right-5 top-5 h-14 w-14 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)] sm:right-8 sm:top-8 sm:h-20 sm:w-20" />
+              <div className="absolute right-[31px] top-[31px] h-8 w-8 rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)] sm:right-[47px] sm:top-[47px] sm:h-[50px] sm:w-[50px]" />
 
-              <div className="absolute inset-0 z-[3] flex flex-col justify-end p-10 sm:p-12">
-                <span className="mb-4 text-[42px]">🌿</span>
-                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9.5px] uppercase tracking-[0.2em] text-[#C9A84C]">
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-24 sm:p-12">
+                <span className="mb-4 text-[34px] sm:text-[42px]">🌿</span>
+                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-[#C9A84C] sm:text-[9.5px]">
                   Especialidad · Pre y Postoperatorio
                 </span>
 
-                <h3 className="font-[family:var(--font-cormorant)] text-[30px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[42px]">
+                <h3 className="font-[family:var(--font-cormorant)] text-[28px] font-semibold leading-[1.08] text-[#F5F0E8] sm:text-[42px]">
                   Recuperación
                   <br />
                   <em className="italic text-[#C9A84C]">Postquirúrgica</em>
@@ -899,7 +897,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* STRIP LASER */}
         <section className="relative overflow-hidden border-y border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[72px] sm:px-10">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_100%_at_50%_50%,rgba(201,168,76,0.04)_0%,transparent_70%)]" />
           <div className="relative z-[1] mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-2 lg:items-center">
@@ -981,7 +978,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* GRID SERVICIOS */}
         <section className="mx-auto max-w-[1300px] px-5 py-[90px] sm:px-10">
           <SectionLabel>Catálogo completo</SectionLabel>
           <h2 className="font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[60px]">
@@ -1041,7 +1037,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* POSTQX */}
         <section className="relative overflow-hidden border-y border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
           <div className="pointer-events-none absolute -right-[100px] -top-[100px] h-[500px] w-[500px] rounded-full border border-[rgba(201,168,76,0.06)]" />
 
@@ -1130,7 +1125,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* FORMACIÓN */}
         <section className="border-t border-[rgba(201,168,76,0.08)] bg-[#080808] px-5 py-[56px] sm:px-10">
           <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-8">
             <div className="flex items-center gap-5">
@@ -1154,7 +1148,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* RESULTADOS / INSTAGRAM */}
         <section id="resultados" className="bg-[#141414] px-5 py-[90px] sm:px-10">
           <div className="mx-auto max-w-[1200px]">
             <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
@@ -1182,7 +1175,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* TESTIMONIOS */}
         <section className="border-t border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
           <div className="mx-auto max-w-[1200px]">
             <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
@@ -1226,7 +1218,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* CTA FINAL */}
         <section id="contacto" className="relative overflow-hidden px-5 py-[110px] text-center sm:px-10">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(201,168,76,0.06)_0%,transparent_70%)]" />
 
@@ -1264,7 +1255,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* MAPA / CONTACTO EXTRA */}
         <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-10 sm:pb-20">
           <div className="grid gap-8 sm:grid-cols-2">
             <GlassCard className="p-8">
@@ -1324,7 +1314,6 @@ export default function Page() {
         </section>
       </div>
 
-      {/* FOOTER REFERENCIA ADAPTADO */}
       <footer className="border-t border-[rgba(201,168,76,0.12)] bg-[#141414] px-5 pb-8 pt-14 sm:px-10">
         <div className="mx-auto grid max-w-[1200px] gap-12 border-b border-[rgba(201,168,76,0.08)] pb-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
