@@ -111,6 +111,14 @@ function Pill({ children }: { children: React.ReactNode }) {
   );
 }
 
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="mb-4 block text-[10px] uppercase tracking-[0.35em] text-[#C9A84C]">
+      {children}
+    </span>
+  );
+}
+
 function SectionTitle({
   title,
   desc,
@@ -301,7 +309,7 @@ function InstagramCard({ item }: { item: InstaItem }) {
       href={item.url}
       target="_blank"
       rel="noreferrer"
-      className="group relative overflow-hidden border border-[rgba(201,168,76,0.14)] bg-[rgba(20,15,11,0.48)] shadow-[0_16px_44px_rgba(0,0,0,0.24)]"
+      className="group relative overflow-hidden bg-[#141414] transition duration-300 hover:bg-[#1c1c1c]"
       aria-label="Ver reel en Instagram"
       title="Ver reel en Instagram"
     >
@@ -309,103 +317,53 @@ function InstagramCard({ item }: { item: InstaItem }) {
         <img
           src={item.thumb}
           alt="Reel Instagram"
-          className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-[1.02]"
+          className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-[1.03]"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,6,5,0.82),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,8,8,0.85),transparent_60%)]" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4">
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0">
-            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-100/88 font-[family:var(--font-dm-sans)]">
-              {item.label ?? "Instagram"}
-            </div>
-            <div className="mt-1 text-[11px] text-[#b8a78b] truncate font-[family:var(--font-dm-sans)]">
-              Ver en Instagram
-            </div>
-          </div>
-
-          <span className="inline-flex items-center gap-2 border border-[rgba(201,168,76,0.22)] bg-[rgba(12,9,7,0.55)] px-4 py-2 text-xs font-semibold text-amber-100/90 font-[family:var(--font-dm-sans)]">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 text-amber-200" fill="none">
-              <path d="M8 5l11 7-11 7V5z" fill="currentColor" opacity="0.9" />
-            </svg>
-            Ver
-          </span>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#E8C96A] font-[family:var(--font-dm-sans)]">
+          {item.label ?? "Instagram"}
+        </div>
+        <div className="mt-1 text-[11px] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+          Ver en Instagram
         </div>
       </div>
     </a>
   );
 }
 
-type Review = { name: string; when: string; stars: 5 | 4; text: string };
+type Review = {
+  name: string;
+  when: string;
+  stars: 5 | 4;
+  text: string;
+  meta: string;
+};
 
 const REVIEWS: Review[] = [
   {
-    name: "María C.",
-    when: "Hace 2 semanas",
+    name: "Laura P.",
+    when: "Hace 3 meses",
     stars: 5,
-    text: "Trato súper profesional y delicado. Me explicaron todo y el resultado se nota desde la primera sesión.",
-  },
-  {
-    name: "Laura G.",
-    when: "Hace 1 mes",
-    stars: 5,
-    text: "Llevaba mucho tiempo buscando un sitio así. Limpieza impecable y atención muy humana. Repetiré.",
-  },
-  {
-    name: "Ana P.",
-    when: "Hace 3 semanas",
-    stars: 5,
-    text: "Me encantó el protocolo post-quirúrgico. Cero dolor, manos expertas y seguimiento por WhatsApp.",
-  },
-  {
-    name: "Diana R.",
-    when: "Hace 5 días",
-    stars: 5,
-    text: "Se nota la experiencia. Te hacen sentir en confianza desde que entras. Muy recomendado.",
+    text: "Me operé de lipo hace 3 meses y hice todo el postoperatorio aquí. Fue clave para mi recuperación, mucho más rápida de lo esperado y sin fibrosis. Las chicas son un amor y el trato es excelente.",
+    meta: "Recuperación Postquirúrgica · Liposucción",
   },
   {
     name: "Sofía M.",
-    when: "Hace 2 meses",
-    stars: 5,
-    text: "Excelente para drenaje y recuperación. Me bajó la inflamación muchísimo. Gracias!",
-  },
-  {
-    name: "Valentina S.",
-    when: "Hace 1 semana",
-    stars: 5,
-    text: "Puntualidad, higiene y resultados. El lugar es precioso.",
-  },
-  {
-    name: "Carolina T.",
-    when: "Hace 3 meses",
-    stars: 5,
-    text: "Me asesoraron con mucha paciencia. Me gustó que no prometen milagros, sino un plan real.",
-  },
-  {
-    name: "Paula N.",
-    when: "Hace 4 semanas",
-    stars: 5,
-    text: "El láser me ha ido genial. Buenísima comunicación y siempre me recuerdan la cita.",
-  },
-  {
-    name: "Daniela V.",
-    when: "Hace 6 días",
-    stars: 5,
-    text: "Salí encantada. El tratamiento facial fue una pasada, piel luminosa y cero irritación.",
-  },
-  {
-    name: "Isabel A.",
-    when: "Hace 2 meses",
-    stars: 4,
-    text: "Muy bien todo. Solo me costó encontrar parking, pero el servicio y el trato valen la pena.",
-  },
-  {
-    name: "Natalia F.",
     when: "Hace 1 mes",
     stars: 5,
-    text: "Me ayudaron muchísimo en mi recuperación. Sientes que realmente se preocupan por ti.",
+    text: "Llevo 5 sesiones de depilación láser en piernas y axilas y ya no me sale prácticamente nada. El proceso es súper cómodo con el Soprano Ice. Me arrepiento de no haberlo hecho antes.",
+    meta: "Depilación Láser Soprano · Piernas y Axilas",
+  },
+  {
+    name: "María G.",
+    when: "Hace 4 meses",
+    stars: 5,
+    text: "Llevo 4 meses con el protocolo de Indiba corporal y los resultados son increíbles. La piel está mucho más firme y he perdido volumen en zonas que no conseguía trabajar en el gimnasio.",
+    meta: "Masaje Moldeador con Diatermia Indiba",
   },
 ];
 
@@ -419,7 +377,7 @@ function StarRow({ value }: { value: number }) {
           <svg
             key={i}
             viewBox="0 0 24 24"
-            className={`h-4 w-4 ${filled ? "text-amber-300" : "text-amber-200/25"}`}
+            className={`h-4 w-4 ${filled ? "text-[#C9A84C]" : "text-[#C9A84C]/20"}`}
             fill={filled ? "currentColor" : "none"}
           >
             <path
@@ -431,87 +389,6 @@ function StarRow({ value }: { value: number }) {
           </svg>
         );
       })}
-    </div>
-  );
-}
-
-function ReviewsPanel() {
-  const [expanded, setExpanded] = React.useState(false);
-  const visible = expanded ? REVIEWS : REVIEWS.slice(0, 3);
-
-  const avg =
-    Math.round((REVIEWS.reduce((acc, r) => acc + r.stars, 0) / REVIEWS.length) * 10) / 10;
-
-  return (
-    <div className="mt-10">
-      <GlassCard className="p-7 sm:p-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82 font-[family:var(--font-dm-sans)]">
-              Opiniones
-            </div>
-            <div className="mt-3 font-[family:var(--font-cormorant)] text-3xl font-light text-[#fffaf2]">
-              Lo que dicen nuestras clientas
-            </div>
-            <div className="mt-3 flex items-center gap-3">
-              <StarRow value={avg} />
-              <div className="text-sm text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                {avg} / 5 · {REVIEWS.length} reseñas
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="border border-[rgba(201,168,76,0.20)] bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-amber-100/70 font-[family:var(--font-dm-sans)]">
-              Verificadas
-            </span>
-            <span className="border border-white/10 bg-[rgba(12,9,7,0.38)] px-3 py-1 text-xs uppercase tracking-[0.12em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-              Atención cuidada
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-3">
-          {visible.map((r, idx) => (
-            <div
-              key={`${r.name}-${idx}`}
-              className="border border-[rgba(201,168,76,0.12)] bg-[rgba(20,15,11,0.40)] p-5"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <div className="font-[family:var(--font-cormorant)] text-[24px] leading-none font-light text-[#fffaf2]">
-                      {r.name}
-                    </div>
-                    <div className="text-xs text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                      {r.when}
-                    </div>
-                  </div>
-                  <div className="mt-3 text-[13.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                    {r.text}
-                  </div>
-                </div>
-
-                <div className="shrink-0">
-                  <StarRow value={r.stars} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {REVIEWS.length > 3 ? (
-          <div className="mt-5">
-            <button
-              type="button"
-              onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100 font-[family:var(--font-dm-sans)]"
-            >
-              {expanded ? "Ocultar comentarios" : "Mostrar más comentarios"}
-            </button>
-          </div>
-        ) : null}
-      </GlassCard>
     </div>
   );
 }
@@ -555,6 +432,24 @@ function FloatingWhatsApp({ href }: { href: string }) {
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const particlesRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const container = particlesRef.current;
+    if (!container) return;
+
+    container.innerHTML = "";
+    for (let i = 0; i < 18; i += 1) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 100}%`;
+      p.style.setProperty("--dur", `${4 + Math.random() * 6}s`);
+      p.style.setProperty("--delay", `${Math.random() * 5}s`);
+      p.style.setProperty("--op", `${0.15 + Math.random() * 0.35}`);
+      container.appendChild(p);
+    }
+  }, []);
 
   const whatsappGeneral = waLink(
     `Hola Alex! Quiero agendar una cita en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
@@ -564,17 +459,89 @@ export default function Page() {
     `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
+  const whatsappLaser = waLink(
+    "Hola! Quiero información sobre depilación láser Soprano Trionda."
+  );
+
+  const whatsappPostqx = waLink(
+    "Hola! Necesito información sobre el protocolo postquirúrgico."
+  );
+
   return (
     <main
-      className={`${cormorant.variable} ${dmSans.variable} relative min-h-screen overflow-x-hidden bg-[#0A0A0A] text-white [font-family:var(--font-dm-sans)]`}
+      className={`${cormorant.variable} ${dmSans.variable} relative min-h-screen overflow-x-hidden bg-[#080808] text-white [font-family:var(--font-dm-sans)]`}
     >
       <Script src="https://www.instagram.com/embed.js" strategy="lazyOnload" />
 
+      <style jsx global>{`
+        @keyframes lineSweep {
+          0% {
+            transform: translateX(-100%);
+          }
+          50% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes floatParticle {
+          0%,
+          100% {
+            transform: translateY(0) scale(1);
+            opacity: var(--op, 0.4);
+          }
+          50% {
+            transform: translateY(-20px) scale(1.5);
+            opacity: calc(var(--op, 0.4) * 1.5);
+          }
+        }
+
+        @keyframes pulseDot {
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 0 6px rgba(201, 168, 76, 0);
+          }
+        }
+
+        .hero-line {
+          position: absolute;
+          height: 1px;
+          width: 100%;
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(201, 168, 76, 0.15),
+            transparent
+          );
+          animation: lineSweep 8s ease-in-out infinite;
+        }
+
+        .particle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: #c9a84c;
+          border-radius: 999px;
+          animation: floatParticle var(--dur, 6s) ease-in-out infinite;
+          animation-delay: var(--delay, 0s);
+          opacity: var(--op, 0.4);
+        }
+
+        .hero-dot {
+          animation: pulseDot 2s ease infinite;
+        }
+      `}</style>
+
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.06)_0%,transparent_34%),linear-gradient(180deg,#0b0806_0%,#120d09_42%,#0d0907_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.04)_0%,transparent_30%),linear-gradient(180deg,#080808_0%,#111111_45%,#080808_100%)]" />
       </div>
 
+      {/* HEADER ORIGINAL FIJO */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
         <div className="relative mx-auto h-20 max-w-6xl px-5">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
@@ -722,196 +689,583 @@ export default function Page() {
       </header>
 
       <div className="pt-20">
-        <section className="relative isolate overflow-hidden border-b border-[rgba(201,168,76,0.10)]">
-          <div className="absolute inset-0 -z-20">
+        {/* HERO ESTILO REFERENCIA */}
+        <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_70%_30%,rgba(201,168,76,0.06)_0%,transparent_60%),radial-gradient(ellipse_50%_40%_at_20%_80%,rgba(201,168,76,0.04)_0%,transparent_50%),#080808]" />
+          <div className="absolute inset-0">
             <img
               src={SITE.hero}
               alt={`${SITE.brand} - ${SITE.city}`}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover opacity-[0.40]"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.42),rgba(8,6,5,0.68))]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,rgba(201,168,76,0.08)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,8,8,0.55),rgba(8,8,8,0.88))]" />
           </div>
 
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-            <div className="max-w-3xl">
-              <Pill>{SITE.city} · Atención con cita previa</Pill>
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="hero-line top-[25%]" />
+            <div className="hero-line top-[55%] opacity-60 [animation-delay:2.5s]" />
+            <div className="hero-line top-[78%] opacity-30 [animation-delay:5s]" />
+          </div>
 
-              <h1 className="mt-6 font-[family:var(--font-cormorant)] text-[44px] sm:text-[76px] font-light leading-[1.02] text-[#FAF8F3]">
-                Cuidado estético
-                <span className="block italic text-[#C9A84C]">con técnica y delicadeza</span>
+          <div ref={particlesRef} className="pointer-events-none absolute inset-0" />
+
+          <div className="relative z-10 mx-auto grid max-w-[1200px] gap-12 px-5 py-[80px] sm:px-10 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div className="max-w-[720px]">
+              <div className="mb-7 inline-flex items-center gap-3">
+                <div className="hero-dot h-[6px] w-[6px] rounded-full bg-[#C9A84C]" />
+                <span className="text-[11px] uppercase tracking-[0.35em] text-[#C9A84C]">
+                  Gran Canaria · Vecindario · Cita Previa
+                </span>
+              </div>
+
+              <h1 className="font-[family:var(--font-cormorant)] font-semibold leading-[0.95]">
+                <span className="block text-[52px] tracking-[-0.02em] text-[#F5F0E8] sm:text-[88px]">
+                  Depilación láser
+                </span>
+                <span className="block text-[52px] italic tracking-[-0.02em] text-[#C9A84C] sm:text-[88px]">
+                  definitiva.
+                </span>
+                <span className="mt-1 block text-[30px] font-normal italic tracking-[-0.01em] text-[#6A6257] sm:text-[54px]">
+                  Recuperación postquirúrgica experta.
+                </span>
               </h1>
 
-              <p className="mt-5 max-w-[560px] text-[15px] leading-[1.7] text-[#e8dcc3] font-[family:var(--font-dm-sans)]">
-                Más que tratamientos, ofrecemos una experiencia de cuidado y bienestar para tu
-                piel y tu cuerpo.
+              <p className="mt-8 max-w-[560px] text-[15px] leading-[1.8] text-[#8f8577] sm:text-[17px]">
+                Tecnología <strong className="text-[#C8BFA8]">Soprano Ice Trionda</strong>, protocolos
+                postquirúrgicos especializados, formación profesional y una experiencia elegante,
+                cercana y cuidada.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-[14px]">
-                <Button href="/servicios" variant="gold" newTab={false}>
-                  Ver tratamientos
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Button href={whatsappGeneral} variant="gold">
+                  📲 Agendar por WhatsApp
+                </Button>
+                <Button href="/servicios" variant="outline" newTab={false}>
+                  Ver todos los tratamientos →
                 </Button>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-          <SectionTitle
-            overline="Por qué elegirnos"
-            title="Seguridad, técnica y acompañamiento"
-            desc="Cuidamos la experiencia completa: desde la valoración inicial hasta el seguimiento, con una estética más limpia, cercana y profesional."
-          />
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: "shield" as const,
-                t: "Seguridad",
-                d: "Protocolos claros y responsables en cada tratamiento.",
-              },
-              {
-                icon: "spark" as const,
-                t: "Calidad",
-                d: "Tecnología, técnica y detalle en cada sesión.",
-              },
-              {
-                icon: "star" as const,
-                t: "Resultados",
-                d: "Un enfoque realista, progresivo y personalizado.",
-              },
-              {
-                icon: "clock" as const,
-                t: "Atención",
-                d: "Puntualidad, seguimiento y trato cuidado.",
-              },
-            ].map((x) => (
-              <ValueCard
-                key={x.t}
-                icon={
-                  <span className="text-amber-200">
-                    <Icon name={x.icon} />
-                  </span>
-                }
-                title={x.t}
-                desc={x.d}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section id="resultados" className="mx-auto max-w-6xl px-5 py-14 sm:py-16">
-          <SectionTitle
-            overline="Nuestro trabajo"
-            title="Una muestra real del centro"
-            desc="Contenido auténtico, tratamientos reales y una imagen cuidada que refleja cómo trabajamos."
-          />
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {INSTAGRAM_ITEMS.map((item) => (
-              <InstagramCard key={item.url} item={item} />
-            ))}
-          </div>
-
-          {SITE.instagramUrl ? (
-            <div className="mt-6">
-              <Button href={SITE.instagramUrl} variant="outline">
-                Ver Instagram @alex_postquirurgicoscanarias
-              </Button>
-            </div>
-          ) : null}
-
-          <ReviewsPanel />
-        </section>
-
-        <section className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-          <GlassCard className="relative overflow-hidden p-8 sm:p-10">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_80%_20%,rgba(201,168,76,0.14),transparent_60%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_420px_at_20%_70%,rgba(201,168,76,0.08),transparent_60%)]" />
-
-            <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="max-w-3xl">
-                <div className="flex flex-wrap items-center gap-2">
-                  <Pill>Curso {COURSE.modality}</Pill>
-                  <span className="text-xs uppercase tracking-[0.14em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                    {COURSE.city} · {COURSE.hours} · {COURSE.breakdown}
-                  </span>
-                </div>
-
-                <h2 className="mt-5 font-[family:var(--font-cormorant)] text-[38px] sm:text-[54px] font-light leading-[1.04] text-[#FAF8F3]">
-                  {COURSE.name}
-                </h2>
-
-                <p className="mt-4 max-w-2xl text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                  Formación intensiva diseñada para profesionales que desean dominar el
-                  acompañamiento estético post-quirúrgico con criterio técnico, seguridad y
-                  práctica real de cabina.
-                </p>
+            <div className="hidden flex-col gap-7 lg:flex">
+              <div className="border-r-2 border-[rgba(201,168,76,0.3)] pr-5 text-right">
+                <span className="block font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-none text-[#C9A84C]">
+                  3
+                </span>
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-[#6A6257]">
+                  Longitudes de onda
+                  <br />
+                  Soprano Trionda
+                </span>
               </div>
 
-              <div className="sm:mt-2">
+              <div className="border-r-2 border-[rgba(201,168,76,0.3)] pr-5 text-right">
+                <span className="block font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-none text-[#C9A84C]">
+                  4
+                </span>
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-[#6A6257]">
+                  Etapas postquirúrgicas
+                  <br />
+                  especializadas
+                </span>
+              </div>
+
+              <div className="border-r-2 border-[rgba(201,168,76,0.3)] pr-5 text-right">
+                <span className="block font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-none text-[#C9A84C]">
+                  +8
+                </span>
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-[#6A6257]">
+                  Tipos de tratamiento
+                  <br />
+                  disponibles
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-10 left-5 hidden items-center gap-3 lg:flex lg:left-10">
+            <div className="h-px w-10 bg-[#8B6914]" />
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#6A6257]">
+              Explorar
+            </span>
+          </div>
+        </section>
+
+        {/* BLOQUES PROTAGONISTAS */}
+        <section className="mx-auto max-w-[1300px] px-5 py-[90px] sm:px-10">
+          <SectionLabel>Nuestras especialidades</SectionLabel>
+          <h2 className="font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[60px]">
+            Lo que nos hace <em className="italic text-[#C9A84C]">diferentes</em>
+          </h2>
+
+          <div className="mt-14 grid gap-[2px] lg:grid-cols-2">
+            <div className="group relative min-h-[520px] overflow-hidden bg-[#141414]">
+              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(201,168,76,0.12)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_60%_20%,rgba(201,168,76,0.1)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div className="absolute right-8 top-8 h-20 w-20 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)]" />
+              <div className="absolute right-[47px] top-[47px] h-[50px] w-[50px] rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)]" />
+
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end p-10 sm:p-12">
+                <span className="mb-4 text-[42px]">⚡</span>
+                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9.5px] uppercase tracking-[0.2em] text-[#C9A84C]">
+                  Protagonista · Tecnología de élite
+                </span>
+
+                <h3 className="font-[family:var(--font-cormorant)] text-[30px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[42px]">
+                  Depilación Láser
+                  <br />
+                  <em className="italic text-[#C9A84C]">Soprano Ice Trionda</em>
+                </h3>
+
+                <p className="mt-4 max-w-[400px] text-[14px] leading-[1.75] text-[#8f8577]">
+                  El sistema que combina simultáneamente <strong className="text-[#C8BFA8]">3 longitudes de onda</strong>
+                  para tratar distintos tipos de vello y piel con gran eficacia y mayor confort.
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {[
+                    "⚡ Trionda 755+808+1064nm",
+                    "✅ Todos los fototipos",
+                    "❄️ Soprano Ice",
+                    "👨👩 Hombre y Mujer",
+                    "📋 Bonos disponibles",
+                  ].map((x) => (
+                    <span
+                      key={x}
+                      className="border border-[rgba(201,168,76,0.2)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11px] text-[#8f8577]"
+                    >
+                      {x}
+                    </span>
+                  ))}
+                </div>
+
                 <a
-                  href="/curso"
-                  className="inline-flex items-center justify-center border border-[rgba(201,168,76,0.24)] bg-[rgba(12,9,7,0.38)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.08em] text-amber-200 transition hover:bg-amber-300/10 hover:text-amber-100 font-[family:var(--font-dm-sans)]"
+                  href="/servicios#catalogo"
+                  className="mt-7 inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.1em] text-[#C9A84C] transition hover:gap-4"
                 >
-                  Ver página del curso
+                  Ver precios y zonas
+                  <span className="relative h-px w-8 bg-[#C9A84C] after:absolute after:right-0 after:top-[-3px] after:h-[7px] after:w-[7px] after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-[#C9A84C] after:content-['']" />
                 </a>
               </div>
             </div>
 
-            <div className="relative mt-8 grid gap-8 sm:grid-cols-2">
-              <GlassCard className="p-7">
-                <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/82 font-[family:var(--font-dm-sans)]">
-                  Qué aprenderás
-                </div>
-                <div className="mt-6 space-y-5">
-                  <CheckItem>
-                    Drenaje linfático manual: técnica correcta, control de presión y secuencias.
-                  </CheckItem>
-                  <CheckItem>
-                    Organización por fases del post-quirúrgico y planificación de sesiones.
-                  </CheckItem>
-                  <CheckItem>
-                    Señales de alerta, límites profesionales y derivación responsable.
-                  </CheckItem>
-                  <CheckItem>
-                    Comunicación con el cliente y posicionamiento profesional de alto nivel.
-                  </CheckItem>
-                </div>
-              </GlassCard>
+            <div className="group relative min-h-[520px] overflow-hidden bg-[#141414]">
+              <div className="absolute inset-0 bg-[linear-gradient(225deg,rgba(201,168,76,0.08)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_40%_20%,rgba(120,100,60,0.08)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
+              <div className="absolute right-8 top-8 h-20 w-20 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)]" />
+              <div className="absolute right-[47px] top-[47px] h-[50px] w-[50px] rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)]" />
 
-              <GlassCard className="p-8">
-                <div>
-                  <div className="text-[10px] uppercase tracking-[0.28em] text-[#d9b861]/80 font-[family:var(--font-dm-sans)]">
-                    Inscripciones abiertas
-                  </div>
-                  <div className="mt-3 font-[family:var(--font-cormorant)] text-[34px] font-light text-[#FAF8F3]">
-                    ¿Quieres reservar tu cupo?
-                  </div>
-                  <p className="mt-4 text-[14px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                    Escríbenos por WhatsApp y te enviaremos toda la información sobre próximas
-                    fechas, inversión y disponibilidad.
-                  </p>
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end p-10 sm:p-12">
+                <span className="mb-4 text-[42px]">🌿</span>
+                <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9.5px] uppercase tracking-[0.2em] text-[#C9A84C]">
+                  Especialidad · Pre y Postoperatorio
+                </span>
+
+                <h3 className="font-[family:var(--font-cormorant)] text-[30px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[42px]">
+                  Recuperación
+                  <br />
+                  <em className="italic text-[#C9A84C]">Postquirúrgica</em>
+                </h3>
+
+                <p className="mt-4 max-w-[400px] text-[14px] leading-[1.75] text-[#8f8577]">
+                  Protocolo organizado por etapas para acompañarte desde el inicio hasta el
+                  resultado final, con drenaje, ultrasonido, Indiba y mantenimiento.
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {[
+                    "🌱 Preoperatorio con Indiba",
+                    "💧 Drenaje 1ª etapa",
+                    "🔊 Ultrasonido 2ª etapa",
+                    "⚡ Indiba 3ª etapa",
+                    "🏆 Moldeo post-3 meses",
+                  ].map((x) => (
+                    <span
+                      key={x}
+                      className="border border-[rgba(201,168,76,0.2)] bg-[rgba(201,168,76,0.03)] px-3 py-1 text-[11px] text-[#8f8577]"
+                    >
+                      {x}
+                    </span>
+                  ))}
                 </div>
 
-                <div className="mt-8">
-                  <Button href={whatsappCurso} variant="gold">
-                    📲 Reservar mi cupo
-                  </Button>
-                </div>
-              </GlassCard>
+                <a
+                  href="/servicios#catalogo"
+                  className="mt-7 inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.1em] text-[#C9A84C] transition hover:gap-4"
+                >
+                  Ver protocolo completo
+                  <span className="relative h-px w-8 bg-[#C9A84C] after:absolute after:right-0 after:top-[-3px] after:h-[7px] after:w-[7px] after:rotate-45 after:border-r-[1.5px] after:border-t-[1.5px] after:border-[#C9A84C] after:content-['']" />
+                </a>
+              </div>
             </div>
-          </GlassCard>
+          </div>
         </section>
 
-        <section id="contacto" className="mx-auto max-w-6xl px-5 py-16 sm:py-20">
-          <SectionTitle
-            overline="Ubicación & contacto"
-            title="Estamos en Vecindario"
-            desc="Escríbenos directamente por WhatsApp o visítanos en nuestro centro."
-          />
+        {/* STRIP LASER */}
+        <section className="relative overflow-hidden border-y border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[72px] sm:px-10">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_100%_at_50%_50%,rgba(201,168,76,0.04)_0%,transparent_70%)]" />
+          <div className="relative z-[1] mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-2 lg:items-center">
+            <div>
+              <span className="mb-5 block text-[9.5px] uppercase tracking-[0.35em] text-[#C9A84C]">
+                ¿Por qué Soprano Ice Trionda?
+              </span>
 
+              <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[54px]">
+                La tecnología láser
+                <br />
+                más avanzada
+                <br />
+                <em className="italic text-[#C9A84C]">del mercado</em>
+              </h2>
+
+              <p className="mt-6 text-[15px] leading-[1.8] text-[#8f8577]">
+                La mayoría de láseres trabajan con una sola longitud de onda. El Soprano Ice
+                Trionda utiliza <strong className="text-[#C8BFA8]">tres simultáneamente</strong>, cubriendo
+                distintos ciclos del vello y distintos fototipos en una sola pasada.
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                {[
+                  "755nm · Vello fino y rubio",
+                  "808nm · Vello grueso y oscuro",
+                  "1064nm · Pieles oscuras",
+                  "Soprano Ice · Cabezal refrigerante",
+                ].map((x) => (
+                  <div
+                    key={x}
+                    className="flex items-center gap-2 border border-[rgba(201,168,76,0.2)] bg-[rgba(201,168,76,0.04)] px-4 py-2 text-[12px] text-[#C8BFA8]"
+                  >
+                    <span className="h-[6px] w-[6px] rounded-full bg-[#C9A84C]" />
+                    {x}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-9">
+                <Button href={whatsappLaser} variant="gold">
+                  📲 Consultar mi caso
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="col-span-full flex items-center gap-5 bg-[#C9A84C] px-6 py-5 text-black">
+                <span className="text-[32px]">⭐</span>
+                <div>
+                  <span className="block font-[family:var(--font-cormorant)] text-[32px] font-semibold leading-none">
+                    Soprano Ice Trionda
+                  </span>
+                  <span className="mt-2 block text-[11.5px] leading-[1.4] text-black/70">
+                    Tecnología premium para depilación láser avanzada en Vecindario, Gran Canaria
+                  </span>
+                </div>
+              </div>
+
+              {[
+                { num: "3×", label: "Longitudes de onda combinadas para máxima eficacia" },
+                { num: "100%", label: "Fototipos de piel tratables" },
+                { num: "5–8", label: "Sesiones recomendadas" },
+                { num: "0", label: "Tiempo de recuperación" },
+              ].map((x) => (
+                <div
+                  key={x.label}
+                  className="border border-[rgba(201,168,76,0.12)] bg-[#1C1C1C] px-5 py-6 transition hover:-translate-y-1 hover:border-[rgba(201,168,76,0.35)]"
+                >
+                  <span className="block font-[family:var(--font-cormorant)] text-[40px] font-semibold leading-none text-[#C9A84C]">
+                    {x.num}
+                  </span>
+                  <span className="mt-2 block text-[11.5px] leading-[1.4] text-[#8f8577]">
+                    {x.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* GRID SERVICIOS */}
+        <section className="mx-auto max-w-[1300px] px-5 py-[90px] sm:px-10">
+          <SectionLabel>Catálogo completo</SectionLabel>
+          <h2 className="font-[family:var(--font-cormorant)] text-[38px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[60px]">
+            Todos nuestros <em className="italic text-[#C9A84C]">tratamientos</em>
+          </h2>
+
+          <div className="mt-14 grid gap-[2px] md:grid-cols-2 xl:grid-cols-3">
+            {[
+              {
+                icon: "⚡",
+                name: "Depilación Láser Diodo",
+                desc: "Soprano Ice Trionda · Mujer y Hombre · Bonos con descuento",
+              },
+              {
+                icon: "🌿",
+                name: "Pre y Postoperatorio",
+                desc: "Protocolo por etapas · Drenaje · Ultrasonido · Indiba",
+              },
+              {
+                icon: "🔥",
+                name: "Corporales & Moldeo",
+                desc: "Criolipólisis · EMS Sculpt · Cavitación · Indiba corporal",
+              },
+              {
+                icon: "✨",
+                name: "Faciales Premium",
+                desc: "Limpieza profunda · RF Fraccionada · Indiba facial",
+              },
+              {
+                icon: "👁️",
+                name: "Cejas & Pestañas Coreanas",
+                desc: "Técnica coreana · Laminado · Lifting · Pack Mirada Completa",
+              },
+              {
+                icon: "🎯",
+                name: "Láser Picosegundo",
+                desc: "Eliminación de tatuajes · Tinta negra · Todo tipo de piel",
+              },
+            ].map((item) => (
+              <a
+                key={item.name}
+                href="/servicios"
+                className="block border-b-2 border-transparent bg-[#141414] px-8 py-10 transition hover:-translate-y-1 hover:border-[#C9A84C] hover:bg-[#1C1C1C]"
+              >
+                <span className="mb-4 block text-[32px]">{item.icon}</span>
+                <div className="font-[family:var(--font-cormorant)] text-[22px] font-semibold text-[#F5F0E8]">
+                  {item.name}
+                </div>
+                <div className="mt-3 text-[12.5px] leading-[1.7] text-[#8f8577]">
+                  {item.desc}
+                </div>
+                <span className="mt-5 block text-[11px] uppercase tracking-[0.1em] text-[#C9A84C]">
+                  Ver tratamiento →
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* POSTQX */}
+        <section className="relative overflow-hidden border-y border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
+          <div className="pointer-events-none absolute -right-[100px] -top-[100px] h-[500px] w-[500px] rounded-full border border-[rgba(201,168,76,0.06)]" />
+
+          <div className="mx-auto grid max-w-[1200px] gap-16 lg:grid-cols-[1fr_1.4fr]">
+            <div>
+              <SectionLabel>Especialidad postquirúrgica</SectionLabel>
+
+              <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[52px]">
+                Tu cirugía merece
+                <br />
+                una recuperación
+                <br />
+                <em className="italic text-[#C9A84C]">experta</em>
+              </h2>
+
+              <p className="mt-6 text-[15px] leading-[1.8] text-[#8f8577]">
+                El resultado final no depende solo de la cirugía, también del acompañamiento
+                durante la recuperación. Nuestro protocolo está pensado para cuidar cada fase con
+                criterio y delicadeza.
+              </p>
+
+              <div className="mt-8 border border-[rgba(201,168,76,0.25)] bg-[rgba(201,168,76,0.03)] p-6">
+                <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-[#C9A84C]">
+                  🌱 Antes de operar · Tratamiento Preoperatorio
+                </div>
+                <p className="text-[13.5px] leading-[1.7] text-[#8f8577]">
+                  Preparar la piel con <strong className="text-[#C9A84C]">Diatermia Indiba</strong> antes de la cirugía
+                  ayuda a que el tejido llegue en mejores condiciones al proceso.
+                </p>
+              </div>
+
+              <div className="mt-8">
+                <Button href={whatsappPostqx} variant="gold">
+                  📲 Consultar mi caso
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative flex flex-col">
+              <div className="absolute left-5 top-10 bottom-10 w-px bg-[linear-gradient(to_bottom,#C9A84C,rgba(201,168,76,0.1))]" />
+
+              {[
+                {
+                  num: "1",
+                  title: "Drenaje Postquirúrgico",
+                  text: "Reduce la inflamación inicial, drena líquidos y prepara los tejidos para las siguientes etapas.",
+                  price: "Precio según pauta personalizada",
+                },
+                {
+                  num: "2",
+                  title: "Masaje Linfático + Ultrasonido",
+                  text: "Favorece la reabsorción de líquidos, acompaña la fibrosis incipiente y acelera la recuperación tisular.",
+                  price: "Precio según pauta personalizada",
+                },
+                {
+                  num: "3",
+                  title: "Masaje Linfático + Indiba 448kHz",
+                  text: "Ayuda a reafirmar, mejorar cicatrices, romper adherencias y consolidar el resultado final.",
+                  price: "Precio según pauta personalizada",
+                },
+                {
+                  num: "+",
+                  title: "Mantenimiento post-3 meses · Indiba + Moldeo",
+                  text: "Protocolo de mantenimiento y pulido del resultado con Indiba y masaje moldeador.",
+                  price: "Sesión €35 · Bono 10 → €280",
+                },
+              ].map((step) => (
+                <div key={step.title} className="relative flex gap-6 py-5">
+                  <div className="relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center border-[1.5px] border-[#C9A84C] bg-[#1C1C1C] font-[family:var(--font-cormorant)] text-[15px] font-semibold text-[#C9A84C]">
+                    {step.num}
+                  </div>
+                  <div>
+                    <h4 className="font-[family:var(--font-cormorant)] text-[20px] font-semibold text-[#F5F0E8]">
+                      {step.title}
+                    </h4>
+                    <p className="mt-1 text-[13px] leading-[1.7] text-[#8f8577]">
+                      {step.text}
+                    </p>
+                    <span className="mt-2 block text-[12px] tracking-[0.06em] text-[#C9A84C]">
+                      {step.price}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FORMACIÓN */}
+        <section className="border-t border-[rgba(201,168,76,0.08)] bg-[#080808] px-5 py-[56px] sm:px-10">
+          <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-8">
+            <div className="flex items-center gap-5">
+              <div className="flex h-14 w-14 items-center justify-center border-[1.5px] border-[#C9A84C] text-[26px]">
+                🎓
+              </div>
+              <div>
+                <h3 className="font-[family:var(--font-cormorant)] text-[24px] font-semibold text-[#F5F0E8]">
+                  También ofrecemos Formación
+                </h3>
+                <p className="mt-1 text-[13.5px] leading-[1.6] text-[#8f8577]">
+                  Cursos especializados para profesionales del sector.{" "}
+                  <strong className="text-[#C9A84C]">Aprende de los mejores.</strong>
+                </p>
+              </div>
+            </div>
+
+            <Button href="/curso" variant="outline" newTab={false}>
+              Ver cursos disponibles →
+            </Button>
+          </div>
+        </section>
+
+        {/* RESULTADOS / INSTAGRAM */}
+        <section id="resultados" className="bg-[#141414] px-5 py-[90px] sm:px-10">
+          <div className="mx-auto max-w-[1200px]">
+            <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <SectionLabel>Nuestro trabajo</SectionLabel>
+                <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[52px]">
+                  Una muestra real del
+                  <br />
+                  <em className="italic text-[#C9A84C]">centro</em>
+                </h2>
+              </div>
+
+              {SITE.instagramUrl ? (
+                <Button href={SITE.instagramUrl} variant="outline">
+                  Ver Instagram
+                </Button>
+              ) : null}
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              {INSTAGRAM_ITEMS.map((item) => (
+                <InstagramCard key={item.url} item={item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIOS */}
+        <section className="border-t border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
+          <div className="mx-auto max-w-[1200px]">
+            <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[52px]">
+                  Lo que dicen
+                  <br />
+                  nuestras <em className="italic text-[#C9A84C]">clientas</em>
+                </h2>
+              </div>
+
+              <div className="text-right">
+                <span className="block text-[18px] tracking-[3px] text-[#C9A84C]">★★★★★</span>
+                <span className="text-[12px] tracking-[0.06em] text-[#6A6257]">
+                  Google Reviews · Alex Estética
+                </span>
+              </div>
+            </div>
+
+            <div className="grid gap-[2px] lg:grid-cols-3">
+              {REVIEWS.map((review) => (
+                <div
+                  key={review.name}
+                  className="border-t-2 border-transparent bg-[#1C1C1C] px-7 py-9 transition hover:border-[#C9A84C]"
+                >
+                  <div className="mb-4">
+                    <StarRow value={review.stars} />
+                  </div>
+                  <p className="font-[family:var(--font-cormorant)] text-[18px] italic leading-[1.8] text-[#8f8577]">
+                    "{review.text}"
+                  </p>
+                  <div className="mt-5 text-[12.5px] font-medium tracking-[0.06em] text-[#C8BFA8]">
+                    {review.name}
+                    <span className="mt-1 block text-[11.5px] font-light tracking-[0.04em] text-[#6A6257]">
+                      {review.meta}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA FINAL */}
+        <section id="contacto" className="relative overflow-hidden px-5 py-[110px] text-center sm:px-10">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(201,168,76,0.06)_0%,transparent_70%)]" />
+
+          <div className="relative z-[1] mx-auto max-w-[900px]">
+            <span className="mb-5 block text-[9.5px] uppercase tracking-[0.4em] text-[#C9A84C]">
+              Sin compromiso · Valoración gratuita
+            </span>
+
+            <h2 className="font-[family:var(--font-cormorant)] text-[42px] font-semibold leading-none text-[#F5F0E8] sm:text-[88px]">
+              ¿Empezamos
+              <br />
+              <em className="italic text-[#C9A84C]">hoy?</em>
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-[520px] text-[15.5px] leading-[1.8] text-[#8f8577]">
+              Te orientamos para que encuentres el tratamiento o la formación que mejor encaja
+              contigo, tu piel y tus objetivos.
+            </p>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <Button href={whatsappGeneral} variant="gold">
+                📲 Valoración gratuita por WhatsApp
+              </Button>
+              <Button href="/servicios" variant="outline" newTab={false}>
+                Ver todos los tratamientos
+              </Button>
+            </div>
+
+            <p className="mt-7 text-[13px] tracking-[0.1em] text-[#6A6257]">
+              O llámanos directamente:{" "}
+              <a href={`tel:+${SITE.phone}`} className="text-[#C9A84C] no-underline">
+                {SITE.phoneDisplay}
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* MAPA / CONTACTO EXTRA */}
+        <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-10 sm:pb-20">
           <div className="grid gap-8 sm:grid-cols-2">
             <GlassCard className="p-8">
               <div className="mb-6">
@@ -955,10 +1309,6 @@ export default function Page() {
                   </Button>
                 ) : null}
               </div>
-
-              <div className="mt-8 text-xs uppercase tracking-[0.12em] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-                Atención con cita previa recomendada.
-              </div>
             </GlassCard>
 
             <GlassCard className="overflow-hidden p-0">
@@ -972,137 +1322,117 @@ export default function Page() {
             </GlassCard>
           </div>
         </section>
-
-        <section className="relative overflow-hidden px-5 py-[72px] text-center">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(201,168,76,0.05)_0%,transparent_70%)]" />
-          <div className="relative mx-auto max-w-4xl">
-            <h2 className="font-[family:var(--font-cormorant)] text-[38px] sm:text-[58px] font-light leading-[1.08] text-[#FAF8F3]">
-              ¿No sabes
-              <br />
-              <em className="italic text-[#C9A84C]">por dónde empezar?</em>
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-              Te orientamos sin compromiso para que encuentres el tratamiento o la formación que
-              mejor encaja contigo.
-            </p>
-
-            <div className="mt-8 flex flex-wrap justify-center gap-[14px]">
-              <Button href={whatsappGeneral} variant="gold">
-                📲 Valoración por WhatsApp
-              </Button>
-              <Button href={`tel:+${SITE.phone}`} variant="outline" newTab={false}>
-                📞 {SITE.phoneDisplay}
-              </Button>
-            </div>
-          </div>
-        </section>
       </div>
 
-      <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[linear-gradient(180deg,rgba(19,14,10,0.98)_0%,rgba(12,9,7,1)_100%)] px-5 py-10 sm:px-10">
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
+      {/* FOOTER REFERENCIA ADAPTADO */}
+      <footer className="border-t border-[rgba(201,168,76,0.12)] bg-[#141414] px-5 pb-8 pt-14 sm:px-10">
+        <div className="mx-auto grid max-w-[1200px] gap-12 border-b border-[rgba(201,168,76,0.08)] pb-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="font-[family:var(--font-cormorant)] text-[22px] tracking-[0.1em] text-[#E2C47A]">
-              {SITE.brand}
-            </div>
-            <p className="mt-3 text-[12.5px] leading-[1.6] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
-              {SITE.addressLine}
-              <br />
-              {SITE.city}
-              <br />
-              <br />
-              Tel.: {SITE.phoneDisplay}
-              <br />
-              {SITE.hours}
+            <span className="block font-[family:var(--font-cormorant)] text-[24px] font-semibold tracking-[0.08em] text-[#C9A84C]">
+              ALEX ESTÉTICA
+            </span>
+            <p className="mt-4 text-[13px] leading-[1.75] text-[#8f8577]">
+              Estética avanzada con tecnología de élite y trato cercano. Especialistas en
+              depilación láser, recuperación postquirúrgica y formación profesional en Gran Canaria.
             </p>
-          </div>
 
-          <div>
-            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
-              Información
-            </h5>
-            <div className="space-y-2">
-              <a
-                href="/sobre"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Sobre Nosotros
-              </a>
-              <a
-                href="/servicios"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Tratamientos
-              </a>
-              <a
-                href="#resultados"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Nuestro trabajo
-              </a>
-              <a
-                href="/curso"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Curso
-              </a>
-              <a
-                href="#contacto"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Contacto
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h5 className="mb-4 text-[10px] uppercase tracking-[0.2em] text-[#E2C47A] font-[family:var(--font-dm-sans)]">
-              Centro
-            </h5>
-            <div className="space-y-2">
-              <a
-                href="/sobre"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Sobre Nosotros
+            <div className="mt-5 space-y-1">
+              <a href={`tel:+${SITE.phone}`} className="block text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+                📞 {SITE.phoneDisplay}
               </a>
               <a
                 href={waLink("Hola! Quiero información sobre tratamientos.")}
                 target="_blank"
                 rel="noreferrer"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                className="block text-[13px] text-[#8f8577] hover:text-[#C9A84C]"
               >
-                WhatsApp
+                💬 WhatsApp
               </a>
               <a
                 href={SITE.mapsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
+                className="block text-[13px] text-[#8f8577] hover:text-[#C9A84C]"
               >
-                Google Maps
+                📍 {SITE.addressLine}
               </a>
-              <a
-                href="/privacidad"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Política de privacidad
-              </a>
-              <a
-                href="/aviso-legal"
-                className="block text-[13px] text-[#b8a78b] hover:text-[#E2C47A] font-[family:var(--font-dm-sans)]"
-              >
-                Aviso legal
-              </a>
+              <span className="block text-[13px] text-[#8f8577]">🕐 {SITE.hours}</span>
             </div>
+          </div>
+
+          <div>
+            <h5 className="mb-4 text-[9.5px] uppercase tracking-[0.25em] text-[#C9A84C]">
+              Tratamientos
+            </h5>
+            <a href="/servicios" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Depilación Láser
+            </a>
+            <a href="/servicios" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Pre y Postoperatorio
+            </a>
+            <a href="/servicios" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Corporales & Moldeo
+            </a>
+            <a href="/servicios" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Faciales Premium
+            </a>
+            <a href="/servicios" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Cejas & Pestañas
+            </a>
+            <a href="/servicios" className="block text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Láser Picosegundo
+            </a>
+          </div>
+
+          <div>
+            <h5 className="mb-4 text-[9.5px] uppercase tracking-[0.25em] text-[#C9A84C]">
+              Centro
+            </h5>
+            <a href="/sobre" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Sobre Nosotros
+            </a>
+            <a href="/curso" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Formación
+            </a>
+            <a
+              href={SITE.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]"
+            >
+              Google Maps
+            </a>
+            <a
+              href={SITE.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]"
+            >
+              Instagram
+            </a>
+            <a href="#resultados" className="block text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Nuestro trabajo
+            </a>
+          </div>
+
+          <div>
+            <h5 className="mb-4 text-[9.5px] uppercase tracking-[0.25em] text-[#C9A84C]">
+              Legal
+            </h5>
+            <a href="/privacidad" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Política de privacidad
+            </a>
+            <a href="/aviso-legal" className="block mb-2 text-[13px] text-[#8f8577] hover:text-[#C9A84C]">
+              Aviso legal
+            </a>
           </div>
         </div>
 
-        <div className="mx-auto mt-7 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-[rgba(201,168,76,0.08)] pt-5 text-[11.5px] text-[#b8a78b] font-[family:var(--font-dm-sans)]">
+        <div className="mx-auto mt-7 flex max-w-[1200px] flex-wrap items-center justify-between gap-3 text-[11.5px] text-[#6A6257]">
           <span>
             © {new Date().getFullYear()} {SITE.brand} · {SITE.city}
           </span>
-          <span>Diseñado con ♥ en {SITE.locality}</span>
+          <span>{SITE.addressLine}</span>
         </div>
       </footer>
 

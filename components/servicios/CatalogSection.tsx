@@ -1,8 +1,88 @@
+"use client";
+
+import React from "react";
 import DepilacionTable from "./DepilacionTable";
 import TreatmentCard from "./TreatmentCard";
 import Button from "./Button";
 import type { TabConfig, TabId } from "./types";
 import { waLink } from "./content";
+
+function DepGallery({
+    depGender,
+}: {
+    depGender: "mujer" | "hombre";
+}) {
+    const initialImages =
+        depGender === "mujer"
+            ? [
+                {
+                    src: "/tratamientos/depilacion/mujer-1.jpg",
+                    alt: "Depilación láser mujer · imagen 1",
+                },
+                {
+                    src: "/tratamientos/depilacion/mujer-2.jpg",
+                    alt: "Depilación láser mujer · imagen 2",
+                },
+            ]
+            : [
+                {
+                    src: "/tratamientos/depilacion/hombre-1.jpg",
+                    alt: "Depilación láser hombre · imagen 1",
+                },
+                {
+                    src: "/tratamientos/depilacion/hombre-2.jpg",
+                    alt: "Depilación láser hombre · imagen 2",
+                },
+            ];
+
+    const [visibleImages, setVisibleImages] = React.useState(initialImages);
+
+    React.useEffect(() => {
+        setVisibleImages(initialImages);
+    }, [depGender]);
+
+    if (!visibleImages.length) return null;
+
+    return (
+        <div className="treatment-gallery-wrap">
+            <div className="treatment-gallery-head">
+                <h4>Galería del tratamiento</h4>
+                <span>
+                    {depGender === "mujer"
+                        ? "Depilación láser · Mujer"
+                        : "Depilación láser · Hombre"}
+                </span>
+            </div>
+
+            <div className="treatment-gallery">
+                {visibleImages.map((image, index) => (
+                    <a
+                        key={`${depGender}-${image.src}-${index}`}
+                        href={image.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="treatment-gallery-card"
+                    >
+                        <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="treatment-gallery-img"
+                            loading="lazy"
+                            onError={() => {
+                                setVisibleImages((prev) =>
+                                    prev.filter((item) => item.src !== image.src)
+                                );
+                            }}
+                        />
+                        <span className="treatment-gallery-overlay">
+                            Ver imagen
+                        </span>
+                    </a>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default function CatalogSection({
     id,
@@ -57,6 +137,14 @@ export default function CatalogSection({
 
             {activeTabData.custom === "depilacion" ? (
                 <>
+                    <p className="body-copy intro-copy">
+                        Nuestra depilación láser avanzada está diseñada para trabajar con
+                        seguridad, confort y eficacia en distintas zonas del cuerpo, tanto
+                        en mujer como en hombre.
+                    </p>
+
+                    <DepGallery depGender={depGender} />
+
                     <div className="dep-toggle">
                         <button
                             type="button"
