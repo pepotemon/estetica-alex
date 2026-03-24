@@ -797,12 +797,12 @@ export default function Page() {
           </h2>
 
           <div className="mt-14 grid gap-[2px] lg:grid-cols-2">
-            <div className="group relative min-h-[700px] overflow-hidden bg-[#141414] sm:min-h-[660px] lg:min-h-[580px]">
+            <div className="group relative min-h-[540px] overflow-hidden bg-[#141414] sm:min-h-[620px] lg:min-h-[580px]">
               <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(201,168,76,0.12)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_60%_20%,rgba(201,168,76,0.1)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
               <div className="absolute right-5 top-5 h-14 w-14 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)] sm:right-8 sm:top-8 sm:h-20 sm:w-20" />
               <div className="absolute right-[31px] top-[31px] h-8 w-8 rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)] sm:right-[47px] sm:top-[47px] sm:h-[50px] sm:w-[50px]" />
 
-              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-24 sm:p-12">
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-20 sm:p-12">
                 <span className="mb-4 text-[34px] sm:text-[42px]">⚡</span>
                 <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-[#C9A84C] sm:text-[9.5px]">
                   Protagonista · Tecnología de élite
@@ -815,8 +815,9 @@ export default function Page() {
                 </h3>
 
                 <p className="mt-4 max-w-[400px] text-[14px] leading-[1.75] text-[#8f8577]">
-                  El sistema que combina simultáneamente <strong className="text-[#C8BFA8]">3 longitudes de onda</strong>
-                  para tratar distintos tipos de vello y piel con gran eficacia y mayor confort.
+                  El sistema que combina simultáneamente{" "}
+                  <strong className="text-[#C8BFA8]">3 longitudes de onda</strong>
+                  {" "}para tratar distintos tipos de vello y piel con gran eficacia y mayor confort.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -846,12 +847,12 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="group relative min-h-[700px] overflow-hidden bg-[#141414] sm:min-h-[660px] lg:min-h-[580px]">
+            <div className="group relative min-h-[540px] overflow-hidden bg-[#141414] sm:min-h-[620px] lg:min-h-[580px]">
               <div className="absolute inset-0 bg-[linear-gradient(225deg,rgba(201,168,76,0.08)_0%,transparent_50%),linear-gradient(to_top,rgba(8,8,8,0.97)_0%,rgba(8,8,8,0.5)_50%,rgba(8,8,8,0.2)_100%),radial-gradient(ellipse_at_40%_20%,rgba(120,100,60,0.08)_0%,transparent_60%)] transition-transform duration-500 group-hover:scale-[1.04]" />
               <div className="absolute right-5 top-5 h-14 w-14 rounded-full border border-[rgba(201,168,76,0.15)] transition-all duration-300 group-hover:scale-125 group-hover:border-[rgba(201,168,76,0.3)] sm:right-8 sm:top-8 sm:h-20 sm:w-20" />
               <div className="absolute right-[31px] top-[31px] h-8 w-8 rounded-full border border-[rgba(201,168,76,0.25)] transition-all duration-300 group-hover:scale-150 group-hover:border-[rgba(201,168,76,0.1)] sm:right-[47px] sm:top-[47px] sm:h-[50px] sm:w-[50px]" />
 
-              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-24 sm:p-12">
+              <div className="absolute inset-0 z-[3] flex flex-col justify-end px-6 pb-8 pt-20 sm:p-12">
                 <span className="mb-4 text-[34px] sm:text-[42px]">🌿</span>
                 <span className="mb-4 inline-block w-fit border border-[rgba(201,168,76,0.3)] px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-[#C9A84C] sm:text-[9.5px]">
                   Especialidad · Pre y Postoperatorio
