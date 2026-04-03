@@ -521,6 +521,13 @@ export const TABS: TabConfig[] = [
                 prices: [
                     { label: "Sesión individual", amount: "€60", per: "por sesión", featured: true },
                 ],
+                media: {
+                    type: "instagram",
+                    url: "https://www.instagram.com/reel/DH7Ui9tq9mB/?igsh=MWY3bGpnZmNrNXl6dw==",
+                    thumbnail: "/tratamientos/limpieza-facial-profunda/reel-cover.jpg",
+                    label: "Ver resultado real",
+                    title: "Resultado real de Limpieza Facial Profunda",
+                },
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
                     href: waLink("Hola! Quiero información sobre la Limpieza Facial Profunda."),
@@ -633,6 +640,13 @@ export const TABS: TabConfig[] = [
                     { label: "Sesión individual", amount: "€35", per: "por sesión" },
                     { label: "Bono 3 sesiones", amount: "€90", per: "€30 / sesión", save: "Ahorras €15", featured: true },
                 ],
+                media: {
+                    type: "instagram",
+                    url: "https://www.instagram.com/reel/DILiBfqqyjh/?igsh=MWd4Njh3Mm1obDFxNA==",
+                    thumbnail: "/tratamientos/hidralips/reel-cover.jpg",
+                    label: "Ver resultado real",
+                    title: "Resultado real de Hidralips",
+                },
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
                     href: waLink("Hola! Quiero información sobre Hidralips."),

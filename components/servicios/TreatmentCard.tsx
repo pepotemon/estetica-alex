@@ -2,7 +2,12 @@
 
 import React from "react";
 import Button from "./Button";
-import type { PriceCard, Treatment } from "./types";
+import type {
+    PriceCard,
+    Treatment,
+    TreatmentGalleryItem,
+    TreatmentMedia,
+} from "./types";
 
 function formatRichText(text: string) {
     return text.split("\n\n").map((p, i) => <p key={i}>{p}</p>);
@@ -33,7 +38,7 @@ function TreatmentGallery({
     gallery,
 }: {
     treatmentId: string;
-    gallery?: { src: string; alt?: string }[];
+    gallery?: TreatmentGalleryItem[];
 }) {
     const [visibleImages, setVisibleImages] = React.useState(gallery ?? []);
 
@@ -80,6 +85,46 @@ function TreatmentGallery({
     );
 }
 
+function TreatmentMediaCard({ media }: { media?: TreatmentMedia }) {
+    if (!media) return null;
+
+    return (
+        <div className="treatment-media-wrap">
+            <div className="treatment-gallery-head">
+
+
+            </div>
+
+            <a
+                href={media.url}
+                target="_blank"
+                rel="noreferrer"
+                className="treatment-media-card"
+            >
+                <div className="treatment-media-thumb-wrap">
+                    <img
+                        src={media.thumbnail}
+                        alt={media.title ?? media.label ?? "Resultado real del tratamiento"}
+                        className="treatment-media-thumb"
+                        loading="lazy"
+                    />
+                    <span className="treatment-media-play">▶</span>
+                </div>
+
+                <div className="treatment-media-content">
+                    <div className="treatment-media-badge">Instagram Reel</div>
+                    <div className="treatment-media-title">
+                        {media.title ?? "Ver resultado real"}
+                    </div>
+                    <div className="treatment-media-link">
+                        {media.label ?? "Ver video"}
+                    </div>
+                </div>
+            </a>
+        </div>
+    );
+}
+
 export default function TreatmentCard({
     treatment,
     isOpen,
@@ -103,7 +148,9 @@ export default function TreatmentCard({
                 <div className="treatment-badges">
                     {treatment.badge ? (
                         <span
-                            className={`badge ${treatment.badgeType === "new" ? "badge-new" : "badge-pop"
+                            className={`badge ${treatment.badgeType === "new"
+                                ? "badge-new"
+                                : "badge-pop"
                                 }`}
                         >
                             {treatment.badge}
@@ -114,7 +161,10 @@ export default function TreatmentCard({
                 <span className="treatment-chevron">{isOpen ? "▲" : "▼"}</span>
             </button>
 
-            <div className="treatment-body" style={{ maxHeight: isOpen ? "5000px" : "0px" }}>
+            <div
+                className="treatment-body"
+                style={{ maxHeight: isOpen ? "5000px" : "0px" }}
+            >
                 <div className="treatment-body-inner">
                     {treatment.introText ? (
                         <p className="body-copy intro-copy">{treatment.introText}</p>
@@ -139,7 +189,9 @@ export default function TreatmentCard({
                             {treatment.descriptionBlocks.map((block) => (
                                 <div key={`${treatment.id}-${block.title}`} className="body-block">
                                     <h4>{block.title}</h4>
-                                    <div className="body-copy">{formatRichText(block.text)}</div>
+                                    <div className="body-copy">
+                                        {formatRichText(block.text)}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -149,6 +201,8 @@ export default function TreatmentCard({
                         treatmentId={treatment.id}
                         gallery={treatment.gallery}
                     />
+
+                    <TreatmentMediaCard media={treatment.media} />
 
                     {treatment.tags?.length ? (
                         <div className="body-tags">
@@ -160,7 +214,9 @@ export default function TreatmentCard({
                         </div>
                     ) : null}
 
-                    {treatment.note ? <div className="notice-box">{treatment.note}</div> : null}
+                    {treatment.note ? (
+                        <div className="notice-box">{treatment.note}</div>
+                    ) : null}
 
                     <PriceTable prices={treatment.prices} />
 

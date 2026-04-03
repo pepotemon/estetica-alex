@@ -46,6 +46,14 @@ export type TreatmentCta = {
     href: string;
 };
 
+export type TreatmentMedia = {
+    type: "instagram";
+    url: string;
+    thumbnail: string;
+    label?: string;
+    title?: string;
+};
+
 export type Treatment = {
     id: string;
     icon: string;
@@ -61,6 +69,7 @@ export type Treatment = {
     etapas?: TreatmentEtapa[];
     introText?: string;
     gallery?: TreatmentGalleryItem[];
+    media?: TreatmentMedia;
 };
 
 export type TabConfig = {
