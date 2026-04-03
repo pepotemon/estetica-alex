@@ -2,6 +2,7 @@ import type {
     QuizKey,
     SiteConfig,
     TabConfig,
+    TabId,
 } from "./types";
 
 function galleryFor(treatmentId: string, label: string) {
@@ -58,7 +59,7 @@ export function getMonthlyPromo() {
 
 export const QUIZ_DATA: Record<
     QuizKey,
-    { icon: string; label: string; text: string; tab: any; link: string }
+    { icon: string; label: string; text: string; tab: TabId; link: string }
 > = {
     grasa: {
         icon: "🔥",
@@ -77,7 +78,7 @@ export const QUIZ_DATA: Record<
     postqx: {
         icon: "🌿",
         label: "Drenaje linfático postoperatorio",
-        text: 'Tenemos un protocolo postquirúrgico en 3 etapas adaptado a tu cirugía y evolución, desde drenaje inicial hasta mantenimiento final con Indiba.',
+        text: "Tenemos un protocolo postquirúrgico en 3 etapas adaptado a tu cirugía y evolución, desde drenaje inicial hasta mantenimiento final con Indiba.",
         tab: "recuperacion",
         link: waLink("Hola! Acabo de operarme y necesito orientación para el postoperatorio."),
     },
@@ -451,121 +452,219 @@ export const TABS: TabConfig[] = [
         introIcon: "✨",
         introTitle: "Tratamientos Faciales",
         introText:
-            "Desde limpiezas profundas hasta protocolos de rejuvenecimiento con tecnología de última generación. Cada tratamiento se adapta a tu tipo de piel y objetivo.",
+            "Protocolos faciales diseñados para hidratar, renovar, iluminar y rejuvenecer la piel con tecnología avanzada y activos seleccionados según cada necesidad.",
         treatments: [
             {
-                id: "limpieza-facial",
+                id: "limpieza-hidratante-indiba",
+                icon: "💧",
+                name: "Limpieza Facial Hidratante con Indiba",
+                tagline: "Hidratación, luminosidad y regeneración profunda en un solo protocolo",
+                badge: "✨ Hidratante",
+                badgeType: "pop",
+                gallery: galleryFor("limpieza-hidratante-indiba", "Limpieza Facial Hidratante con Indiba"),
+                descriptionBlocks: [
+                    {
+                        title: "Qué incluye",
+                        text: "Dermoabrasión + Indiba + Luz LED.",
+                    },
+                    {
+                        title: "Descripción",
+                        text: "Protocolo completo que combina dermoabrasión para exfoliar y renovar la superficie, tecnología Indiba para activar la regeneración celular en profundidad, y luz LED para calmar, tonificar y potenciar los resultados. Piel más hidratada, luminosa y uniforme desde la primera sesión.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Pieles apagadas, deshidratadas o con falta de luminosidad. Ideal como tratamiento de mantenimiento o inicio de protocolo facial. Apta para todo tipo de piel.",
+                    },
+                ],
+                tags: [
+                    "⏱ 1 hora 10 min",
+                    "📅 Cada 6 meses",
+                    "💧 Hidratación profunda",
+                    "✨ Luminosidad inmediata",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€60", per: "por sesión", featured: true },
+                ],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre la Limpieza Facial Hidratante con Indiba."),
+                },
+            },
+            {
+                id: "limpieza-facial-profunda",
                 icon: "✨",
                 name: "Limpieza Facial Profunda",
-                tagline: "Limpieza completa en profundidad para una piel revitalizada y luminosa",
-                gallery: galleryFor("limpieza-facial", "Limpieza Facial Profunda"),
+                tagline: "Protocolo de 13 pasos para limpiar, exfoliar y regenerar la piel",
+                badge: "⭐ Esencial",
+                badgeType: "pop",
+                gallery: galleryFor("limpieza-facial-profunda", "Limpieza Facial Profunda"),
                 descriptionBlocks: [
                     {
-                        title: "Descripción",
-                        text: "Limpieza profunda enfocada en renovar la piel, retirar impurezas y devolver luminosidad.",
+                        title: "Qué incluye",
+                        text: "Leche limpiadora · Limpiador · Exfoliante · Tónico · Vapor de ozono · Pala ultrasónica · Microdermoabrasión · Mascarilla calmante · Alta frecuencia · Mascarilla hidratante · Máscara LED · Masaje facial · Protección solar.",
                     },
+                    {
+                        title: "Descripción",
+                        text: "Protocolo de 13 pasos que limpia, exfolia y regenera la piel en profundidad. La microdermoabrasión renueva la superficie, la alta frecuencia oxigena y controla la bacteria, y la máscara LED potencia la recuperación celular. Finaliza con masaje facial y protección solar. Ideal para pieles mixtas, grasas o con tendencia acneica.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Pieles mixtas, grasas, con tendencia acneica o congestionadas. Se recomienda cada 4–6 semanas. Perfecta como tratamiento base antes de protocolos más avanzados.",
+                    },
+                ],
+                tags: [
+                    "⏱ 1 hora 20 min",
+                    "📅 Cada 4–6 semanas",
+                    "🧼 Limpieza profunda",
+                    "✅ Ideal como base de protocolo",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€60", per: "por sesión", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Limpieza Facial Profunda."),
+                    href: waLink("Hola! Quiero información sobre la Limpieza Facial Profunda."),
                 },
             },
             {
-                id: "microdermoabrasion",
-                icon: "💎",
-                name: "Microdermoabrasión / Punta de Diamante",
-                tagline: "Exfoliación mecánica que renueva la textura de la piel",
-                gallery: galleryFor("microdermoabrasion", "Microdermoabrasión / Punta de Diamante"),
+                id: "derma-pen-punta-diamante",
+                icon: "🖊️",
+                name: "Derma Pen + Punta de Diamante",
+                tagline: "Renovación, nutrición e hidratación intensa con activos personalizados",
+                badge: "💎 Personalizable",
+                badgeType: "new",
+                gallery: galleryFor("derma-pen-punta-diamante", "Derma Pen + Punta de Diamante"),
                 descriptionBlocks: [
                     {
-                        title: "Descripción",
-                        text: "Tratamiento de renovación superficial para mejorar textura, suavidad y aspecto general de la piel.",
+                        title: "Qué incluye",
+                        text: "Microdermoabrasión + activos inyectados a elegir.",
                     },
+                    {
+                        title: "Descripción",
+                        text: "La punta de diamante exfolia la superficie y abre microcanales para que el Derma Pen introduzca activos directamente en la dermis. El cóctel se personaliza según las necesidades de cada piel.",
+                    },
+                    {
+                        title: "Opciones de activo",
+                        text: "💧 Ácido Hialurónico — efecto relleno e hidratación profunda · ☀️ Vitamina C — iluminación y tratamiento de manchas · 🔬 Exosomas — regeneración celular avanzada · 💊 Cóctel de Vitaminas — nutrición intensiva y revitalización.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Cualquier piel que necesite renovación, hidratación o nutrición intensiva. El protocolo se adapta según el activo elegido.",
+                    },
+                ],
+                tags: [
+                    "⏱ 60 min",
+                    "🔁 3 sesiones recomendadas",
+                    "💧 Activos personalizados",
+                    "✨ Renovación intensiva",
+                ],
+                prices: [
+                    { label: "Con cóctel de vitaminas", amount: "€60" },
+                    { label: "Con exosomas", amount: "€65" },
+                    { label: "Bono 3 sesiones", amount: "€160", per: "precio especial", save: "Ahorro en pack", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Microdermoabrasión / Punta de Diamante."),
+                    href: waLink("Hola! Quiero información sobre Derma Pen + Punta de Diamante."),
                 },
             },
             {
-                id: "dermapen-hialuronico",
-                icon: "💧",
-                name: "Dermapem + Punta de Diamante + Ácido Hialurónico",
-                tagline: "Hidratación profunda con efecto relleno natural",
-                gallery: galleryFor("dermapen-hialuronico", "Dermapem + Punta de Diamante + Ácido Hialurónico"),
+                id: "indiba-facial-dermoabrasion",
+                icon: "⚡",
+                name: "Indiba Facial + Dermoabrasión",
+                tagline: "Rejuvenecimiento, luminosidad y efecto tensor progresivo",
+                badge: "🏅 Reafirmante",
+                badgeType: "pop",
+                gallery: galleryFor("indiba-facial-dermoabrasion", "Indiba Facial + Dermoabrasión"),
                 descriptionBlocks: [
                     {
-                        title: "Descripción",
-                        text: "Combinación pensada para hidratación intensa y mejora visible de la calidad de la piel.",
+                        title: "Qué incluye",
+                        text: "Higienización + Microdermoabrasión + Indiba 448 kHz + Sérum adaptado + Protector solar.",
                     },
+                    {
+                        title: "Descripción",
+                        text: "Protocolo completo de rejuvenecimiento. La Indiba a 448 kHz estimula el colágeno, reafirma los tejidos y mejora la microcirculación desde las capas más profundas. Efecto lifting natural y progresivo con el sérum adaptado a cada tipo de piel.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Pieles con pérdida de firmeza, flacidez facial incipiente, surcos de expresión o piel apagada que busca luminosidad y efecto tensor.",
+                    },
+                ],
+                tags: [
+                    "⏱ 1 hora",
+                    "🔁 Programa recomendado: 6 sesiones",
+                    "📅 1 vez por semana",
+                    "✨ Efecto lifting progresivo",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€50", per: "por sesión" },
+                    { label: "Bono 6 sesiones", amount: "€240", per: "€40 / sesión", save: "Ahorras €60", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Dermapem + Punta de Diamante + Ácido Hialurónico."),
+                    href: waLink("Hola! Quiero información sobre Indiba Facial + Dermoabrasión."),
                 },
             },
             {
-                id: "dermapen-vitamina-c",
-                icon: "🍊",
-                name: "Dermapem + Punta de Diamante + Vitamina C",
-                tagline: "Iluminación y antioxidación para combatir manchas",
-                gallery: galleryFor("dermapen-vitamina-c", "Dermapem + Punta de Diamante + Vitamina C"),
+                id: "hidralips",
+                icon: "💋",
+                name: "Hidralips",
+                tagline: "Hidratación profunda y definición natural para tus labios",
+                badge: "💄 Labios",
+                badgeType: "new",
+                gallery: galleryFor("hidralips", "Hidralips"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
-                        text: "Ideal para aportar luz al rostro y acompañar protocolos enfocados en tono apagado y signos de cansancio.",
+                        text: "Tratamiento especializado para labios que aporta hidratación profunda, mejora la definición del contorno y devuelve el volumen y la luminosidad natural. Resultado: labios hidratados, suaves y con un aspecto naturalmente más llenos sin relleno invasivo.",
                     },
-                ],
-                ctaPrimary: {
-                    label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Dermapem + Punta de Diamante + Vitamina C."),
-                },
-            },
-            {
-                id: "dermapen-vitaminas",
-                icon: "🌟",
-                name: "Dermapem + Punta de Diamante + Cóctel de Vitaminas",
-                tagline: "Nutrición intensiva para revitalizar la piel apagada",
-                gallery: galleryFor("dermapen-vitaminas", "Dermapem + Punta de Diamante + Cóctel de Vitaminas"),
-                descriptionBlocks: [
                     {
-                        title: "Descripción",
-                        text: "Protocolo nutritivo pensado para pieles que necesitan revitalización y un plus de energía.",
+                        title: "¿Para quién es ideal?",
+                        text: "Labios deshidratados, apagados, con líneas de expresión alrededor o para quienes desean mejorar su aspecto de forma natural y no invasiva.",
                     },
+                ],
+                tags: [
+                    "⏱ Sesión rápida",
+                    "✅ No invasivo",
+                    "💋 Hidratación profunda",
+                    "✨ Acabado natural",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€35", per: "por sesión" },
+                    { label: "Bono 3 sesiones", amount: "€90", per: "€30 / sesión", save: "Ahorras €15", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Dermapem + Punta de Diamante + Cóctel de Vitaminas."),
-                },
-            },
-            {
-                id: "dermapen-exosomas",
-                icon: "🧬",
-                name: "Dermapem + Punta de Diamante + Exosomas",
-                tagline: "Regeneración celular avanzada",
-                gallery: galleryFor("dermapen-exosomas", "Dermapem + Punta de Diamante + Exosomas"),
-                descriptionBlocks: [
-                    {
-                        title: "Descripción",
-                        text: "Tecnología avanzada orientada a regeneración y mejora de la calidad cutánea.",
-                    },
-                ],
-                ctaPrimary: {
-                    label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Dermapem + Punta de Diamante + Exosomas."),
+                    href: waLink("Hola! Quiero información sobre Hidralips."),
                 },
             },
             {
                 id: "carbon-peel",
                 icon: "🖤",
                 name: "Carbón Peel",
-                tagline: "Reduce poros, controla grasa y unifica el tono",
+                tagline: "Reduce poros, controla grasa y deja un efecto piel de porcelana",
+                badge: "✨ Glow",
+                badgeType: "pop",
                 gallery: galleryFor("carbon-peel", "Carbón Peel"),
                 descriptionBlocks: [
                     {
                         title: "Descripción",
-                        text: "Tratamiento ideal para piel con textura irregular, poros visibles o exceso de grasa.",
+                        text: "Se aplica carbón activado sobre la piel y el láser lo activa, generando una microexplosión controlada que elimina el exceso de sebo, reduce los poros dilatados, controla el brillo y unifica el tono. Efecto «piel de porcelana» visible desde la primera sesión.",
                     },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Pieles grasas, con poros dilatados, tono irregular o manchas leves. También como tratamiento de mantenimiento de luminosidad.",
+                    },
+                ],
+                tags: [
+                    "⏱ 40 min",
+                    "🔁 3 sesiones recomendadas",
+                    "✅ Sin recuperación",
+                    "🖤 Efecto piel de porcelana",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€60", per: "por sesión" },
+                    { label: "Bono 3 sesiones", amount: "€150", per: "€50 / sesión", save: "Ahorras €30", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
@@ -573,51 +672,36 @@ export const TABS: TabConfig[] = [
                 },
             },
             {
-                id: "indiba-facial",
-                icon: "⚡",
-                name: "Radiofrecuencia Indiba Facial + Punta de Diamante",
-                tagline: "Reafirmación y rejuvenecimiento profundo",
-                gallery: galleryFor("indiba-facial", "Radiofrecuencia Indiba Facial + Punta de Diamante"),
-                descriptionBlocks: [
-                    {
-                        title: "Descripción",
-                        text: "Protocolo premium para firmeza, mejora de textura y rejuvenecimiento no invasivo.",
-                    },
-                ],
-                ctaPrimary: {
-                    label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre Radiofrecuencia Indiba Facial + Punta de Diamante."),
-                },
-            },
-            {
-                id: "indiba-facial-bono",
-                icon: "🏅",
-                name: "Radiofrecuencia Indiba Facial — Bono 6 sesiones",
-                tagline: "Programa intensivo para resultados duraderos",
-                tags: ["Bono 6"],
-                gallery: galleryFor("indiba-facial-bono", "Radiofrecuencia Indiba Facial — Bono 6 sesiones"),
-                descriptionBlocks: [
-                    {
-                        title: "Descripción",
-                        text: "Programa pensado para trabajar firmeza facial y mantener resultados más consistentes en el tiempo.",
-                    },
-                ],
-                ctaPrimary: {
-                    label: "📲 Consultar por WhatsApp",
-                    href: waLink("Hola! Quiero información sobre el bono de 6 sesiones de Radiofrecuencia Indiba Facial."),
-                },
-            },
-            {
-                id: "rf-fraccionada",
+                id: "rf-fraccionada-nano-agujas",
                 icon: "🎯",
                 name: "Radiofrecuencia Fraccionada con Nano Agujas",
-                tagline: "Última generación con microagujas",
-                gallery: galleryFor("rf-fraccionada", "Radiofrecuencia Fraccionada con Nano Agujas"),
+                tagline: "Estimulación intensiva de colágeno con activos en profundidad",
+                badge: "🔬 Avanzado",
+                badgeType: "pop",
+                gallery: galleryFor("rf-fraccionada-nano-agujas", "Radiofrecuencia Fraccionada con Nano Agujas"),
                 descriptionBlocks: [
                     {
-                        title: "Descripción",
-                        text: "Tecnología avanzada con opciones como oligoelementos, exosomas y polivitaminas según valoración profesional.",
+                        title: "Activos disponibles",
+                        text: "Oligoelementos · Exosomas · Polivitaminas.",
                     },
+                    {
+                        title: "Descripción",
+                        text: "Las nano agujas crean microcanales en la piel que llevan la radiofrecuencia fraccionada a la profundidad exacta, estimulando colágeno y elastina de forma intensiva. Simultáneamente se introducen activos directamente en la dermis según las necesidades de cada piel.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Pieles con arrugas, pérdida de firmeza, cicatrices de acné, poros dilatados o textura irregular.",
+                    },
+                ],
+                tags: [
+                    "⏱ 40 min",
+                    "🔁 3 sesiones recomendadas",
+                    "📅 1 sesión cada 21 días",
+                    "✨ Colágeno y elastina",
+                ],
+                prices: [
+                    { label: "Sesión individual", amount: "€60", per: "por sesión" },
+                    { label: "Bono 3 sesiones", amount: "€150", per: "€50 / sesión", save: "Ahorras €30", featured: true },
                 ],
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",

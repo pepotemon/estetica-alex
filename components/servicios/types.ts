@@ -9,6 +9,14 @@ export type QuizKey =
     | "remodelacion"
     | "flacidez";
 
+export type TabId =
+    | "cuerpo"
+    | "recuperacion"
+    | "rostro"
+    | "laser-avanzado"
+    | "depilacion"
+    | "cejas";
+
 export type PriceCard = {
     label: string;
     amount?: string;
@@ -22,6 +30,22 @@ export type TreatmentGalleryItem = {
     alt?: string;
 };
 
+export type TreatmentDescriptionBlock = {
+    title: string;
+    text: string;
+};
+
+export type TreatmentEtapa = {
+    num: string;
+    title: string;
+    text: string;
+};
+
+export type TreatmentCta = {
+    label: string;
+    href: string;
+};
+
 export type Treatment = {
     id: string;
     icon: string;
@@ -29,23 +53,15 @@ export type Treatment = {
     tagline: string;
     badge?: string;
     badgeType?: "pop" | "new";
-    descriptionBlocks?: { title: string; text: string }[];
+    descriptionBlocks?: TreatmentDescriptionBlock[];
     tags?: string[];
     note?: string;
     prices?: PriceCard[];
-    ctaPrimary?: { label: string; href: string };
-    etapas?: { num: string; title: string; text: string }[];
+    ctaPrimary?: TreatmentCta;
+    etapas?: TreatmentEtapa[];
     introText?: string;
-    gallery?: { src: string; alt?: string }[];
+    gallery?: TreatmentGalleryItem[];
 };
-
-export type TabId =
-    | "cuerpo"
-    | "recuperacion"
-    | "rostro"
-    | "laser-avanzado"
-    | "depilacion"
-    | "cejas";
 
 export type TabConfig = {
     id: TabId;
@@ -60,21 +76,14 @@ export type TabConfig = {
 export type SiteConfig = {
     brand: string;
     city: string;
-
     phone: string;
     displayPhone: string;
-
     logoSrc: string;
-
     tratamientosHeroImg: string;
     catalogoHeroImg: string;
-
     ctaLabel: string;
-
     address: string;
     locality: string;
-
     mapsUrl: string;
-
     hours: string;
 };

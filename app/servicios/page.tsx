@@ -3,7 +3,7 @@
 import React from "react";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
-import "./servicios.css";
+
 
 import Header from "@/components/servicios/Header";
 import PromoBar from "@/components/servicios/PromoBar";
@@ -13,7 +13,7 @@ import CatalogSection from "@/components/servicios/CatalogSection";
 import TestimonialsSection from "@/components/servicios/TestimonialsSection";
 import FinalCTA from "@/components/servicios/FinalCTA";
 import Footer from "@/components/servicios/Footer";
-
+import "./servicios.css";
 import {
     SITE,
     QUIZ_DATA,
