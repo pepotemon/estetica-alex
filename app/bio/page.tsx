@@ -213,8 +213,8 @@ function Icon({
 
 export default function BioPage() {
     return (
-        <main className="relative min-h-screen overflow-hidden bg-[#0b0806] text-white">
-            <div className="absolute inset-0 -z-20">
+        <main className="relative isolate min-h-screen overflow-hidden bg-[#0b0806] text-white">
+            <div className="absolute inset-0 z-0">
                 <Image
                     src={SITE.backgroundSrc}
                     alt={`${SITE.brand} background`}
@@ -224,14 +224,14 @@ export default function BioPage() {
                 />
             </div>
 
-            <div className="pointer-events-none absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.78)_0%,rgba(11,8,6,0.74)_26%,rgba(11,8,6,0.84)_58%,rgba(7,5,4,0.94)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 z-10">
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.72)_0%,rgba(11,8,6,0.70)_26%,rgba(11,8,6,0.82)_58%,rgba(7,5,4,0.92)_100%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(900px_500px_at_50%_0%,rgba(201,168,76,0.14),transparent_60%),radial-gradient(700px_420px_at_80%_90%,rgba(201,168,76,0.10),transparent_55%)]" />
-                <div className="absolute inset-0 backdrop-blur-[1.5px]" />
+                <div className="absolute inset-0 backdrop-blur-[1px]" />
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
             </div>
 
-            <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-8 sm:py-10">
+            <div className="relative z-20 mx-auto flex min-h-screen max-w-md flex-col px-5 py-8 sm:py-10">
                 <section className="rounded-[2rem] border border-[rgba(201,168,76,0.16)] bg-[linear-gradient(180deg,rgba(24,18,13,0.58)_0%,rgba(15,12,9,0.72)_100%)] px-6 pb-7 pt-8 shadow-[0_20px_60px_rgba(0,0,0,0.38)] backdrop-blur-xl">
                     <div className="mx-auto flex w-full max-w-[160px] justify-center">
                         <div className="relative h-[145px] w-[145px] overflow-hidden rounded-full border border-[rgba(201,168,76,0.20)] bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.10),rgba(255,255,255,0.03))] shadow-[0_10px_30px_rgba(201,168,76,0.16)]">
