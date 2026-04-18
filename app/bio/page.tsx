@@ -220,8 +220,7 @@ export default function BioPage() {
                     alt={`${SITE.brand} background`}
                     fill
                     priority
-                    className="object-cover object-center"
-                />
+                    className="object-cover object-[62%_center] sm:object-center" />
             </div>
 
             <div className="pointer-events-none absolute inset-0 z-10">
