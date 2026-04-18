@@ -1,9 +1,21 @@
-
 "use client";
 
 import React from "react";
 import Script from "next/script";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  where,
+  Timestamp,
+  QueryDocumentSnapshot,
+  DocumentData,
+} from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -43,8 +55,100 @@ const COURSE = {
   city: SITE.city,
 };
 
+const REVIEWS_PAGE_SIZE = 6;
+
+type Review = {
+  id?: string;
+  name: string;
+  when: string;
+  stars: 1 | 2 | 3 | 4 | 5;
+  text: string;
+  meta: string;
+};
+
+type FirestoreReview = {
+  name?: string;
+  rating?: number;
+  stars?: number;
+  comment?: string;
+  text?: string;
+  service?: string;
+  treatment?: string;
+  approved?: boolean;
+  createdAt?: Timestamp | Date | null;
+};
+
+const FALLBACK_REVIEWS: Review[] = [
+  {
+    name: "Laura P.",
+    when: "Hace 3 meses",
+    stars: 5,
+    text: "Me operé de lipo hace 3 meses y hice todo el postoperatorio aquí. Fue clave para mi recuperación, mucho más rápida de lo esperado y sin fibrosis. Las chicas son un amor y el trato es excelente.",
+    meta: "Recuperación Postquirúrgica · Liposucción",
+  },
+  {
+    name: "Sofía M.",
+    when: "Hace 1 mes",
+    stars: 5,
+    text: "Llevo 5 sesiones de depilación láser en piernas y axilas y ya no me sale prácticamente nada. El proceso es súper cómodo con el Soprano Ice. Me arrepiento de no haberlo hecho antes.",
+    meta: "Depilación Láser Soprano · Piernas y Axilas",
+  },
+  {
+    name: "María G.",
+    when: "Hace 4 meses",
+    stars: 5,
+    text: "Llevo 4 meses con el protocolo de Indiba corporal y los resultados son increíbles. La piel está mucho más firme y he perdido volumen en zonas que no conseguía trabajar en el gimnasio.",
+    meta: "Masaje Moldeador con Diatermia Indiba",
+  },
+];
+
 function waLink(text: string) {
   return `https://wa.me/${SITE.phone}?text=${encodeURIComponent(text)}`;
+}
+
+function formatRelativeDate(input?: Timestamp | Date | null) {
+  if (!input) return "Reciente";
+
+  const date =
+    input instanceof Timestamp ? input.toDate() : input instanceof Date ? input : null;
+
+  if (!date) return "Reciente";
+
+  const diffMs = Date.now() - date.getTime();
+  const diffDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+  if (diffDays <= 0) return "Hoy";
+  if (diffDays === 1) return "Hace 1 día";
+  if (diffDays < 7) return `Hace ${diffDays} días`;
+  if (diffDays < 30) {
+    const weeks = Math.floor(diffDays / 7);
+    return weeks === 1 ? "Hace 1 semana" : `Hace ${weeks} semanas`;
+  }
+  if (diffDays < 365) {
+    const months = Math.floor(diffDays / 30);
+    return months === 1 ? "Hace 1 mes" : `Hace ${months} meses`;
+  }
+
+  const years = Math.floor(diffDays / 365);
+  return years === 1 ? "Hace 1 año" : `Hace ${years} años`;
+}
+
+function normalizeStars(value?: number) {
+  const safe = Math.round(Number(value ?? 5));
+  if (safe < 1) return 1 as const;
+  if (safe > 5) return 5 as const;
+  return safe as 1 | 2 | 3 | 4 | 5;
+}
+
+function mapFirestoreReview(docId: string, data: FirestoreReview): Review {
+  return {
+    id: docId,
+    name: (data.name || "Cliente").trim(),
+    when: formatRelativeDate(data.createdAt ?? null),
+    stars: normalizeStars(data.rating ?? data.stars ?? 5),
+    text: (data.comment || data.text || "").trim(),
+    meta: (data.service || data.treatment || "Experiencia en Alex Estética").trim(),
+  };
 }
 
 function Button({
@@ -76,6 +180,40 @@ function Button({
     >
       {children}
     </a>
+  );
+}
+
+function ButtonAsButton({
+  onClick,
+  children,
+  variant = "gold",
+  className = "",
+  type = "button",
+  disabled = false,
+}: {
+  onClick?: () => void;
+  children: React.ReactNode;
+  variant?: "gold" | "outline";
+  className?: string;
+  type?: "button" | "submit";
+  disabled?: boolean;
+}) {
+  const base =
+    "inline-flex items-center justify-center gap-2 px-7 py-3 text-[12px] sm:text-[12.5px] tracking-[0.10em] uppercase transition-all duration-200 font-[family:var(--font-dm-sans)]";
+  const styles =
+    variant === "gold"
+      ? "bg-[#C9A84C] text-black hover:bg-[#E2C47A] hover:-translate-y-[2px] disabled:hover:translate-y-0 disabled:hover:bg-[#C9A84C]"
+      : "border border-[rgba(201,168,76,0.40)] text-[#C9A84C] hover:border-[#C9A84C] hover:bg-[rgba(201,168,76,0.06)] disabled:hover:bg-transparent";
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${base} ${styles} ${disabled ? "cursor-not-allowed opacity-55" : ""} ${className}`}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -336,38 +474,6 @@ function InstagramCard({ item }: { item: InstaItem }) {
   );
 }
 
-type Review = {
-  name: string;
-  when: string;
-  stars: 5 | 4;
-  text: string;
-  meta: string;
-};
-
-const REVIEWS: Review[] = [
-  {
-    name: "Laura P.",
-    when: "Hace 3 meses",
-    stars: 5,
-    text: "Me operé de lipo hace 3 meses y hice todo el postoperatorio aquí. Fue clave para mi recuperación, mucho más rápida de lo esperado y sin fibrosis. Las chicas son un amor y el trato es excelente.",
-    meta: "Recuperación Postquirúrgica · Liposucción",
-  },
-  {
-    name: "Sofía M.",
-    when: "Hace 1 mes",
-    stars: 5,
-    text: "Llevo 5 sesiones de depilación láser en piernas y axilas y ya no me sale prácticamente nada. El proceso es súper cómodo con el Soprano Ice. Me arrepiento de no haberlo hecho antes.",
-    meta: "Depilación Láser Soprano · Piernas y Axilas",
-  },
-  {
-    name: "María G.",
-    when: "Hace 4 meses",
-    stars: 5,
-    text: "Llevo 4 meses con el protocolo de Indiba corporal y los resultados son increíbles. La piel está mucho más firme y he perdido volumen en zonas que no conseguía trabajar en el gimnasio.",
-    meta: "Masaje Moldeador con Diatermia Indiba",
-  },
-];
-
 function StarRow({ value }: { value: number }) {
   const full = Math.max(0, Math.min(5, Math.round(value)));
   return (
@@ -391,6 +497,128 @@ function StarRow({ value }: { value: number }) {
         );
       })}
     </div>
+  );
+}
+
+function ReviewCard({ review }: { review: Review }) {
+  return (
+    <article
+      className={[
+        "min-w-[85%] sm:min-w-[420px] lg:min-w-[380px] xl:min-w-[400px]",
+        "max-w-[85%] sm:max-w-[420px] lg:max-w-[380px] xl:max-w-[400px]",
+        "snap-start border border-[rgba(201,168,76,0.14)] bg-[#1C1C1C]",
+        "px-7 py-9 transition hover:border-[#C9A84C]",
+      ].join(" ")}
+    >
+      <div className="mb-4">
+        <StarRow value={review.stars} />
+      </div>
+
+      <p className="font-[family:var(--font-cormorant)] text-[18px] italic leading-[1.8] text-[#8f8577]">
+        "{review.text}"
+      </p>
+
+      <div className="mt-5 text-[12.5px] font-medium tracking-[0.06em] text-[#C8BFA8]">
+        {review.name}
+        <span className="mt-1 block text-[11.5px] font-light tracking-[0.04em] text-[#6A6257]">
+          {review.meta}
+        </span>
+        <span className="mt-1 block text-[11px] font-light tracking-[0.04em] text-[#6A6257]">
+          {review.when}
+        </span>
+      </div>
+    </article>
+  );
+}
+
+function ReviewsSection({
+  reviews,
+  loading,
+  loadingMore,
+  hasMore,
+  onLoadMore,
+}: {
+  reviews: Review[];
+  loading: boolean;
+  loadingMore: boolean;
+  hasMore: boolean;
+  onLoadMore: () => void;
+}) {
+  const avg =
+    reviews.length > 0
+      ? Math.round((reviews.reduce((acc, r) => acc + r.stars, 0) / reviews.length) * 10) / 10
+      : 5;
+
+  return (
+    <section className="border-t border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[52px]">
+              Lo que dicen
+              <br />
+              nuestras <em className="italic text-[#C9A84C]">clientas</em>
+            </h2>
+            <p className="mt-4 max-w-2xl text-[13.5px] leading-[1.7] text-[#8f8577]">
+              Opiniones reales de clientas que ya vivieron la experiencia en Alex Estética.
+              Puedes deslizar para ver más reseñas.
+            </p>
+          </div>
+
+          <div className="text-right">
+            <span className="block text-[18px] tracking-[3px] text-[#C9A84C]">
+              {"★".repeat(Math.round(avg))}
+              {"☆".repeat(5 - Math.round(avg))}
+            </span>
+            <span className="text-[12px] tracking-[0.06em] text-[#6A6257]">
+              {loading
+                ? "Cargando reseñas..."
+                : `${avg} / 5 · ${reviews.length} reseña${reviews.length === 1 ? "" : "s"}`}
+            </span>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-10 bg-gradient-to-r from-[#141414] to-transparent sm:block" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-10 bg-gradient-to-l from-[#141414] to-transparent sm:block" />
+
+          <div
+            className={[
+              "flex gap-3 overflow-x-auto pb-4",
+              "snap-x snap-mandatory scroll-smooth",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            ].join(" ")}
+          >
+            {reviews.map((review, index) => (
+              <ReviewCard
+                key={review.id ?? `${review.name}-${index}`}
+                review={review}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Button href="/opinar" variant="gold" newTab={false}>
+            Déjanos tu comentario
+          </Button>
+
+          {hasMore ? (
+            <ButtonAsButton
+              onClick={onLoadMore}
+              variant="outline"
+              disabled={loadingMore}
+            >
+              {loadingMore ? "Cargando..." : "Cargar más reseñas"}
+            </ButtonAsButton>
+          ) : null}
+        </div>
+
+        <p className="mt-4 text-center text-[12px] leading-relaxed text-[#6A6257]">
+          Tu opinión nos ayuda a seguir mejorando y a que otras personas conozcan una experiencia real.
+        </p>
+      </div>
+    </section>
   );
 }
 
@@ -433,6 +661,14 @@ function FloatingWhatsApp({ href }: { href: string }) {
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [reviews, setReviews] = React.useState<Review[]>([]);
+  const [reviewsLoading, setReviewsLoading] = React.useState(true);
+  const [loadingMoreReviews, setLoadingMoreReviews] = React.useState(false);
+  const [hasMoreReviews, setHasMoreReviews] = React.useState(true);
+  const [usingFallbackReviews, setUsingFallbackReviews] = React.useState(false);
+  const [lastReviewDoc, setLastReviewDoc] =
+    React.useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+
   const particlesRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
@@ -452,12 +688,90 @@ export default function Page() {
     }
   }, []);
 
+  const loadInitialReviews = React.useCallback(async () => {
+    setReviewsLoading(true);
+
+    try {
+      const reviewsRef = collection(db, "reviews");
+      const reviewsQuery = query(
+        reviewsRef,
+        where("approved", "==", true),
+        orderBy("createdAt", "desc"),
+        limit(REVIEWS_PAGE_SIZE)
+      );
+
+      const snapshot = await getDocs(reviewsQuery);
+
+      const docs = snapshot.docs
+        .map((doc) => mapFirestoreReview(doc.id, doc.data() as FirestoreReview))
+        .filter((review) => review.text.length > 0);
+
+      if (docs.length > 0) {
+        setReviews(docs);
+        setUsingFallbackReviews(false);
+        setLastReviewDoc(snapshot.docs[snapshot.docs.length - 1] ?? null);
+        setHasMoreReviews(snapshot.docs.length === REVIEWS_PAGE_SIZE);
+      } else {
+        setReviews(FALLBACK_REVIEWS);
+        setUsingFallbackReviews(true);
+        setLastReviewDoc(null);
+        setHasMoreReviews(false);
+      }
+    } catch (error) {
+      console.error("Error loading reviews:", error);
+      setReviews(FALLBACK_REVIEWS);
+      setUsingFallbackReviews(true);
+      setLastReviewDoc(null);
+      setHasMoreReviews(false);
+    } finally {
+      setReviewsLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    void loadInitialReviews();
+  }, [loadInitialReviews]);
+
+  const loadMoreReviews = React.useCallback(async () => {
+    if (!lastReviewDoc || loadingMoreReviews || usingFallbackReviews) return;
+
+    setLoadingMoreReviews(true);
+
+    try {
+      const reviewsRef = collection(db, "reviews");
+      const reviewsQuery = query(
+        reviewsRef,
+        where("approved", "==", true),
+        orderBy("createdAt", "desc"),
+        startAfter(lastReviewDoc),
+        limit(REVIEWS_PAGE_SIZE)
+      );
+
+      const snapshot = await getDocs(reviewsQuery);
+
+      const moreReviews = snapshot.docs
+        .map((doc) => mapFirestoreReview(doc.id, doc.data() as FirestoreReview))
+        .filter((review) => review.text.length > 0);
+
+      if (moreReviews.length > 0) {
+        setReviews((prev) => {
+          const existingIds = new Set(prev.map((item) => item.id));
+          const unique = moreReviews.filter((item) => !existingIds.has(item.id));
+          return [...prev, ...unique];
+        });
+      }
+
+      setLastReviewDoc(snapshot.docs[snapshot.docs.length - 1] ?? lastReviewDoc);
+      setHasMoreReviews(snapshot.docs.length === REVIEWS_PAGE_SIZE);
+    } catch (error) {
+      console.error("Error loading more reviews:", error);
+    } finally {
+      setLoadingMoreReviews(false);
+    }
+  }, [lastReviewDoc, loadingMoreReviews, usingFallbackReviews]);
+
   const whatsappGeneral = waLink(
     `Hola Alex! Quiero agendar una cita en ${SITE.brand}. ¿Me puedes dar disponibilidad?`
-  );
-
-  const whatsappCurso = waLink(
-    `Hola Alex! Quiero info del curso "${COURSE.name}" (${COURSE.modality}, ${COURSE.hours}, ${COURSE.breakdown}) en ${COURSE.city}: precio, próximas fechas y cupos.`
   );
 
   const whatsappLaser = waLink(
@@ -816,8 +1130,8 @@ export default function Page() {
 
                 <p className="mt-4 max-w-[400px] text-[14px] leading-[1.75] text-[#8f8577]">
                   El sistema que combina simultáneamente{" "}
-                  <strong className="text-[#C8BFA8]">3 longitudes de onda</strong>
-                  {" "}para tratar distintos tipos de vello y piel con gran eficacia y mayor confort.
+                  <strong className="text-[#C8BFA8]">3 longitudes de onda</strong>{" "}
+                  para tratar distintos tipos de vello y piel con gran eficacia y mayor confort.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -1176,48 +1490,13 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="border-t border-[rgba(201,168,76,0.1)] bg-[#141414] px-5 py-[90px] sm:px-10">
-          <div className="mx-auto max-w-[1200px]">
-            <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-              <div>
-                <h2 className="font-[family:var(--font-cormorant)] text-[36px] font-semibold leading-[1.1] text-[#F5F0E8] sm:text-[52px]">
-                  Lo que dicen
-                  <br />
-                  nuestras <em className="italic text-[#C9A84C]">clientas</em>
-                </h2>
-              </div>
-
-              <div className="text-right">
-                <span className="block text-[18px] tracking-[3px] text-[#C9A84C]">★★★★★</span>
-                <span className="text-[12px] tracking-[0.06em] text-[#6A6257]">
-                  Google Reviews · Alex Estética
-                </span>
-              </div>
-            </div>
-
-            <div className="grid gap-[2px] lg:grid-cols-3">
-              {REVIEWS.map((review) => (
-                <div
-                  key={review.name}
-                  className="border-t-2 border-transparent bg-[#1C1C1C] px-7 py-9 transition hover:border-[#C9A84C]"
-                >
-                  <div className="mb-4">
-                    <StarRow value={review.stars} />
-                  </div>
-                  <p className="font-[family:var(--font-cormorant)] text-[18px] italic leading-[1.8] text-[#8f8577]">
-                    "{review.text}"
-                  </p>
-                  <div className="mt-5 text-[12.5px] font-medium tracking-[0.06em] text-[#C8BFA8]">
-                    {review.name}
-                    <span className="mt-1 block text-[11.5px] font-light tracking-[0.04em] text-[#6A6257]">
-                      {review.meta}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ReviewsSection
+          reviews={reviews.length > 0 ? reviews : FALLBACK_REVIEWS}
+          loading={reviewsLoading}
+          loadingMore={loadingMoreReviews}
+          hasMore={hasMoreReviews && !usingFallbackReviews}
+          onLoadMore={loadMoreReviews}
+        />
 
         <section id="contacto" className="relative overflow-hidden px-5 py-[110px] text-center sm:px-10">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(201,168,76,0.06)_0%,transparent_70%)]" />
