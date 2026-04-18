@@ -851,10 +851,7 @@ export default function OpinarPage() {
                                 )}
                             </div>
 
-                            <p className="mt-4 text-[12.5px] leading-[1.7] text-[#6A6257]">
-                                Los comentarios se muestran en formato horizontal para que se vean más premium,
-                                tanto en móvil como en ordenador.
-                            </p>
+
                         </div>
                     </div>
                 </section>
