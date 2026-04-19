@@ -213,33 +213,36 @@ function Icon({
 
 export default function BioPage() {
     return (
-        <main className="relative isolate min-h-screen overflow-hidden bg-[#0b0806] text-white">
+        <main className="relative min-h-screen overflow-hidden bg-[#0b0806] text-white">
             <div className="absolute inset-0 z-0">
                 <Image
                     src={SITE.backgroundSrc}
                     alt={`${SITE.brand} background`}
                     fill
                     priority
-                    className="object-cover object-[62%_center] sm:object-center" />
+                    sizes="100vw"
+                    quality={82}
+                    className="object-cover object-[62%_center] sm:object-center"
+                />
             </div>
 
             <div className="pointer-events-none absolute inset-0 z-10">
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.72)_0%,rgba(11,8,6,0.70)_26%,rgba(11,8,6,0.82)_58%,rgba(7,5,4,0.92)_100%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(900px_500px_at_50%_0%,rgba(201,168,76,0.14),transparent_60%),radial-gradient(700px_420px_at_80%_90%,rgba(201,168,76,0.10),transparent_55%)]" />
-                <div className="absolute inset-0 backdrop-blur-[1px]" />
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/30 to-transparent" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,6,5,0.66)_0%,rgba(11,8,6,0.66)_28%,rgba(11,8,6,0.80)_60%,rgba(7,5,4,0.90)_100%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(820px_440px_at_50%_0%,rgba(201,168,76,0.10),transparent_60%),radial-gradient(620px_360px_at_80%_90%,rgba(201,168,76,0.07),transparent_55%)]" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/24 to-transparent" />
             </div>
 
             <div className="relative z-20 mx-auto flex min-h-screen max-w-md flex-col px-5 py-8 sm:py-10">
-                <section className="rounded-[2rem] border border-[rgba(201,168,76,0.16)] bg-[linear-gradient(180deg,rgba(24,18,13,0.58)_0%,rgba(15,12,9,0.72)_100%)] px-6 pb-7 pt-8 shadow-[0_20px_60px_rgba(0,0,0,0.38)] backdrop-blur-xl">
+                <section className="rounded-[2rem] border border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(24,18,13,0.54)_0%,rgba(15,12,9,0.68)_100%)] px-6 pb-7 pt-8 shadow-[0_14px_34px_rgba(0,0,0,0.30)]">
                     <div className="mx-auto flex w-full max-w-[160px] justify-center">
-                        <div className="relative h-[145px] w-[145px] overflow-hidden rounded-full border border-[rgba(201,168,76,0.20)] bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.10),rgba(255,255,255,0.03))] shadow-[0_10px_30px_rgba(201,168,76,0.16)]">
+                        <div className="relative h-[145px] w-[145px] overflow-hidden rounded-full border border-[rgba(201,168,76,0.18)] bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.10),rgba(255,255,255,0.03))] shadow-[0_8px_22px_rgba(201,168,76,0.12)]">
                             <Image
                                 src={SITE.logoSrc}
                                 alt={SITE.brand}
                                 fill
-                                className="object-contain scale-155"
                                 priority
+                                sizes="145px"
+                                className="object-contain scale-[1.55]"
                             />
                         </div>
                     </div>
@@ -259,10 +262,10 @@ export default function BioPage() {
                     </div>
 
                     <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-                        <span className="inline-flex items-center rounded-full border border-[rgba(201,168,76,0.20)] bg-[rgba(255,255,255,0.05)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-amber-100/76">
+                        <span className="inline-flex items-center rounded-full border border-[rgba(201,168,76,0.18)] bg-[rgba(255,255,255,0.04)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-amber-100/76">
                             Atención premium
                         </span>
-                        <span className="inline-flex items-center rounded-full border border-[rgba(201,168,76,0.20)] bg-[rgba(255,255,255,0.05)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-amber-100/76">
+                        <span className="inline-flex items-center rounded-full border border-[rgba(201,168,76,0.18)] bg-[rgba(255,255,255,0.04)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-amber-100/76">
                             Cita previa
                         </span>
                     </div>
@@ -277,23 +280,19 @@ export default function BioPage() {
                             rel="noreferrer"
                             className={[
                                 "group relative overflow-hidden rounded-[1.7rem] border px-5 py-4",
-                                "transition-all duration-300",
+                                "transition-transform duration-300",
                                 item.highlight
-                                    ? "border-[rgba(201,168,76,0.34)] bg-[linear-gradient(135deg,#f1d78f_0%,#ddb85a_28%,#c89f3f_58%,#f4e4b5_100%)] text-black shadow-[0_16px_36px_rgba(201,168,76,0.24)] hover:-translate-y-1 hover:brightness-105"
-                                    : "border-[rgba(201,168,76,0.16)] bg-[linear-gradient(180deg,rgba(26,20,15,0.58)_0%,rgba(17,13,10,0.74)_100%)] text-white shadow-[0_14px_34px_rgba(0,0,0,0.30)] backdrop-blur-md hover:-translate-y-1 hover:border-[rgba(201,168,76,0.30)] hover:bg-[linear-gradient(180deg,rgba(30,23,17,0.68)_0%,rgba(19,15,11,0.84)_100%)]",
+                                    ? "border-[rgba(201,168,76,0.30)] bg-[linear-gradient(135deg,#f1d78f_0%,#ddb85a_28%,#c89f3f_58%,#f4e4b5_100%)] text-black shadow-[0_12px_26px_rgba(201,168,76,0.20)] hover:-translate-y-0.5 hover:brightness-105"
+                                    : "border-[rgba(201,168,76,0.14)] bg-[linear-gradient(180deg,rgba(26,20,15,0.54)_0%,rgba(17,13,10,0.70)_100%)] text-white shadow-[0_10px_24px_rgba(0,0,0,0.24)] hover:-translate-y-0.5 hover:border-[rgba(201,168,76,0.24)]",
                             ].join(" ")}
                         >
-                            <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent)]" />
-                            </div>
-
                             <div className="relative flex items-center gap-4">
                                 <div
                                     className={[
                                         "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border",
                                         item.highlight
                                             ? "border-black/10 bg-black/10"
-                                            : "border-[rgba(201,168,76,0.16)] bg-[rgba(255,255,255,0.04)] text-amber-200",
+                                            : "border-[rgba(201,168,76,0.14)] bg-[rgba(255,255,255,0.04)] text-amber-200",
                                     ].join(" ")}
                                 >
                                     <Icon name={item.icon} className="h-5 w-5" />
@@ -318,11 +317,7 @@ export default function BioPage() {
                                     </div>
                                 </div>
 
-                                <div
-                                    className={
-                                        item.highlight ? "text-black/75" : "text-amber-200/80"
-                                    }
-                                >
+                                <div className={item.highlight ? "text-black/75" : "text-amber-200/80"}>
                                     <Icon
                                         name="arrow"
                                         className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
