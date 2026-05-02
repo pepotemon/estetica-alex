@@ -44,7 +44,7 @@ export function getMonthlyPromo() {
         1: "FEBRERO: Pack Mirada Completa con regalo especial",
         2: "MARZO: 10% en depilación láser por zonas completas",
         3: "ABRIL: Bono EMS Sculpt con sesión extra gratuita",
-        4: "MAYO: Indiba corporal con precio especial",
+        4: "🌹 MAYO: ¡Para todas las mamás! 10% de descuento en Indiba Facial y Limpieza Facial",
         5: "JUNIO: Criolipólisis con consulta gratuita",
         6: "JULIO: Depilación láser piernas + axilas promo verano",
         7: "AGOSTO: Facial premium con vitamina C regalo",
@@ -433,12 +433,8 @@ export const TABS: TabConfig[] = [
                         text: "A partir de los 3 meses de postoperatorio, el protocolo de moldeo con Indiba y masaje moldeador consolida y mantiene los resultados de tu cirugía. 1 sesión de 50 min, recomendado 1–2 veces por semana.",
                     },
                 ],
-                prices: [
-                    { label: "Sesión mantenimiento", amount: "€35", per: "por sesión" },
-                    { label: "Bono 10 sesiones", amount: "€280", per: "€28 / sesión", save: "Ahorras €70", featured: true },
-                ],
                 note:
-                    "⚠️ Importante: Los precios de las etapas 1, 2 y 3 se establecen de forma personalizada según tu tipo de cirugía y evolución. El precio de mantenimiento indicado aplica al protocolo post-3 meses.",
+                    "📲 Precio personalizado según tu cirugía y evolución. Consúltanos por WhatsApp y te preparamos un presupuesto adaptado a ti.",
                 ctaPrimary: {
                     label: "📲 Consultar por WhatsApp",
                     href: waLink("Hola! Acabo de operarme y necesito información sobre el tratamiento postquirúrgico."),
