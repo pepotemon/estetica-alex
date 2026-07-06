@@ -134,8 +134,18 @@ export default function TreatmentCard({
     isOpen: boolean;
     onToggle: () => void;
 }) {
+    const itemRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        if (!isOpen || !itemRef.current) return;
+        const el = itemRef.current;
+        requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    }, [isOpen]);
+
     return (
-        <div className={`treatment-item ${isOpen ? "open" : ""}`}>
+        <div ref={itemRef} className={`treatment-item ${isOpen ? "open" : ""}`}>
             <button type="button" className="treatment-header" onClick={onToggle}>
                 <div className="treatment-left">
                     <div className="treatment-icon">{treatment.icon}</div>
