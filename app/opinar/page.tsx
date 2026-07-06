@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import SharedHeader from "@/app/components/SharedHeader";
 import {
     addDoc,
     collection,
@@ -141,30 +142,6 @@ type Review = {
 
 function waLink(text: string) {
     return `https://wa.me/${SITE.phone}?text=${encodeURIComponent(text)}`;
-}
-
-function NavLink({
-    href,
-    children,
-    onClick,
-}: {
-    href: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-}) {
-    return (
-        <a
-            href={href}
-            onClick={onClick}
-            className="text-[13px] font-medium tracking-[0.04em] text-[#d7c6a7]/72 transition hover:text-[#fff4df]"
-        >
-            {children}
-        </a>
-    );
-}
-
-function Sep() {
-    return <span className="select-none text-[#d7c6a7]/28">|</span>;
 }
 
 function Button({
@@ -351,8 +328,6 @@ function ReviewCard({ review }: { review: Review }) {
 }
 
 export default function OpinarPage() {
-    const [menuOpen, setMenuOpen] = React.useState(false);
-
     const [name, setName] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [selectedService, setSelectedService] = React.useState("");
@@ -485,138 +460,7 @@ export default function OpinarPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(900px_480px_at_80%_22%,rgba(201,168,76,0.08),transparent_60%)]" />
             </div>
 
-            <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.60)] backdrop-blur-xl">
-                <div className="relative mx-auto h-20 max-w-6xl px-5">
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/18 to-transparent" />
-
-                    <a
-                        href="/"
-                        onClick={() => setMenuOpen(false)}
-                        className="absolute left-1/2 top-0 z-40 hidden -translate-x-1/2 -translate-y-8 sm:block"
-                        aria-label="Ir al inicio"
-                        title="Inicio"
-                    >
-                        <img
-                            src={SITE.logoSrc}
-                            alt="Alex Estética"
-                            className="h-24 w-24 sm:h-50 sm:w-50 object-contain drop-shadow-[0_0_35px_rgba(201,168,76,0.34)]"
-                        />
-                    </a>
-
-                    <div className="hidden sm:flex h-full items-center justify-between">
-                        <nav className="flex items-center gap-4">
-                            <NavLink href="/sobre">Sobre Nosotros</NavLink>
-                            <Sep />
-                            <NavLink href="/#contacto">Contacto</NavLink>
-                        </nav>
-
-                        <div className="w-[180px]" />
-
-                        <div className="flex items-center gap-2">
-                            <nav className="flex items-center gap-4">
-                                <NavLink href="/servicios">Tratamientos</NavLink>
-                                <Sep />
-                                <NavLink href="/curso">Curso</NavLink>
-                            </nav>
-
-                            {SITE.instagramUrl ? (
-                                <a
-                                    href={SITE.instagramUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="ml-2 hidden h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10 sm:inline-flex"
-                                    aria-label="Instagram"
-                                    title="Instagram"
-                                >
-                                    <svg viewBox="0 0 24 24" className="h-5 w-5 text-amber-200" fill="none">
-                                        <path
-                                            d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"
-                                            stroke="currentColor"
-                                            strokeWidth="1.6"
-                                        />
-                                        <path
-                                            d="M12 16a4 4 0 100-8 4 4 0 000 8z"
-                                            stroke="currentColor"
-                                            strokeWidth="1.6"
-                                        />
-                                        <path
-                                            d="M17.5 6.5h.01"
-                                            stroke="currentColor"
-                                            strokeWidth="2.2"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                </a>
-                            ) : null}
-                        </div>
-                    </div>
-
-                    <div className="flex sm:hidden h-full items-center justify-between">
-                        <a
-                            href="/"
-                            onClick={() => setMenuOpen(false)}
-                            className="flex items-center gap-2"
-                            aria-label="Ir al inicio"
-                        >
-                            <img
-                                src={SITE.logoSrc}
-                                alt="Alex Estética"
-                                className="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(201,168,76,0.35)]"
-                            />
-                            <div className="leading-tight">
-                                <div className="font-[family:var(--font-cormorant)] text-lg font-medium tracking-[0.04em] text-[#fff4df]">
-                                    {SITE.brand}
-                                </div>
-                                <div className="text-[11px] uppercase tracking-[0.16em] text-[#d7c6a7]/54">
-                                    {SITE.city}
-                                </div>
-                            </div>
-                        </a>
-
-                        <div className="flex items-center gap-2">
-                            <button
-                                type="button"
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[rgba(201,168,76,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] hover:bg-white/10"
-                                onClick={() => setMenuOpen((v) => !v)}
-                                aria-label="Abrir menú"
-                                aria-expanded={menuOpen}
-                            >
-                                <span className="sr-only">Menú</span>
-                                <span className="flex flex-col gap-1">
-                                    <span className="h-0.5 w-5 rounded bg-amber-200" />
-                                    <span className="h-0.5 w-5 rounded bg-amber-200" />
-                                    <span className="h-0.5 w-5 rounded bg-amber-200" />
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {menuOpen ? (
-                    <div className="border-t border-[rgba(201,168,76,0.08)] bg-[rgba(10,8,6,0.76)] backdrop-blur-xl sm:hidden">
-                        <div className="mx-auto max-w-6xl px-5 py-3">
-                            <div className="flex flex-col gap-1">
-                                {[
-                                    { href: "/", label: "Inicio" },
-                                    { href: "/servicios", label: "Tratamientos" },
-                                    { href: "/curso", label: "Curso" },
-                                    { href: "/sobre", label: "Sobre Nosotros" },
-                                    { href: "/#contacto", label: "Contacto" },
-                                ].map((x) => (
-                                    <a
-                                        key={x.href}
-                                        href={x.href}
-                                        className="rounded-2xl px-3 py-2 text-sm font-semibold text-amber-100/90 hover:bg-white/5"
-                                        onClick={() => setMenuOpen(false)}
-                                    >
-                                        {x.label}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                ) : null}
-            </header>
+            <SharedHeader />
 
             <div className="pt-20">
                 <section className="relative overflow-hidden border-b border-[rgba(201,168,76,0.10)]">
