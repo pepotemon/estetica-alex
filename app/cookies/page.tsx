@@ -204,7 +204,6 @@ export default function CookiesPage() {
                         aria-label="Ir al inicio"
                         title="Inicio"
                     >
-                        <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
                         <img
                             src={SITE.logoSrc}
                             alt="Alex Estética"
