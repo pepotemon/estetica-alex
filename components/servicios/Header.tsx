@@ -48,8 +48,6 @@ export default function Header({
                     onClick={() => setMenuOpen(false)}
                     className="hidden sm:block absolute left-1/2 top-0 z-40 -translate-x-1/2 -translate-y-8"
                 >
-                    <span className="pointer-events-none absolute left-1/2 top-[52px] h-10 w-44 -translate-x-1/2 rounded-full bg-black/70 blur-[0.3px]" />
-
                     <img
                         src={site.logoSrc}
                         alt="Alex Estética"
