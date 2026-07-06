@@ -139,9 +139,10 @@ export default function TreatmentCard({
     React.useEffect(() => {
         if (!isOpen || !itemRef.current) return;
         const el = itemRef.current;
-        requestAnimationFrame(() => {
+        const timer = setTimeout(() => {
             el.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+        }, 580); // wait for the collapse transition of the previous card (0.55s)
+        return () => clearTimeout(timer);
     }, [isOpen]);
 
     return (
