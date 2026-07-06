@@ -124,6 +124,13 @@ export const QUIZ_DATA: Record<
         tab: "cuerpo",
         link: waLink("Hola! Quiero información para tratar la flacidez corporal."),
     },
+    masajes: {
+        icon: "🤲",
+        label: "Relajación y bienestar",
+        text: "Tenemos una selección completa de masajes: relajantes, terapéuticos, con Indiba, prenatales y reflexología. Cuéntanos qué necesitas y te orientamos.",
+        tab: "masajes",
+        link: waLink("Hola! Quiero información sobre los masajes disponibles."),
+    },
 };
 
 export const TABS: TabConfig[] = [

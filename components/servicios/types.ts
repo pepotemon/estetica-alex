@@ -7,7 +7,8 @@ export type QuizKey =
     | "cejas"
     | "anticelulitico"
     | "remodelacion"
-    | "flacidez";
+    | "flacidez"
+    | "masajes";
 
 export type TabId =
     | "cuerpo"
