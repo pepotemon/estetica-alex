@@ -15,7 +15,8 @@ export type TabId =
     | "rostro"
     | "laser-avanzado"
     | "depilacion"
-    | "cejas";
+    | "cejas"
+    | "masajes";
 
 export type PriceCard = {
     label: string;

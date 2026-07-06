@@ -961,6 +961,274 @@ export const TABS: TabConfig[] = [
             },
         ],
     },
+    {
+        id: "masajes",
+        label: "07 · Masajes",
+        introIcon: "🤲",
+        introTitle: "Masajes Terapéuticos y de Bienestar",
+        introText:
+            "De la tensión muscular al equilibrio total. Una selección de masajes manuales y combinados con tecnología Indiba, diseñados para aliviar, recuperar y restablecer. Cada sesión, adaptada a tu cuerpo y a lo que necesitas en ese momento.",
+        treatments: [
+            {
+                id: "back-ritual",
+                icon: "◉",
+                name: "Back Ritual — Masaje de Espalda, Cuello y Hombros · Indiba",
+                tagline: "Técnica manual + Indiba para liberar la tensión acumulada donde más la sufres",
+                badge: "⚡ Con Indiba",
+                badgeType: "pop",
+                gallery: galleryFor("back-ritual", "Back Ritual — Masaje de Espalda, Cuello y Hombros"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué incluye?",
+                        text: "Una experiencia de recuperación profunda en dos fases: 25 minutos de trabajo manual con técnicas de effleurage y amasamiento sobre espalda, cuello y hombros para aflojar la musculatura y liberar la tensión superficial. Después, 25 minutos de Indiba que penetra en el tejido profundo para regenerar, aliviar contracturas crónicas y devolver la movilidad.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quienes acumulan el estrés del día a día en la zona alta del cuerpo: horas frente a la pantalla, mala postura, tensión crónica en trapecios y cervicales. El efecto de la Indiba prolonga el alivio mucho más allá de la sesión.",
+                    },
+                ],
+                tags: [
+                    "⏱ 50 min",
+                    "🖐 25 min masaje manual",
+                    "⚡ 25 min Indiba",
+                    "✅ Sin recuperación",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€55", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero reservar el Back Ritual (Masaje Espalda, Cuello y Hombros con Indiba)."),
+                },
+            },
+            {
+                id: "swedish-full-body",
+                icon: "〰",
+                name: "Swedish Full Body — Masaje Sueco Cuerpo Completo · Indiba",
+                tagline: "El clásico que nunca falla, potenciado con Indiba para un resultado más profundo y duradero",
+                badge: "⚡ Con Indiba",
+                badgeType: "pop",
+                gallery: galleryFor("swedish-full-body", "Swedish Full Body — Masaje Sueco Cuerpo Completo"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué incluye?",
+                        text: "El masaje sueco clásico en su versión más completa: 40 minutos de trabajo sobre espalda, piernas y brazos con técnicas de deslizamiento y amasamiento a presión media. A continuación, 20 minutos de Indiba para potenciar la recuperación muscular, activar la circulación profunda y prolongar la sensación de bienestar. Sin trabajo en abdomen ni rostro.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quien quiere una sesión de relajación total que también cuida el cuerpo desde dentro. El Indiba añade el componente terapéutico que transforma un masaje relajante en un tratamiento con resultados reales y duraderos.",
+                    },
+                ],
+                tags: [
+                    "⏱ 60 min",
+                    "🖐 40 min masaje sueco",
+                    "⚡ 20 min Indiba",
+                    "✅ Espalda · Piernas · Brazos",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€60", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero reservar el Swedish Full Body (Masaje Sueco Cuerpo Completo con Indiba)."),
+                },
+            },
+            {
+                id: "aroma-soul",
+                icon: "✦",
+                name: "Aroma Soul — Aromaterapia · Aceites Esenciales 100% Puros",
+                tagline: "Una experiencia sensorial completa: cuerpo entero, aceites seleccionados para ti, bienestar que dura horas",
+                gallery: galleryFor("aroma-soul", "Aroma Soul — Aromaterapia"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué hace en tu cuerpo?",
+                        text: "Un masaje de cuerpo completo con presión suave y aceites esenciales 100% puros, seleccionados en función de las necesidades de cada cliente. Durante la sesión, los aceites penetran en las capas dérmicas nutriendo e hidratando la piel en profundidad, suavizando su textura y dejando una sensación de calor y bienestar que permanece horas después.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quien busca más que relajación: una experiencia que cuida la piel mientras desconecta la mente. Los aceites se seleccionan según tu estado y objetivo — relajante, energizante o equilibrante — para que cada sesión sea única.",
+                    },
+                ],
+                tags: [
+                    "⏱ 50 min",
+                    "🌿 Aceites esenciales 100% puros",
+                    "✅ Cuerpo completo",
+                    "💧 Hidratación profunda incluida",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€52", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero reservar el Aroma Soul (Masaje de Aromaterapia)."),
+                },
+            },
+            {
+                id: "bioenergetico",
+                icon: "☯",
+                name: "Bioenergético — Masaje Bioenergético Cuerpo Completo",
+                tagline: "Cuerpo, mente y energía en equilibrio — más allá del masaje convencional",
+                gallery: galleryFor("bioenergetico", "Masaje Bioenergético Cuerpo Completo"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué hace?",
+                        text: "Un recorrido completo por espalda, cráneo, rostro, piernas y pies a través de técnicas que trabajan los puntos energéticos del cuerpo. El objetivo es liberar bloqueos, restaurar el equilibrio interno y calmar el sistema nervioso. El resultado va más allá del alivio físico: es una sensación de ligereza y calma que pocas terapias consiguen.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quien busca algo más allá del masaje convencional: una terapia que trabaje cuerpo y mente al mismo tiempo. Especialmente recomendado en momentos de estrés intenso, agotamiento emocional o cuando el cuerpo pide un reinicio.",
+                    },
+                ],
+                tags: [
+                    "⏱ 50 min",
+                    "🧘 Puntos energéticos",
+                    "✅ Cuerpo completo",
+                    "✅ Sistema nervioso",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€52", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre el Masaje Bioenergético."),
+                },
+            },
+            {
+                id: "craneo-facial",
+                icon: "◎",
+                name: "Cráneo Facial — Masaje Cráneo-Facial · Indiba",
+                tagline: "Alivio de cefaleas, lifting natural y descanso profundo para mente y piel",
+                badge: "⚡ Con Indiba",
+                badgeType: "pop",
+                gallery: galleryFor("craneo-facial", "Cráneo Facial — Masaje Cráneo-Facial con Indiba"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué incluye?",
+                        text: "Un tratamiento de alta precisión que combina maniobras manuales sobre cráneo y rostro con la acción regeneradora del Indiba. Alivia las cefaleas tensionales desde la raíz, activa la circulación facial, reduce la retención de líquidos y proporciona un efecto lifting natural visible desde la primera sesión.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quien sufre dolores de cabeza frecuentes por tensión, retención facial o simplemente quiere un tratamiento que cuide la piel del rostro mientras descansa la mente. El Indiba potencia el resultado mucho más allá de lo que consigue el masaje manual solo.",
+                    },
+                ],
+                tags: [
+                    "⏱ 40 min",
+                    "🖐 Masaje manual en cráneo y rostro",
+                    "⚡ Indiba facial",
+                    "✅ Efecto lifting natural",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€45", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre el Masaje Cráneo Facial con Indiba."),
+                },
+            },
+            {
+                id: "deep-relief",
+                icon: "⬡",
+                name: "Deep Relief — Descontracturante Localizado · Indiba",
+                tagline: "Presión profunda + Indiba: donde la mano no llega, la tecnología sí",
+                gallery: galleryFor("deep-relief", "Deep Relief — Descontracturante Localizado con Indiba"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué hace?",
+                        text: "Técnica de presión profunda combinada con Indiba para liberar contracturas, nudos musculares y tensión crónica en zonas específicas. La aparatología penetra en el tejido donde la mano no llega, acelerando la recuperación y prolongando el alivio muy por encima de lo que consigue el masaje descontracturante convencional.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para dolor localizado persistente, contracturas que no ceden con masaje convencional, o personas que pasan muchas horas sentadas frente al ordenador. También indicado en recuperación muscular tras esfuerzo físico intenso.",
+                    },
+                ],
+                tags: [
+                    "⏱ 40 min",
+                    "🖐 20 min masaje profundo",
+                    "⚡ 20 min Indiba",
+                    "✅ Tratamiento localizado",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€42", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre el Deep Relief (Descontracturante con Indiba)."),
+                },
+            },
+            {
+                id: "piernas-ligeras",
+                icon: "〜",
+                name: "Piernas Ligeras — Masaje Circulatorio y Drenante",
+                tagline: "Drenaje linfático manual + activación venosa: alivio inmediato de pesadez e hinchazón",
+                gallery: galleryFor("piernas-ligeras", "Piernas Ligeras — Masaje Circulatorio y Drenante"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué hace?",
+                        text: "Masaje circulatorio específico para piernas con sensación de pesadez, retención o cansancio. Combina maniobras de drenaje linfático manual y activación venosa que alivian de forma inmediata la hinchazón y el malestar, mejoran el retorno venoso y reducen la sensación de piernas cargadas.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quienes pasan muchas horas de pie o sentados, sufren retención de líquidos o notan las piernas pesadas al final del día. Resultados perceptibles desde la primera sesión.",
+                    },
+                ],
+                tags: [
+                    "⏱ 35 min",
+                    "💧 Drenaje linfático manual",
+                    "✅ Piernas completas",
+                    "✅ Alivio inmediato",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€35", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre el masaje de Piernas Ligeras."),
+                },
+            },
+            {
+                id: "mom-glow",
+                icon: "✧",
+                name: "Mom Glow — Masaje Prenatal",
+                tagline: "Un momento de calma diseñado para ti y para el bebé — seguro, suave y transformador",
+                gallery: galleryFor("mom-glow", "Mom Glow — Masaje Prenatal"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué incluye?",
+                        text: "Un masaje diseñado exclusivamente para el cuerpo de la futura mamá: posiciones seguras, técnicas suaves adaptadas al embarazo y atención especial a las zonas más afectadas. Alivia el dolor lumbar, reduce la tensión en piernas y glúteos, mejora la circulación y proporciona un momento de calma que también beneficia al bebé.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para embarazadas a partir del segundo trimestre que quieren cuidarse de forma segura y consciente. Sin ningún tipo de aparatología. Completamente adaptado a las necesidades y comodidad de cada mamá.",
+                    },
+                ],
+                note: "A partir del 2.º trimestre · Sin aparatología",
+                tags: [
+                    "⏱ 45 min",
+                    "✅ A partir del 2.º trimestre",
+                    "✅ Sin aparatología",
+                    "🤰 Posiciones seguras",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€45", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre el masaje prenatal Mom Glow."),
+                },
+            },
+            {
+                id: "foot-therapy",
+                icon: "◦",
+                name: "Foot Therapy — Reflexología Podal",
+                tagline: "Los pies como mapa del cuerpo: una terapia milenaria con resultados reales",
+                gallery: galleryFor("foot-therapy", "Foot Therapy — Reflexología Podal"),
+                descriptionBlocks: [
+                    {
+                        title: "¿Qué hace?",
+                        text: "La reflexología podal trabaja sobre los puntos reflejos de los pies para estimular órganos, glándulas y sistemas del cuerpo de forma integral. Alivia el estrés, favorece el equilibrio interno y produce una profunda sensación de relajación que se extiende a todo el organismo.",
+                    },
+                    {
+                        title: "¿Para quién es ideal?",
+                        text: "Para quien quiere cuidarse de forma holística: tratar el cuerpo entero a través de los pies. Especialmente recomendado en estados de estrés, insomnio o para mantener el equilibrio interno.",
+                    },
+                ],
+                tags: [
+                    "⏱ 30 min",
+                    "✅ Reflexología completa",
+                    "🌿 Terapia holística",
+                ],
+                prices: [{ label: "Sesión individual", amount: "€30", featured: true }],
+                ctaPrimary: {
+                    label: "📲 Consultar por WhatsApp",
+                    href: waLink("Hola! Quiero información sobre la Reflexología Podal (Foot Therapy)."),
+                },
+            },
+        ],
+    },
 ];
 
 export const DEPILACION_MUJER = [
