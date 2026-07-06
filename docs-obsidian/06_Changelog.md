@@ -6,6 +6,18 @@ Historial de cambios relevantes. Commits menores o de contenido no se registran 
 
 ## 2026-07-06
 
+### Refactor: header compartido extraído a SharedHeader
+**Commit:** `dc3a149`  
+**Qué cambió:**
+- `app/components/SharedHeader.tsx` — nuevo componente client-side con prop `sticky?: boolean`
+- Sustituye el header inline (~150–300 líneas) en 7 páginas: `page.tsx`, `sobre`, `opinar`, `curso`, `privacidad`, `aviso-legal`, `cookies`
+- Elimina ~868 líneas de código duplicado
+- `SITE` consumido desde `components/servicios/content.ts` (fuente única de verdad)
+- `instagramUrl` añadido a `SITE` y al tipo `SiteConfig`
+- Ver [[05_Ideas#IDEA-001]]
+
+---
+
 ### Sección Masajes añadida al catálogo
 **Commits:** `f711e41`, `8c43235`  
 **Qué cambió:**

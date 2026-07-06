@@ -29,6 +29,7 @@ estetica-curso/
 │   ├── aviso-legal/page.tsx
 │   ├── cookies/page.tsx
 │   └── components/
+│       ├── SharedHeader.tsx        # Header compartido para todas las páginas excepto /servicios
 │       └── analytics/
 │           ├── CookieBanner.tsx
 │           └── analytics.tsx
@@ -94,13 +95,18 @@ Usado únicamente para reseñas de clientes en `/opinar`.
 - Colección: `reviews` (presunto, ver `lib/firebase.ts`)
 - Tipos: `FirestoreReview`, `Review` — definidos en `app/page.tsx` y `app/opinar/page.tsx` (duplicado — ver [[05_Ideas]])
 
-## Header — situación actual
+## Header
 
-⚠️ Hay **dos sistemas de header distintos**:
-1. `components/servicios/Header.tsx` — usado solo en `/servicios`
-2. Header inline — copiado en cada página (`page.tsx`, `sobre`, `opinar`, `curso`, etc.) con 150–300 líneas repetidas
+Hay **dos sistemas de header distintos** (intencional):
+1. `components/servicios/Header.tsx` — usado solo en `/servicios` (incluye PromoBar)
+2. `app/components/SharedHeader.tsx` — usado en todas las demás páginas
 
-Ver [[05_Ideas]] para el plan de refactorización.
+### SharedHeader
+- Prop `sticky?: boolean` — `false` → `fixed inset-x-0 top-0 z-50`, `true` → `sticky top-0 z-30`
+- Consume `SITE` desde `components/servicios/content.ts`
+- Fuentes cargadas internamente (Cormorant Garamond + DM Sans)
+- Desktop: logo centrado flotante, nav izquierda (Sobre | Contacto), nav derecha (Tratamientos | Curso) + icono Instagram
+- Mobile: logo+brand a la izquierda, hamburger a la derecha con dropdown
 
 ## Imágenes de tratamientos
 

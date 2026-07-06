@@ -4,16 +4,15 @@ Backlog de mejoras identificadas. Ordenadas por impacto.
 
 ---
 
-## 🔴 Alta prioridad
+## ✅ Completadas
 
-### IDEA-001 · Extraer header compartido
+### ~~IDEA-001 · Extraer header compartido~~ — HECHO (2026-07-06)
 
-**Problema:** El header (logo centrado, menú móvil, nav links, objeto `SITE`) está copiado en 7 páginas con 150–300 líneas repetidas. Cambiar el teléfono o un nav link requiere editar 7 archivos.  
-**Solución:** Crear `app/components/SharedHeader.tsx` que consuma `SITE` de `components/servicios/content.ts` y se use en todas las páginas.  
-**Impacto:** Elimina ~1000 líneas de código duplicado. Hace el mantenimiento trivial.  
-**Esfuerzo:** Medio (hay variaciones menores entre páginas que hay que unificar).
+`app/components/SharedHeader.tsx` creado. Prop `sticky` para fixed vs sticky. Elimina ~868 líneas. Ver [[06_Changelog#Refactor: header compartido extraído a SharedHeader]].
 
 ---
+
+## 🔴 Alta prioridad
 
 ### IDEA-002 · Dividir app/page.tsx (1709 líneas)
 
